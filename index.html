@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>غمدان عبده علي صالح | مبرمج ومحلل نظم محترف</title>
+    
+    <!-- مكتبات CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- CSS الرئيسي -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>">
+    
+    <style>
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #4cc9f0;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="ar">العربية 🇾🇪</button>
+        <button class="lang-btn" data-lang="en">English 🇺🇸</button>
+    </div>
+
+    <!-- Floating Background Elements -->
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <!-- Logo with Glow Effect -->
+            <a href="#home" class="logo">
+                <div class="logo-icon">👨‍💻</div>
+                <div class="logo-text">
+                    <span class="logo-name">غمدان</span>
+                    <span class="logo-dot">.</span>
+                </div>
+                <div class="logo-glow"></div>
+            </a>
+
+            <!-- Menu -->
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> <span data-lang="ar">الرئيسية</span><span data-lang="en">Home</span></a></li>
+                <li><a href="#about" class="nav-link"><i class="fas fa-user"></i> <span data-lang="ar">عنّي</span><span data-lang="en">About</span></a></li>
+                <li><a href="#skills" class="nav-link"><i class="fas fa-code"></i> <span data-lang="ar">المهارات</span><span data-lang="en">Skills</span></a></li>
+                <li><a href="#projects" class="nav-link"><i class="fas fa-project-diagram"></i> <span data-lang="ar">المشاريع</span><span data-lang="en">Projects</span></a></li>
+                <li><a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i> <span data-lang="ar">التعليم</span><span data-lang="en">Education</span></a></li>
+                <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> <span data-lang="ar">اتصل بي</span><span data-lang="en">Contact</span></a></li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-container">
+            <!-- Profile Image with Animated Border -->
+            <div class="profile-card animate__animated animate__zoomIn">
+                <div class="profile-image-wrapper">
+                    <div class="profile-image">
+                        <img src="images/profile.jpg" alt="غمدان عبده علي صالح" onerror="this.src='https://via.placeholder.com/400x400/2c3e50/ecf0f1?text=👨‍💻'">
+                        <div class="image-border"></div>
+                        <div class="image-shine"></div>
+                    </div>
+                    <div class="profile-status">
+                        <span class="status-dot"></span>
+                        <span data-lang="ar">متاح للعمل</span>
+                        <span data-lang="en">Available for work</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animated Name -->
+            <div class="hero-content">
+                <h1 class="hero-title animate__animated animate__fadeInUp">
+                    <span class="name-part">غمدان</span>
+                    <span class="name-part">عبده</span>
+                    <span class="name-part">علي</span>
+                    <span class="name-part">صالح</span>
+                </h1>
+                
+                <div class="title-wrapper">
+                    <div class="title-line"></div>
+                    <div class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">
+                        <span class="typewriter" data-lang="ar">مبرمج ومحلل نظم محترف</span>
+                        <span class="typewriter" data-lang="en">Professional Programmer & System Analyst</span>
+                    </div>
+                    <div class="title-line"></div>
+                </div>
+
+                <!-- Info Badges -->
+                <div class="info-badges animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="badge">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span data-lang="ar">محافظة مارب</span>
+                        <span data-lang="en">Marib, Yemen</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span>2/8/1997</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-heart"></i>
+                        <span data-lang="ar">متزوج</span>
+                        <span data-lang="en">Married</span>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="hero-buttons animate__animated animate__fadeInUp animate__delay-3s">
+                    <a href="#contact" class="btn btn-primary glow-effect">
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-lang="ar">تواصل معي</span>
+                        <span data-lang="en">Contact Me</span>
+                    </a>
+                    <a href="#projects" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i>
+                        <span data-lang="ar">مشاريعي</span>
+                        <span data-lang="en">My Projects</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <div class="arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    <span data-lang="ar">نبذة عني</span>
+                    <span data-lang="en">About Me</span>
+                </h2>
+                <div class="section-line">
+                    <div class="line"></div>
+                    <div class="star">★</div>
+                    <div class="line"></div>
+                </div>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="about-card glass-effect">
+                        <h3>
+                            <i class="fas fa-laptop-code"></i>
+                            <span data-lang="ar">المقدمة</span>
+                            <span data-lang="en">Introduction</span>
+                        </h3>
+                        <p data-lang="ar">
+                            مبرمج ومحلل نظم بخلفية إدارية، أجيد استخدام لغات البرمجة (PHP, JavaScript, Python). أمتلك خبرة في إدارة الأنظمة وتصميم النماذج والتقارير الإدارية، وأسعى لتوظيف هذه المهارات لتعزيز الكفاءة من خلال حلول الأرشفة الرقمية ورقمنة البيانات.
+                        </p>
+                        <p data-lang="en">
+                            Programmer and system analyst with administrative background, proficient in programming languages (PHP, JavaScript, Python). I have experience in system management, designing administrative forms and reports, and I aim to employ these skills to enhance efficiency through digital archiving solutions and data digitization.
+                        </p>
+                    </div>
+
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h4 data-lang="ar">التفكير التحليلي</h4>
+                            <h4 data-lang="en">Analytical Thinking</h4>
+                            <p data-lang="ar">قدرة عالية على تحليل المشكلات وإيجاد الحلول المناسبة</p>
+                            <p data-lang="en">High ability to analyze problems and find appropriate solutions</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h4 data-lang="ar">التعلم السريع</h4>
+                            <h4 data-lang="en">Fast Learning</h4>
+                            <p data-lang="ar">القدرة على التكيف مع التقنيات الجديدة بسرعة</p>
+                            <p data-lang="en">Ability to quickly adapt to new technologies</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4 data-lang="ar">العمل الجماعي</h4>
+                            <h4 data-lang="en">Team Work</h4>
+                            <p data-lang="ar">مهارة التواصل والعمل ضمن فريق</p>
+                            <p data-lang="en">Communication skills and teamwork</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section bg-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i>
+                    <span data-lang="ar">المهارات التقنية</span>
+                    <span data-lang="en">Technical Skills</span>
+                </h2>
+            </div>
+
+            <div class="skills-container">
+                <!-- Programming Languages -->
+                <div class="skill-category">
+                    <h3>
+                        <i class="fas fa-code"></i>
+                        <span data-lang="ar">لغات البرمجة</span>
+                        <span data-lang="en">Programming Languages</span>
+                    </h3>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>PHP</span>
+                            <span class="skill-percent">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90" style="background: linear-gradient(90deg, #4F5BD5, #962FBF);"></div>
+                            <div class="skill-glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>JavaScript</span>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85" style="background: linear-gradient(90deg, #F7DF1E, #F0DB4F);"></div>
+                            <div class="skill-glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>Python</span>
+                            <span class="skill-percent">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80" style="background: linear-gradient(90deg, #3776AB, #306998);"></div>
+                            <div class="skill-glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>SQL</span>
+                            <span class="skill-percent">88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="88" style="background: linear-gradient(90deg, #336791, #4479A1);"></div>
+                            <div class="skill-glow"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Skills -->
+                <div class="skill-category">
+                    <h3>
+                        <i class="fas fa-cogs"></i>
+                        <span data-lang="ar">المهارات التقنية</span>
+                        <span data-lang="en">Technical Skills</span>
+                    </h3>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span data-lang="ar">استخدام الحاسوب بكفاءة</span>
+                            <span data-lang="en">Computer Proficiency</span>
+                            <span class="skill-percent">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="95" style="background: linear-gradient(90deg, #00b09b, #96c93d);"></div>
+                            <div class="skill-glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span data-lang="ar">تصميم المواقع والتطبيقات</span>
+                            <span data-lang="en">Web & App Design</span>
+                            <span class="skill-percent">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90" style="background: linear-gradient(90deg, #8A2387, #E94057);"></div>
+                            <div class="skill-glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span data-lang="ar">حزمة Office</span>
+                            <span data-lang="en">Microsoft Office</span>
+                            <span class="skill-percent">92%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="92" style="background: linear-gradient(90deg, #D83B01, #F25022);"></div>
+                            <div class="skill-glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span data-lang="ar">إدارة السجلات والأرشفة</span>
+                            <span data-lang="en">Records Management</span>
+                            <span class="skill-percent">87%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="87" style="background: linear-gradient(90deg, #11998e, #38ef7d);"></div>
+                            <div class="skill-glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="languages-section">
+                <h3>
+                    <i class="fas fa-language"></i>
+                    <span data-lang="ar">اللغات</span>
+                    <span data-lang="en">Languages</span>
+                </h3>
+                <div class="languages-grid">
+                    <div class="language-card">
+                        <div class="language-name">العربية</div>
+                        <div class="language-level">
+                            <span data-lang="ar">اللغة الأم</span>
+                            <span data-lang="en">Native</span>
+                        </div>
+                        <div class="language-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="language-card">
+                        <div class="language-name">الإنجليزية</div>
+                        <div class="language-level">
+                            <span data-lang="ar">متوسط</span>
+                            <span data-lang="en">Intermediate</span>
+                        </div>
+                        <div class="language-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-rocket"></i>
+                    <span data-lang="ar">المشاريع والخبرات</span>
+                    <span data-lang="en">Projects & Experience</span>
+                </h2>
+            </div>
+
+            <!-- Graduation Project -->
+            <div class="project-main">
+                <div class="project-card featured">
+                    <div class="project-badge">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span data-lang="ar">مشروع التخرج</span>
+                        <span data-lang="en">Graduation Project</span>
+                    </div>
+                    <h3 class="project-title">
+                        <span data-lang="ar">بوابة الطالب الإلكترونية</span>
+                        <span data-lang="en">Student E-Portal</span>
+                    </h3>
+                    <div class="project-meta">
+                        <span class="meta-item">
+                            <i class="fas fa-calendar"></i>
+                            2024
+                        </span>
+                        <span class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span data-lang="ar">كلية الحاسوب</span>
+                            <span data-lang="en">Computer College</span>
+                        </span>
+                    </div>
+                    <p class="project-description" data-lang="ar">
+                        نظام متكامل لإدارة الشؤون الأكاديمية للطلاب، يتضمن التسجيل الإلكتروني، عرض الدرجات، الجدول الدراسي، والخدمات الأكاديمية الأخرى.
+                    </p>
+                    <p class="project-description" data-lang="en">
+                        A comprehensive system for managing student academic affairs, including electronic registration, grades display, class schedule, and other academic services.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">CSS</span>
+                    </div>
+                    <div class="project-tools">
+                        <span class="tool-item">
+                            <i class="fas fa-tools"></i>
+                            XAMPP
+                        </span>
+                        <span class="tool-item">
+                            <i class="fas fa-code-branch"></i>
+                            Git
+                        </span>
+                        <span class="tool-item">
+                            <i class="fas fa-code"></i>
+                            VS Code
+                        </span>
+                    </div>
+                    <div class="project-goal">
+                        <i class="fas fa-bullseye"></i>
+                        <strong data-lang="ar">الهدف:</strong>
+                        <span data-lang="ar">اتمتة وتسهيل وصول الطالب للخدمات الأكاديمية</span>
+                        <span data-lang="en">Automation and facilitation of student access to academic services</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn btn-download" onclick="downloadFile('graduation-project.pdf')">
+                            <i class="fas fa-download"></i>
+                            <span data-lang="ar">تحميل التوثيق</span>
+                            <span data-lang="en">Download Documentation</span>
+                        </button>
+                        <button class="btn btn-preview">
+                            <i class="fas fa-eye"></i>
+                            <span data-lang="ar">معاينة المشروع</span>
+                            <span data-lang="en">Preview Project</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Image Gallery -->
+                <div class="project-gallery">
+                    <div class="gallery-item">
+                        <img src="images/project1.jpg" alt="Project Screenshot 1" onerror="this.src='https://via.placeholder.com/600x400/2c3e50/ecf0f1?text=Project+Screenshot'">
+                        <div class="gallery-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/project2.jpg" alt="Project Screenshot 2" onerror="this.src='https://via.placeholder.com/600x400/3498db/ffffff?text=System+Architecture'">
+                        <div class="gallery-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span data-lang="ar">التعليم والشهادات</span>
+                    <span data-lang="en">Education & Certificates</span>
+                </h2>
+            </div>
+
+            <div class="education-timeline">
+                <!-- Education -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025</div>
+                        <h3 data-lang="ar">بكالوريوس علوم الحاسوب</h3>
+                        <h3 data-lang="en">Bachelor of Computer Science</h3>
+                        <p class="timeline-place">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span data-lang="ar">جامعة إقليم سيا</span>
+                            <span data-lang="en">Sia Region University</span>
+                        </p>
+                        <p class="timeline-grade">
+                            <i class="fas fa-star"></i>
+                            <span data-lang="ar">بتقدير: جيد جداً</span>
+                            <span data-lang="en">Grade: Very Good</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Secondary Education -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2015</div>
+                        <h3 data-lang="ar">ثانوية عامة</h3>
+                        <h3 data-lang="en">High School Diploma</h3>
+                        <p class="timeline-place">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span data-lang="ar">مدرسة الثورة - ريمة</span>
+                            <span data-lang="en">Al-Thawra School - Raymah</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificates -->
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <div class="certificate-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3 data-lang="ar">الرخصة الدولية لقيادة الحاسوب</h3>
+                    <h3 data-lang="en">International Computer Driving License</h3>
+                    <p class="certificate-place">
+                        <i class="fas fa-university"></i>
+                        <span data-lang="ar">جامعة شيوة</span>
+                        <span data-lang="en">Shewa University</span>
+                    </p>
+                    <div class="certificate-year">2020</div>
+                </div>
+
+                <div class="certificate-card">
+                    <div class="certificate-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 data-lang="ar">الأمن السيبراني</h3>
+                    <h3 data-lang="en">Cybersecurity</h3>
+                    <p class="certificate-place">
+                        <i class="fas fa-university"></i>
+                        <span data-lang="ar">معهد العلوم الإدارية شيوة</span>
+                        <span data-lang="en">Shewa Administrative Sciences Institute</span>
+                    </p>
+                    <div class="certificate-year">2020</div>
+                </div>
+
+                <div class="certificate-card">
+                    <div class="certificate-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 data-lang="ar">حماية الطرفيات والأجهزة</h3>
+                    <h3 data-lang="en">Device & Endpoint Protection</h3>
+                    <p class="certificate-place">
+                        <i class="fas fa-university"></i>
+                        <span data-lang="ar">معهد العلوم الإدارية شيوة</span>
+                        <span data-lang="en">Shewa Administrative Sciences Institute</span>
+                    </p>
+                    <div class="certificate-year">2019</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-envelope"></i>
+                    <span data-lang="ar">اتصل بي</span>
+                    <span data-lang="en">Contact Me</span>
+                </h2>
+            </div>
+
+            <div class="contact-container">
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4 data-lang="ar">الهاتف</h4>
+                            <h4 data-lang="en">Phone</h4>
+                            <p>+967 XXX XXX XXX</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4 data-lang="ar">البريد الإلكتروني</h4>
+                            <h4 data-lang="en">Email</h4>
+                            <p>ghamdan@example.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4 data-lang="ar">العنوان</h4>
+                            <h4 data-lang="en">Address</h4>
+                            <p data-lang="ar">محافظة مارب - اليمن</p>
+                            <p data-lang="en">Marib Governorate - Yemen</p>
+                        </div>
+                    </div>
+
+                    <!-- Social Media -->
+                    <div class="social-media">
+                        <h4 data-lang="ar">التواصل الاجتماعي</h4>
+                        <h4 data-lang="en">Social Media</h4>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="الاسم الكامل" data-lang="ar" required>
+                            <input type="text" placeholder="Full Name" data-lang="en" required style="display: none;">
+                            <div class="input-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="input-glow"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" placeholder="البريد الإلكتروني" data-lang="ar" required>
+                            <input type="email" placeholder="Email Address" data-lang="en" required style="display: none;">
+                            <div class="input-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="input-glow"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" placeholder="الموضوع" data-lang="ar" required>
+                            <input type="text" placeholder="Subject" data-lang="en" required style="display: none;">
+                            <div class="input-icon">
+                                <i class="fas fa-tag"></i>
+                            </div>
+                            <div class="input-glow"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea placeholder="رسالتك..." data-lang="ar" rows="5" required></textarea>
+                            <textarea placeholder="Your Message..." data-lang="en" rows="5" required style="display: none;"></textarea>
+                            <div class="input-icon">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="input-glow"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            <span data-lang="ar">إرسال الرسالة</span>
+                            <span data-lang="en">Send Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-icon">👨‍💻</div>
+                    <div class="footer-text">
+                        <h3>غمدان عبده علي صالح</h3>
+                        <p data-lang="ar">مبرمج ومحلل نظم محترف</p>
+                        <p data-lang="en">Professional Programmer & System Analyst</p>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <a href="#home" data-lang="ar">الرئيسية</a>
+                    <a href="#about" data-lang="ar">عنّي</a>
+                    <a href="#projects" data-lang="ar">المشاريع</a>
+                    <a href="#contact" data-lang="ar">اتصل بي</a>
+                    
+                    <a href="#home" data-lang="en">Home</a>
+                    <a href="#about" data-lang="en">About</a>
+                    <a href="#projects" data-lang="en">Projects</a>
+                    <a href="#contact" data-lang="en">Contact</a>
+                </div>
+
+                <div class="footer-copyright">
+                    <p data-lang="ar">© 2024 جميع الحقوق محفوظة | صمم بدقة وإتقان</p>
+                    <p data-lang="en">© 2024 All Rights Reserved | Designed with Precision</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Back to Top -->
+        <button class="back-to-top" id="backToTop">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Simple download function
+        function downloadFile(filename) {
+            alert('في النسخة الحقيقية، سيتم تحميل ملف: ' + filename);
+            // يمكنك إضافة:
+            // window.location.href = 'path/to/' + filename;
+        }
+    </script>
+</body>
+</html>
