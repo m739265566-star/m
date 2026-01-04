@@ -4456,302 +4456,120 @@
         // ==========================================================================
         // Contact Section Functions
         // ==========================================================================
-        
-        function initializeContactSection() {
-            const contactForm = document.getElementById('contactForm');
-            
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Get form data
-                    const formData = new FormData(this);
-                    const data = Object.fromEntries(formData);
-                    
-                    // Validate form
-                    if (validateContactForm(data)) {
-                        // Show loading state
-                        const submitBtn = this.querySelector('.btn-send');
-                        const originalText = submitBtn.innerHTML;
-                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> إرسال...';
-                        submitBtn.disabled = true;
-                        
-                        // Simulate form submission
-                        setTimeout(() => {
-                            // Reset form
-                            this.reset();
-                            
-                            // Show success message
-                            showContactSuccessModal();
-                            
-                            // Restore button
-                            submitBtn.innerHTML = originalText;
-                            submitBtn.disabled = false;
-                        }, 1500);
-                    }
-                });
-                
-                // Form validation
-                const inputs = contactForm.querySelectorAll('input, textarea, select');
-                inputs.forEach(input => {
-                    input.addEventListener('blur', function() {
-                        validateInput(this);
-                    });
-                    
-                    input.addEventListener('input', function() {
-                        clearError(this);
-                    });
-                });
-            }
-            
-            // Social links hover effect
-            const socialLinks = document.querySelectorAll('.social-link');
-            socialLinks.forEach(link => {
-                link.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                });
-                
-                link.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-        }
-        
-        function validateContactForm(data) {
-            let isValid = true;
-            
-            // Validate name
-            if (!data.name || data.name.trim().length < 2) {
-                showError('name', config.isArabic ? 'الاسم مطلوب (حد أدنى حرفين)' : 'Name is required (minimum 2 characters)');
-                isValid = false;
-            }
-            
-            // Validate email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!data.email || !emailRegex.test(data.email)) {
-                showError('email', config.isArabic ? 'البريد الإلكتروني غير صحيح' : 'Invalid email address');
-                isValid = false;
-            }
-            
-            // Validate subject
-            if (!data.subject || data.subject.trim().length < 3) {
-                showError('subject', config.isArabic ? 'الموضوع مطلوب (حد أدنى 3 أحرف)' : 'Subject is required (minimum 3 characters)');
-                isValid = false;
-            }
-            
-            // Validate message
-            if (!data.message || data.message.trim().length < 10) {
-                showError('message', config.isArabic ? 'الرسالة قصيرة جداً (حد أدنى 10 أحرف)' : 'Message is too short (minimum 10 characters)');
-                isValid = false;
-            }
-            
-            return isValid;
-        }
-        
-        function validateInput(input) {
-            const value = input.value.trim();
-            const fieldName = input.id;
-            
-            switch (fieldName) {
-                case 'name':
-                    if (value.length < 2) {
-                        showError(input, config.isArabic ? 'الاسم قصير جداً' : 'Name is too short');
-                        return false;
-                    }
-                    break;
-                    
-                case 'email':
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(value)) {
-                        showError(input, config.isArabic ? 'البريد الإلكتروني غير صحيح' : 'Invalid email address');
-                        return false;
-                    }
-                    break;
-                    
-                case 'subject':
-                    if (value.length < 3) {
-                        showError(input, config.isArabic ? 'الموضوع قصير جداً' : 'Subject is too short');
-                        return false;
-                    }
-                    break;
-                    
-                case 'message':
-                    if (value.length < 10) {
-                        showError(input, config.isArabic ? 'الرسالة قصيرة جداً' : 'Message is too short');
-                        return false;
-                    }
-                    break;
-            }
-            
-            clearError(input);
-            return true;
-        }
-        
-        function showError(input, message) {
-            // If input is string (field name), get the element
-            const element = typeof input === 'string' ? document.getElementById(input) : input;
-            
-            // Remove existing error
-            clearError(element);
-            
-            // Add error class
-            element.classList.add('error');
-            
-            // Create error message
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error-message';
-            errorDiv.textContent = message;
-            errorDiv.style.color = '#ff4757';
-            errorDiv.style.fontSize = '0.875rem';
-            errorDiv.style.marginTop = '0.25rem';
-            
-            // Insert after input
-            element.parentNode.insertBefore(errorDiv, element.nextSibling);
-        }
-        
-        function clearError(input) {
-            // If input is string (field name), get the element
-            const element = typeof input === 'string' ? document.getElementById(input) : input;
-            
-            // Remove error class
-            element.classList.remove('error');
-            
-            // Remove error message
-            const errorDiv = element.nextElementSibling;
-            if (errorDiv && errorDiv.className === 'error-message') {
-                errorDiv.remove();
-            }
-        }
-        
-        function showContactSuccessModal() {
-            const modalHTML = `
-                <div class="modal-overlay" id="successModal">
-                    <div class="modal-content success-modal">
-                        <div class="modal-body">
-                            <div class="success-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <h3>${config.isArabic ? 'تم الإرسال بنجاح!' : 'Message Sent Successfully!'}</h3>
-                            <p>${config.isArabic ? 
-                                'شكراً لتواصلك. سأرد عليك في أقرب وقت ممكن.' :
-                                'Thank you for your message. I will get back to you as soon as possible.'}
-                            </p>
-                            <button class="btn btn-primary close-success-btn">${config.isArabic ? 'حسناً' : 'OK'}</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Add modal to body
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-            
-            const modal = document.getElementById('successModal');
-            const closeBtn = modal.querySelector('.close-success-btn');
-            
-            // Show modal with animation
-            setTimeout(() => {
-                modal.style.opacity = '1';
-                modal.querySelector('.modal-content').style.transform = 'translateY(0) scale(1)';
-            }, 10);
-            
-            // Close modal
-            closeBtn.addEventListener('click', function() {
-                modal.style.opacity = '0';
-                modal.querySelector('.modal-content').style.transform = 'translateY(-50px) scale(0.9)';
-                
-                setTimeout(() => {
-                    modal.remove();
-                }, 300);
-            });
-            
-            // Close modal on overlay click
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    modal.style.opacity = '0';
-                    modal.querySelector('.modal-content').style.transform = 'translateY(-50px) scale(0.9)';
-                    
-                    setTimeout(() => {
-                        modal.remove();
-                    }, 300);
-                }
-            });
-            
-            // Close modal on Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && modal) {
-                    modal.style.opacity = '0';
-                    modal.querySelector('.modal-content').style.transform = 'translateY(-50px) scale(0.9)';
-                    
-                    setTimeout(() => {
-                        modal.remove();
-                    }, 300);
-                }
-            });
-        }
-        
         // ==========================================================================
-        // Footer Functions
-        // ==========================================================================
-        
-        function initializeFooter() {
-            // Newsletter form
-            const newsletterForm = document.querySelector('.newsletter-form');
-            if (newsletterForm) {
-                newsletterForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const emailInput = this.querySelector('input[type="email"]');
-                    const email = emailInput.value.trim();
-                    
-                    if (validateEmail(email)) {
-                        // Show loading
-                        const button = this.querySelector('button');
-                        const originalHTML = button.innerHTML;
-                        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-                        
-                        // Simulate subscription
-                        setTimeout(() => {
-                            // Reset form
-                            emailInput.value = '';
-                            
-                            // Show success message
-                            showNewsletterSuccess();
-                            
-                            // Restore button
-                            button.innerHTML = originalHTML;
-                        }, 1500);
-                    } else {
-                        emailInput.classList.add('error');
-                        emailInput.placeholder = config.isArabic ? 
-                            'البريد الإلكتروني غير صحيح' : 
-                            'Invalid email address';
-                        
-                        setTimeout(() => {
-                            emailInput.classList.remove('error');
-                            emailInput.placeholder = config.isArabic ? 'بريدك الإلكتروني' : 'Your email';
-                        }, 3000);
-                    }
-                });
-            }
+// Navigation Functions
+// ==========================================================================
+
+function initializeNavigation() {
+    const navbar = document.getElementById('mainNav');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id]');
+    const navProgressBar = document.querySelector('.nav-progress-bar');
+    
+    // Smooth scrolling for navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
             
-            // Back to top button
-            const backToTopBtn = document.getElementById('backToTop');
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTopBtn.classList.add('show');
-                } else {
-                    backToTopBtn.classList.remove('show');
-                }
-            });
-            
-            backToTopBtn.addEventListener('click', function() {
+            if (targetSection) {
+                // إغلاق القائمة المتنقلة على الهاتف
+                closeMobileMenu();
+                
+                // Update active nav link
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Scroll to section
                 window.scrollTo({
-                    top: 0,
+                    top: targetSection.offsetTop - 80,
                     behavior: 'smooth'
                 });
-            });
+                
+                // Update current section
+                config.currentSection = targetId.substring(1);
+            }
+        });
+    });
+    
+    // Navbar scroll effect
+    function updateNavbarOnScroll() {
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
         }
+        
+        // Update active nav link based on scroll position
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (window.scrollY >= sectionTop - 100) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+        
+        // Update progress bar
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrolled = (window.scrollY / documentHeight) * 100;
+        navProgressBar.style.width = `${scrolled}%`;
+    }
+    
+    window.addEventListener('scroll', updateNavbarOnScroll);
+    updateNavbarOnScroll(); // Initialize
+    
+    // Mobile menu toggle
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarContent = document.getElementById('navbarContent');
+    
+    navbarToggler.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
+        navbarContent.classList.toggle('show');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.navbar') && navbarContent.classList.contains('show')) {
+            closeMobileMenu();
+        }
+    });
+    
+    // دالة لإغلاق القائمة المتنقلة
+    function closeMobileMenu() {
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarContent = document.getElementById('navbarContent');
+        
+        if (navbarToggler && navbarContent) {
+            navbarToggler.setAttribute('aria-expanded', 'false');
+            navbarContent.classList.remove('show');
+        }
+    }
+    
+    // إغلاق القائمة عند الضغط على زر الهومبورغر إذا كانت مفتوحة
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    if (hamburgerMenu) {
+        hamburgerMenu.addEventListener('click', function() {
+            const navbarContent = document.getElementById('navbarContent');
+            if (navbarContent.classList.contains('show')) {
+                setTimeout(() => {
+                    closeMobileMenu();
+                }, 300);
+            }
+        });
+    }
+}
         
         function validateEmail(email) {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
