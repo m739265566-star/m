@@ -11,7 +11,7 @@
 const Portfolio = {
     // Configuration
     config: {
-        isArabic: true,
+        isArabic: true, // تم تثبيت اللغة العربية فقط
         isDarkMode: false,
         currentSection: 'home',
         particlesEnabled: true,
@@ -62,7 +62,7 @@ const Portfolio = {
     }
 };
 
-// Translations
+// ترجمات اللغة العربية فقط
 Portfolio.translations = {
     ar: {
         // Navigation
@@ -78,7 +78,12 @@ Portfolio.translations = {
         // Hero Section
         heroTitle: 'مرحباً، أنا',
         typedStrings: [
+            'استخدام الحاسوب بكافائة',
+            'اجاد حزمة office',
             'مبرمج ومحلل نظم',
+            'الطباعة السريعة بالغة العربية والانجليزي',
+            'ادارة قواعد البيانات ',
+            'تصمم وبرمجة تطبيقات الويب',
             'مطور حلول رقمية',
             'خبير في الأرشفة الإلكترونية',
             'متخصص في الأنظمة الإدارية'
@@ -224,168 +229,6 @@ Portfolio.translations = {
         downloaded: 'تم التنزيل بنجاح',
         offline: 'أنت غير متصل بالإنترنت',
         online: 'أنت متصل بالإنترنت الآن'
-    },
-    
-    en: {
-        // Navigation
-        home: 'Home',
-        about: 'About',
-        education: 'Education',
-        experience: 'Experience',
-        skills: 'Skills',
-        projects: 'Projects',
-        services: 'Services',
-        contact: 'Contact',
-        
-        // Hero Section
-        heroTitle: 'Hello, I am',
-        typedStrings: [
-            'Programmer & System Analyst',
-            'Digital Solutions Developer',
-            'Electronic Archiving Expert',
-            'Administrative Systems Specialist'
-        ],
-        heroDescription: 'Programmer and systems analyst with administrative experience, specialized in developing digital solutions and electronic archiving. I have extensive experience in designing and implementing integrated administrative systems.',
-        contactMe: 'Contact Me',
-        viewProjects: 'View Projects',
-        intro: 'Intro',
-        followMe: 'Follow me:',
-        
-        // About Section
-        aboutTitle: 'Get to Know Me Better',
-        aboutSubtitle: 'About Me',
-        aboutTab: 'About',
-        experienceTab: 'Experience',
-        missionTab: 'Mission',
-        fullName: 'Full Name:',
-        birthDate: 'Date of Birth:',
-        address: 'Address:',
-        maritalStatus: 'Marital Status:',
-        email: 'Email:',
-        phone: 'Phone:',
-        viewMyWork: 'View My Work',
-        
-        // Education Section
-        educationTitle: 'Learning Journey',
-        educationSubtitle: 'Education & Qualifications',
-        academicEducation: 'Academic Education',
-        bachelor: 'Bachelor of Computer Science',
-        highSchool: 'High School',
-        veryGood: 'Very Good',
-        completed: 'Completed',
-        certifications: 'Certifications & Courses',
-        cybersecurity: 'Cybersecurity',
-        icdl: 'International Computer Driving License',
-        endpointProtection: 'Endpoint Protection',
-        languages: 'Languages',
-        arabic: 'Arabic',
-        english: 'English',
-        native: 'Native',
-        intermediate: 'Intermediate',
-        learningPath: 'Continuous Learning Path',
-        
-        // Experience Section
-        experienceTitle: 'My Professional Journey & Projects',
-        experienceSubtitle: 'Professional Experience',
-        featuredProject: 'Featured Project',
-        studentPortal: 'Student E-Portal',
-        objectives: 'Objectives',
-        keyFeatures: 'Key Features',
-        technologiesUsed: 'Technologies Used',
-        clientSatisfaction: 'Client Satisfaction',
-        monthsDevelopment: 'Months Development',
-        studentUsers: 'Student Users',
-        experienceTimeline: 'Experience Timeline',
-        
-        // Skills Section
-        skillsTitle: 'Areas of Expertise',
-        skillsSubtitle: 'Skills & Abilities',
-        technicalSkills: 'Technical Skills',
-        programmingLanguages: 'Programming Languages',
-        databases: 'Databases',
-        webDevelopment: 'Web Development',
-        toolsPlatforms: 'Tools & Platforms',
-        professionalSkills: 'Professional Skills',
-        computerSkills: 'Computer Skills',
-        webDesign: 'Web Design',
-        databaseManagement: 'Database Management',
-        problemSolving: 'Problem Solving',
-        fastTyping: 'Fast Typing',
-        officeSuite: 'Office Suite',
-        archiving: 'Archiving',
-        teamwork: 'Teamwork',
-        skillsDistribution: 'Skills Distribution',
-        
-        // Projects Section
-        projectsTitle: 'Portfolio Gallery',
-        projectsSubtitle: 'Projects & Works',
-        allProjects: 'All',
-        webDevelopmentProjects: 'Web Development',
-        systemProjects: 'Systems',
-        gameProjects: 'Games',
-        viewMoreProjects: 'View More Projects',
-        
-        // Services Section
-        servicesTitle: 'Professional Services I Offer',
-        servicesSubtitle: 'Services Offered',
-        webDevService: 'Web Development',
-        systemAnalysis: 'System Analysis',
-        digitalArchiving: 'Digital Archiving',
-        databaseManagementService: 'Database Management',
-        technicalConsultation: 'Technical Consultation',
-        trainingSupport: 'Training & Support',
-        orderService: 'Order Service',
-        serviceProcess: 'Service Delivery Process',
-        consultation: 'Consultation',
-        analysis: 'Analysis',
-        design: 'Design',
-        implementation: 'Implementation',
-        deliverySupport: 'Delivery & Support',
-        
-        // Contact Section
-        contactTitle: 'Let\'s Work Together on Your Next Project',
-        contactSubtitle: 'Contact Me',
-        fullNameField: 'Full Name',
-        emailField: 'Email Address',
-        messageSubject: 'Message Subject',
-        messageField: 'Message',
-        serviceType: 'Required Service Type',
-        selectService: 'Select Service',
-        webDevOption: 'Web Development',
-        systemAnalysisOption: 'System Analysis',
-        digitalArchivingOption: 'Digital Archiving',
-        technicalConsultationOption: 'Technical Consultation',
-        newsletter: 'I want to receive newsletters and offers',
-        sendMessage: 'Send Message',
-        workingHours: 'Working Hours',
-        followMeFooter: 'Follow Me',
-        
-        // Footer
-        quickLinks: 'Quick Links',
-        myServices: 'My Services',
-        newsletterFooter: 'Newsletter',
-        subscribeUpdates: 'Subscribe for latest updates',
-        allRightsReserved: 'All rights reserved',
-        privacyPolicy: 'Privacy Policy',
-        termsOfUse: 'Terms of Use',
-        sitemap: 'Sitemap',
-        
-        // Common
-        downloadCV: 'Download CV',
-        viewLive: 'View Live Project',
-        viewSource: 'View Source Code',
-        downloadDemo: 'Download Demo',
-        
-        // Notifications
-        success: 'Success',
-        error: 'Error',
-        loading: 'Loading...',
-        sending: 'Sending...',
-        subscribed: 'Subscribed successfully',
-        sent: 'Sent successfully',
-        downloaded: 'Downloaded successfully',
-        offline: 'You are offline',
-        online: 'You are back online'
     }
 };
 
@@ -818,10 +661,7 @@ Portfolio.performance = {
                     const newWorker = registration.installing;
                     newWorker.addEventListener('statechange', () => {
                         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            Portfolio.utils.showNotification(
-                                Portfolio.config.isArabic ? 'تحديث جديد متاح!' : 'New update available!',
-                                'info'
-                            );
+                            Portfolio.utils.showNotification('تحديث جديد متاح!', 'info');
                         }
                     });
                 });
@@ -970,11 +810,7 @@ Portfolio.preloader = {
             Portfolio.main.init();
             
             // Show notification
-            Portfolio.utils.showNotification(
-                Portfolio.config.isArabic ? 'مرحباً بك في موقعي!' : 'Welcome to my portfolio!',
-                'success',
-                2000
-            );
+            Portfolio.utils.showNotification('مرحباً بك في موقعي!', 'success', 2000);
         }, 500);
     }
 };
@@ -984,105 +820,25 @@ Portfolio.preloader = {
 // ==========================================================================
 
 Portfolio.language = {
-    // Initialize language switcher
+    // Initialize language settings (اللغة العربية فقط)
     init() {
-        this.loadSavedLanguage();
-        this.setupLanguageSwitcher();
-        this.updatePageLanguage();
-    },
-    
-    // Load saved language from localStorage
-    loadSavedLanguage() {
-        const savedLang = localStorage.getItem('portfolio-lang') || 'ar';
-        Portfolio.config.isArabic = savedLang === 'ar';
         this.applyLanguageSettings();
     },
     
     // Apply language settings
     applyLanguageSettings() {
-        document.documentElement.lang = Portfolio.config.isArabic ? 'ar' : 'en';
-        document.documentElement.dir = Portfolio.config.isArabic ? 'rtl' : 'ltr';
-        document.body.classList.toggle('ar', Portfolio.config.isArabic);
-        document.body.classList.toggle('en', !Portfolio.config.isArabic);
+        document.documentElement.lang = 'ar';
+        document.documentElement.dir = 'rtl';
+        document.body.classList.add('ar');
+        document.body.classList.remove('en');
+        
+        // تحديث جميع النصوص باللغة العربية فقط
+        this.updatePageLanguage();
     },
     
-    // Setup language switcher UI
-    setupLanguageSwitcher() {
-        const langSwitch = Portfolio.utils.$('#langSwitch');
-        const langOptions = Portfolio.utils.$$('.lang-option');
-        
-        if (!langSwitch) return;
-        
-        // Update button text
-        this.updateLanguageButton();
-        
-        // Toggle dropdown
-        Portfolio.utils.addEvent(langSwitch, 'click', (e) => {
-            e.stopPropagation();
-            const dropdown = langSwitch.nextElementSibling;
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        });
-        
-        // Language options
-        langOptions.forEach(option => {
-            Portfolio.utils.addEvent(option, 'click', () => {
-                const selectedLang = option.dataset.lang;
-                Portfolio.config.isArabic = selectedLang === 'ar';
-                
-                // Save to localStorage
-                localStorage.setItem('portfolio-lang', selectedLang);
-                
-                // Update UI
-                this.applyLanguageSettings();
-                this.updateLanguageButton();
-                this.updatePageLanguage();
-                
-                // Close dropdown
-                const dropdown = option.closest('.lang-dropdown');
-                if (dropdown) dropdown.style.display = 'none';
-                
-                // Show notification
-                Portfolio.utils.showNotification(
-                    Portfolio.config.isArabic ? 
-                    'تم تغيير اللغة إلى العربية' : 
-                    'Language changed to English',
-                    'success'
-                );
-            });
-        });
-        
-        // Close dropdown when clicking outside
-        Portfolio.utils.addEvent(document, 'click', (e) => {
-            if (!e.target.closest('.language-switcher')) {
-                const dropdown = Portfolio.utils.$('.lang-dropdown');
-                if (dropdown) dropdown.style.display = 'none';
-            }
-        });
-    },
-    
-    // Update language button text
-    updateLanguageButton() {
-        const langBtn = Portfolio.utils.$('#langSwitch');
-        if (!langBtn) return;
-        
-        const flag = Portfolio.utils.$('.lang-flag', langBtn);
-        const texts = Portfolio.utils.$$('.lang-text', langBtn);
-        
-        if (Portfolio.config.isArabic) {
-            if (flag) flag.textContent = '🇸🇦';
-            texts[0].style.display = 'inline';
-            texts[1].style.display = 'none';
-        } else {
-            if (flag) flag.textContent = '🇬🇧';
-            texts[0].style.display = 'none';
-            texts[1].style.display = 'inline';
-        }
-    },
-    
-    // Update all text on page
+    // Update all text on page (باللغة العربية فقط)
     updatePageLanguage() {
-        const lang = Portfolio.config.isArabic ? 'ar' : 'en';
-        const texts = Portfolio.translations[lang];
+        const texts = Portfolio.translations.ar;
         
         // Update elements with data-lang attribute
         Portfolio.utils.$$('[data-lang]').forEach(element => {
@@ -1106,13 +862,13 @@ Portfolio.language = {
         // Update logo
         const logoName = Portfolio.utils.$('#logoName');
         if (logoName) {
-            logoName.textContent = Portfolio.config.isArabic ? 'غمدان معوضة' : 'Ghamdan Abdu';
+            logoName.textContent = 'غمدان معوضة';
         }
         
         // Update hero name
         const typedName = Portfolio.utils.$('#typedName');
         if (typedName) {
-            typedName.textContent = Portfolio.config.isArabic ? 'غمدان معوضة' : 'Ghamdan Abdu';
+            typedName.textContent = 'غمدان معوضة';
         }
         
         // Update skills chart if exists
@@ -1152,9 +908,7 @@ Portfolio.theme = {
             
             // Show notification
             Portfolio.utils.showNotification(
-                Portfolio.config.isArabic ? 
-                `تم التغيير إلى الوضع ${Portfolio.config.isDarkMode ? 'المظلم' : 'الفاتح'}` :
-                `Switched to ${Portfolio.config.isDarkMode ? 'dark' : 'light'} mode`,
+                `تم التغيير إلى الوضع ${Portfolio.config.isDarkMode ? 'المظلم' : 'الفاتح'}`,
                 'success'
             );
         });
@@ -1354,8 +1108,7 @@ Portfolio.hero = {
         const typedElement = Portfolio.utils.$('#typed');
         if (!typedElement || typeof Typed === 'undefined') return;
         
-        const lang = Portfolio.config.isArabic ? 'ar' : 'en';
-        const strings = Portfolio.translations[lang].typedStrings;
+        const strings = Portfolio.translations.ar.typedStrings;
         
         try {
             Portfolio.typed = new Typed('#typed', {
@@ -1567,9 +1320,7 @@ Portfolio.hero = {
                     className: 'modal-header'
                 }, [
                     Portfolio.utils.createElement('h3', {
-                        textContent: Portfolio.config.isArabic ? 
-                            'مقدمة عن غمدان عبده' : 
-                            'Introduction to Ghamdan Abdu'
+                        textContent: 'مقدمة عن غمدان عبده'
                     }),
                     Portfolio.utils.createElement('button', {
                         className: 'modal-close',
@@ -1591,9 +1342,7 @@ Portfolio.hero = {
                                 className: 'fas fa-play-circle'
                             }),
                             Portfolio.utils.createElement('p', {
-                                textContent: Portfolio.config.isArabic ? 
-                                    'فيديو تعريفي قريباً' : 
-                                    'Intro video coming soon'
+                                textContent: 'فيديو تعريفي قريباً'
                             })
                         ])
                     ]),
@@ -1602,9 +1351,7 @@ Portfolio.hero = {
                         className: 'intro-text'
                     }, [
                         Portfolio.utils.createElement('p', {
-                            textContent: Portfolio.config.isArabic ? 
-                                'غمدان عبده هو مبرمج ومحلل نظم يمني متخصص في تطوير الحلول الرقمية والأنظمة الإدارية. يتمتع بخبرة تزيد عن 5 سنوات في مجال البرمجة وتحليل النظم.' :
-                                'Ghamdan Abdu is a Yemeni programmer and systems analyst specialized in developing digital solutions and administrative systems. He has over 5 years of experience in programming and systems analysis.'
+                            textContent: 'غمدان عبده هو مبرمج ومحلل نظم يمني متخصص في تطوير الحلول الرقمية والأنظمة الإدارية. يتمتع بخبرة تزيد عن 5 سنوات في مجال البرمجة وتحليل النظم.'
                         })
                     ])
                 ])
@@ -1723,9 +1470,7 @@ Portfolio.skills = {
             
             // Chart data
             const data = {
-                labels: Portfolio.config.isArabic ? 
-                    ['تطوير الويب', 'قواعد البيانات', 'البرمجة', 'الأدوات', 'المهارات الشخصية'] :
-                    ['Web Development', 'Databases', 'Programming', 'Tools', 'Soft Skills'],
+                labels: ['تطوير الويب', 'قواعد البيانات', 'البرمجة', 'الأدوات', 'المهارات الشخصية'],
                 datasets: [{
                     data: [35, 25, 20, 15, 5],
                     backgroundColor: [
@@ -1781,9 +1526,8 @@ Portfolio.skills = {
             
             // Add custom methods
             Portfolio.skillsChart.updateLanguage = function() {
-                this.data.labels = Portfolio.config.isArabic ? 
-                    ['تطوير الويب', 'قواعد البيانات', 'البرمجة', 'الأدوات', 'المهارات الشخصية'] :
-                    ['Web Development', 'Databases', 'Programming', 'Tools', 'Soft Skills'];
+                // تثبيت التسميات بالعربية فقط
+                this.data.labels = ['تطوير الويب', 'قواعد البيانات', 'البرمجة', 'الأدوات', 'المهارات الشخصية'];
                 this.update();
             };
             
@@ -1940,11 +1684,11 @@ Portfolio.projects = {
                         }, [
                             Portfolio.utils.createElement('button', {
                                 className: 'btn btn-primary',
-                                textContent: Portfolio.config.isArabic ? 'عرض المشروع' : 'View Project'
+                                textContent: 'عرض المشروع'
                             }),
                             Portfolio.utils.createElement('button', {
                                 className: 'btn btn-outline-primary',
-                                textContent: Portfolio.config.isArabic ? 'إغلاق' : 'Close'
+                                textContent: 'إغلاق'
                             })
                         ])
                     ])
@@ -2039,7 +1783,7 @@ Portfolio.contact = {
             submitBtn.disabled = true;
             submitBtn.innerHTML = `
                 <i class="fas fa-spinner fa-spin"></i>
-                ${Portfolio.config.isArabic ? 'جاري الإرسال...' : 'Sending...'}
+                جاري الإرسال...
             `;
             
             try {
@@ -2048,9 +1792,7 @@ Portfolio.contact = {
                 
                 // Show success message
                 Portfolio.utils.showNotification(
-                    Portfolio.config.isArabic ? 
-                    'تم إرسال رسالتك بنجاح!' : 
-                    'Your message has been sent successfully!',
+                    'تم إرسال رسالتك بنجاح!',
                     'success'
                 );
                 
@@ -2059,9 +1801,7 @@ Portfolio.contact = {
             } catch (error) {
                 // Show error message
                 Portfolio.utils.showNotification(
-                    Portfolio.config.isArabic ? 
-                    'حدث خطأ أثناء إرسال الرسالة. حاول مرة أخرى.' : 
-                    'An error occurred while sending your message. Please try again.',
+                    'حدث خطأ أثناء إرسال الرسالة. حاول مرة أخرى.',
                     'error'
                 );
             } finally {
@@ -2078,9 +1818,7 @@ Portfolio.contact = {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(data.email)) {
             Portfolio.utils.showNotification(
-                Portfolio.config.isArabic ? 
-                'البريد الإلكتروني غير صحيح' : 
-                'Invalid email address',
+                'البريد الإلكتروني غير صحيح',
                 'error'
             );
             return false;
@@ -2091,9 +1829,7 @@ Portfolio.contact = {
         for (const field of requiredFields) {
             if (!data[field] || data[field].trim() === '') {
                 Portfolio.utils.showNotification(
-                    Portfolio.config.isArabic ? 
-                    'يرجى ملء جميع الحقول المطلوبة' : 
-                    'Please fill all required fields',
+                    'يرجى ملء جميع الحقول المطلوبة',
                     'error'
                 );
                 return false;
@@ -2130,9 +1866,7 @@ Portfolio.contact = {
             if (!emailRegex.test(email)) {
                 emailInput.style.borderColor = 'red';
                 Portfolio.utils.showNotification(
-                    Portfolio.config.isArabic ? 
-                    'البريد الإلكتروني غير صحيح' : 
-                    'Invalid email address',
+                    'البريد الإلكتروني غير صحيح',
                     'error'
                 );
                 return;
@@ -2149,9 +1883,7 @@ Portfolio.contact = {
                 
                 // Show success message
                 Portfolio.utils.showNotification(
-                    Portfolio.config.isArabic ? 
-                    'تم الاشتراك في النشرة البريدية بنجاح!' : 
-                    'Successfully subscribed to newsletter!',
+                    'تم الاشتراك في النشرة البريدية بنجاح!',
                     'success'
                 );
                 
@@ -2159,9 +1891,7 @@ Portfolio.contact = {
                 emailInput.value = '';
             } catch (error) {
                 Portfolio.utils.showNotification(
-                    Portfolio.config.isArabic ? 
-                    'حدث خطأ أثناء الاشتراك. حاول مرة أخرى.' : 
-                    'An error occurred while subscribing. Please try again.',
+                    'حدث خطأ أثناء الاشتراك. حاول مرة أخرى.',
                     'error'
                 );
             } finally {
@@ -2229,7 +1959,7 @@ Portfolio.download = {
             downloadCVBtn.disabled = true;
             downloadCVBtn.innerHTML = `
                 <i class="fas fa-spinner fa-spin"></i>
-                ${Portfolio.config.isArabic ? 'جاري التحميل...' : 'Downloading...'}
+                جاري التحميل...
             `;
             
             // Simulate download
@@ -2242,7 +1972,7 @@ Portfolio.download = {
             
             const link = document.createElement('a');
             link.href = url;
-            link.download = Portfolio.config.isArabic ? 'سيرة_غمدان_عبده.pdf' : 'Ghamdan_Abdu_CV.pdf';
+            link.download = 'سيرة_غمدان_عبده.pdf';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -2250,16 +1980,12 @@ Portfolio.download = {
             
             // Show success message
             Portfolio.utils.showNotification(
-                Portfolio.config.isArabic ? 
-                'تم بدء تحميل السيرة الذاتية' : 
-                'CV download started',
+                'تم بدء تحميل السيرة الذاتية',
                 'success'
             );
         } catch (error) {
             Portfolio.utils.showNotification(
-                Portfolio.config.isArabic ? 
-                'حدث خطأ أثناء التحميل. حاول مرة أخرى.' : 
-                'An error occurred while downloading. Please try again.',
+                'حدث خطأ أثناء التحميل. حاول مرة أخرى.',
                 'error'
             );
         } finally {
@@ -2274,39 +2000,38 @@ Portfolio.download = {
     
     // Generate CV content
     generateCVContent() {
-        const lang = Portfolio.config.isArabic ? 'ar' : 'en';
-        const texts = Portfolio.translations[lang];
+        const texts = Portfolio.translations.ar;
         
         return `
-            Ghamdan Abdu - CV
+            غمدان عبده - السيرة الذاتية
             
-            Personal Information:
-            - Name: Ghamdan Abdu Ali Saleh
-            - Date of Birth: August 2, 1997
-            - Address: Marib Governorate - Ria'a, Yemen
-            - Email: m739265566@gmail.com
-            - Phone: +967 774 038 475
+            المعلومات الشخصية:
+            - الاسم: غمدان عبده علي صالح
+            - تاريخ الميلاد: ٢ أغسطس ١٩٩٧
+            - العنوان: محافظة مارب - ريمة، اليمن
+            - البريد الإلكتروني: m739265566@gmail.com
+            - الهاتف: ٧٧٤٠٣٨٤٧٥
             
-            Education:
-            - Bachelor of Computer Science, Sia Region University (2025)
-            - High School, Al-Thawra School (2016)
+            التعليم:
+            - بكالوريوس علوم الحاسوب، جامعة إقليم سيا (٢٠٢٥)
+            - الثانوية العامة، مدرسة الثورة (٢٠١٦)
             
-            Skills:
-            - Programming: PHP, JavaScript, Python, C#
-            - Web Development: HTML5/CSS3, Bootstrap, React.js
-            - Databases: MySQL, SQL Server, MongoDB
-            - Tools: Git, Docker, AWS
+            المهارات:
+            - البرمجة: PHP، JavaScript، Python، C#
+            - تطوير الويب: HTML5/CSS3، Bootstrap، React.js
+            - قواعد البيانات: MySQL، SQL Server، MongoDB
+            - الأدوات: Git، Docker، AWS
             
-            Experience:
-            - Advanced Systems Developer (2023-Present)
-            - Systems Analyst & Programmer (2021-2023)
-            - Web Programmer (2019-2021)
+            الخبرات:
+            - مطور نظم متقدم (٢٠٢٣-الآن)
+            - محلل ومبرمج نظم (٢٠٢١-٢٠٢٣)
+            - مبرمج ويب (٢٠١٩-٢٠٢١)
             
-            Projects:
-            - Student E-Portal System
-            - Content Management System
-            - Task Management App
-            - E-Commerce Platform
+            المشاريع:
+            - نظام بوابة الطالب الإلكترونية
+            - نظام إدارة المحتوى
+            - تطبيق إدارة المهام
+            - منصة التجارة الإلكترونية
         `;
     },
     
@@ -2330,9 +2055,7 @@ Portfolio.download = {
         try {
             // Show loading
             Portfolio.utils.showNotification(
-                Portfolio.config.isArabic ? 
-                'جاري تحميل المشروع...' : 
-                'Downloading project...',
+                'جاري تحميل المشروع...',
                 'info'
             );
             
@@ -2340,16 +2063,12 @@ Portfolio.download = {
             await new Promise(resolve => setTimeout(resolve, 1500));
             
             Portfolio.utils.showNotification(
-                Portfolio.config.isArabic ? 
-                'تم بدء تحميل المشروع' : 
-                'Project download started',
+                'تم بدء تحميل المشروع',
                 'success'
             );
         } catch (error) {
             Portfolio.utils.showNotification(
-                Portfolio.config.isArabic ? 
-                'حدث خطأ أثناء التحميل' : 
-                'An error occurred while downloading',
+                'حدث خطأ أثناء التحميل',
                 'error'
             );
         }
@@ -2409,9 +2128,7 @@ Portfolio.network = {
         
         if (!navigator.onLine) {
             Portfolio.utils.showNotification(
-                Portfolio.config.isArabic ? 
-                'أنت غير متصل بالإنترنت. بعض الميزات قد لا تعمل.' : 
-                'You are offline. Some features may not work.',
+                'أنت غير متصل بالإنترنت. بعض الميزات قد لا تعمل.',
                 'warning',
                 5000
             );
@@ -2423,9 +2140,7 @@ Portfolio.network = {
         window.addEventListener('online', () => {
             Portfolio.config.networkStatus = 'online';
             Portfolio.utils.showNotification(
-                Portfolio.config.isArabic ? 
-                'أنت متصل بالإنترنت الآن!' : 
-                'You are back online!',
+                'أنت متصل بالإنترنت الآن!',
                 'success',
                 3000
             );
@@ -2434,9 +2149,7 @@ Portfolio.network = {
         window.addEventListener('offline', () => {
             Portfolio.config.networkStatus = 'offline';
             Portfolio.utils.showNotification(
-                Portfolio.config.isArabic ? 
-                'أنت غير متصل بالإنترنت. بعض الميزات قد لا تعمل.' : 
-                'You are offline. Some features may not work.',
+                'أنت غير متصل بالإنترنت. بعض الميزات قد لا تعمل.',
                 'warning',
                 5000
             );
@@ -2583,9 +2296,7 @@ window.addEventListener('error', function(e) {
     // Show user-friendly error message
     if (e.error && e.error.message) {
         Portfolio.utils.showNotification(
-            Portfolio.config.isArabic ? 
-            'حدث خطأ غير متوقع. يرجى تحديث الصفحة.' : 
-            'An unexpected error occurred. Please refresh the page.',
+            'حدث خطأ غير متوقع. يرجى تحديث الصفحة.',
             'error',
             5000
         );
@@ -2597,9 +2308,7 @@ window.addEventListener('unhandledrejection', function(e) {
     console.error('Unhandled promise rejection:', e.reason);
     
     Portfolio.utils.showNotification(
-        Portfolio.config.isArabic ? 
-        'حدث خطأ في العملية. يرجى المحاولة مرة أخرى.' : 
-        'An error occurred in the process. Please try again.',
+        'حدث خطأ في العملية. يرجى المحاولة مرة أخرى.',
         'error',
         5000
     );
