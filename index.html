@@ -187,119 +187,128 @@
         <div class="shape shape-5"></div>
     </div>
     
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-xl fixed-top navbar-glass" id="mainNav">
-        <div class="container">
-            <!-- Animated Logo -->
-            <a class="navbar-brand logo-container" href="#home">
-                <div class="logo-icon animated-logo">
-                    <i class="fas fa-code"></i>
-                    <i class="fas fa-bolt logo-spark"></i>
-                </div>
-                <div class="logo-text">
-                    <span class="logo-name gradient-text" id="logoName">غمدان معوضة</span>
-                    <span class="logo-subtitle">محلل ومبرمج نظم</span>
-                </div>
-            </a>
-            
-            <!-- Mobile Toggle -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                <div class="hamburger-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
-            
-            <!-- Navbar Content -->
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#home">
-                            <i class="fas fa-home nav-icon"></i>
-                            <span class="nav-text">الرئيسية</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">
-                            <i class="fas fa-user nav-icon"></i>
-                            <span class="nav-text">نبذة عني</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#education">
-                            <i class="fas fa-graduation-cap nav-icon"></i>
-                            <span class="nav-text">التعليم</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#experience">
-                            <i class="fas fa-briefcase nav-icon"></i>
-                            <span class="nav-text">الخبرات</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#skills">
-                            <i class="fas fa-cogs nav-icon"></i>
-                            <span class="nav-text">المهارات</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">
-                            <i class="fas fa-project-diagram nav-icon"></i>
-                            <span class="nav-text">المشاريع</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">
-                            <i class="fas fa-server nav-icon"></i>
-                            <span class="nav-text">الخدمات</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">
-                            <i class="fas fa-envelope nav-icon"></i>
-                            <span class="nav-text">اتصل بي</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                </ul>
-                
-                <!-- Right Controls -->
-                <div class="navbar-controls">
-                    <!-- Language Switcher Removed -->
-                    
-                    <!-- Theme Toggle -->
-                    <div class="theme-toggle">
-                        <input type="checkbox" id="themeToggle" class="theme-checkbox">
-                        <label for="themeToggle" class="theme-label">
-                            <i class="fas fa-sun theme-icon"></i>
-                            <i class="fas fa-moon theme-icon"></i>
-                            <div class="theme-ball"></div>
-                        </label>
-                    </div>
-                    
-                    <!-- Download CV -->
-                    <a href="#" class="btn btn-primary btn-cv" id="downloadCV">
-                        <i class="fas fa-download"></i>
-                        <span> السيرة الذاتية</span>
+<!-- Navigation Bar - Fixed Version -->
+<nav class="navbar navbar-expand-xl fixed-top navbar-glass" id="mainNav">
+    <div class="container">
+        <!-- Logo with Profile Image -->
+        <a class="navbar-brand logo-container" href="#home">
+            <div class="logo-image-wrapper">
+                <img src="images/profile.jpeg" 
+                     alt="غمدان معوضة" 
+                     class="logo-profile-image">
+                <div class="logo-image-glow"></div>
+                <div class="logo-image-frame"></div>
+            </div>
+            <div class="logo-text-content">
+                <span class="logo-main-name gradient-name" id="logoName">غمدان معوضة</span>
+                <span class="logo-sub-text">محلل ومبرمج نظم</span>
+            </div>
+        </a>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler mobile-toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        
+        <!-- Navigation Content -->
+        <div class="collapse navbar-collapse nav-collapse-content" id="navbarContent">
+            <ul class="navbar-nav main-nav-list">
+                <li class="nav-list-item">
+                    <a class="nav-menu-link active" href="#home">
+                        <i class="fas fa-home nav-menu-icon"></i>
+                        <span class="nav-menu-text">الرئيسية</span>
+                        <span class="nav-active-indicator"></span>
                     </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-menu-link" href="#about">
+                        <i class="fas fa-user nav-menu-icon"></i>
+                        <span class="nav-menu-text">نبذة عني</span>
+                        <span class="nav-active-indicator"></span>
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-menu-link" href="#education">
+                        <i class="fas fa-graduation-cap nav-menu-icon"></i>
+                        <span class="nav-menu-text">التعليم</span>
+                        <span class="nav-active-indicator"></span>
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-menu-link" href="#experience">
+                        <i class="fas fa-briefcase nav-menu-icon"></i>
+                        <span class="nav-menu-text">الخبرات</span>
+                        <span class="nav-active-indicator"></span>
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-menu-link" href="#skills">
+                        <i class="fas fa-cogs nav-menu-icon"></i>
+                        <span class="nav-menu-text">المهارات</span>
+                        <span class="nav-active-indicator"></span>
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-menu-link" href="#projects">
+                        <i class="fas fa-project-diagram nav-menu-icon"></i>
+                        <span class="nav-menu-text">المشاريع</span>
+                        <span class="nav-active-indicator"></span>
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-menu-link" href="#services">
+                        <i class="fas fa-server nav-menu-icon"></i>
+                        <span class="nav-menu-text">الخدمات</span>
+                        <span class="nav-active-indicator"></span>
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-menu-link" href="#contact">
+                        <i class="fas fa-envelope nav-menu-icon"></i>
+                        <span class="nav-menu-text">اتصل بي</span>
+                        <span class="nav-active-indicator"></span>
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Control Buttons -->
+            <div class="nav-control-buttons">
+                <!-- Theme Toggle -->
+                <div class="theme-switcher">
+                    <input type="checkbox" id="themeSwitch" class="theme-switch-checkbox">
+                    <label for="themeSwitch" class="theme-switch-label">
+                        <i class="fas fa-sun theme-switch-icon"></i>
+                        <i class="fas fa-moon theme-switch-icon"></i>
+                        <div class="theme-switch-handle"></div>
+                    </label>
                 </div>
+                
+                <!-- Download CV Button -->
+                <a href="#" class="btn download-cv-btn" id="downloadCV">
+                    <i class="fas fa-download"></i>
+                    <span>السيرة الذاتية</span>
+                </a>
             </div>
         </div>
-        
-        <!-- Navbar Progress Bar -->
-        <div class="nav-progress">
-            <div class="nav-progress-bar"></div>
-        </div>
-    </nav>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="nav-scroll-progress">
+        <div class="nav-scroll-progress-bar"></div>
+    </div>
+    
+    <!-- Animated Border -->
+    <div class="navbar-animated-border">
+        <div class="animated-border-line border-top-line"></div>
+        <div class="animated-border-line border-right-line"></div>
+        <div class="animated-border-line border-bottom-line"></div>
+        <div class="animated-border-line border-left-line"></div>
+    </div>
+</nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">

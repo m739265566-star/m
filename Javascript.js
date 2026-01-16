@@ -473,18 +473,20 @@ class ThemeManager {
 // التنقل والتمرير
 // ==========================================================================
 
-// ==========================================================================
-// NavigationManager - Simple & Effective
-// ==========================================================================
-
 class NavigationManager {
     constructor() {
         this.navbar = document.getElementById('mainNav');
-        this.navLinks = document.querySelectorAll('.nav-link');
-        this.navProgressBar = document.querySelector('.nav-progress-bar');
+        this.navLinks = document.querySelectorAll('.nav-menu-link');
+        this.navProgressBar = document.querySelector('.nav-scroll-progress-bar');
         this.menuOverlay = null;
         this.mobileCloseBtn = null;
         this.lastScrollY = 0;
+        this.glowInterval = null;
+        this.glowColors = [
+            '#ff0080', '#00ffaa', '#0080ff', '#ffaa00',
+            '#ff00ff', '#00ffff', '#ffff00', '#80ff00'
+        ];
+        this.currentGlowIndex = 0;
     }
     
     init() {
@@ -493,6 +495,8 @@ class NavigationManager {
         this.createMobileElements();
         this.setupMobileMenu();
         this.setupSmoothScroll();
+        this.setupGlowEffects();
+        this.initGlowAnimation();
     }
     
     setupNavbarScroll() {
@@ -542,46 +546,30 @@ class NavigationManager {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${sectionId}`) {
                 link.classList.add('active');
+                this.addGlowEffect(link);
             }
         });
     }
     
     createMobileElements() {
-        // زر إغلاق القائمة
-        this.mobileCloseBtn = document.createElement('button');
-        this.mobileCloseBtn.className = 'mobile-close-btn';
-        this.mobileCloseBtn.innerHTML = '✕';
-        this.mobileCloseBtn.setAttribute('aria-label', 'إغلاق القائمة');
-        
-        // طبقة الغطاء
+        // طبقة الغطاء للجوال
         this.menuOverlay = document.createElement('div');
-        this.menuOverlay.className = 'mobile-menu-overlay';
+        this.menuOverlay.className = 'mobile-overlay';
         
-        // إضافة العناصر للصفحة
+        // إضافة الغطاء للصفحة
         document.body.appendChild(this.menuOverlay);
-        const navbarContent = document.getElementById('navbarContent');
-        if (navbarContent) {
-            navbarContent.appendChild(this.mobileCloseBtn);
-        }
     }
     
     setupMobileMenu() {
-        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarToggler = document.querySelector('.mobile-toggle-btn');
         if (!navbarToggler) return;
         
         // فتح/إغلاق القائمة
         navbarToggler.addEventListener('click', (e) => {
             e.stopPropagation();
             this.toggleMobileMenu();
+            this.toggleNavbarTogglerGlow(navbarToggler);
         });
-        
-        // زر الإغلاق
-        if (this.mobileCloseBtn) {
-            this.mobileCloseBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.closeMobileMenu();
-            });
-        }
         
         // الغطاء
         if (this.menuOverlay) {
@@ -590,13 +578,23 @@ class NavigationManager {
             });
         }
         
-        // إغلاق القائمة عند النقر على رابط
-        const navLinks = document.querySelectorAll('#navbarContent .nav-link');
+        // إغلاق القائمة عند النقر على رابط - هذا هو الحل الرئيسي
+        const navLinks = document.querySelectorAll('.nav-collapse-content .nav-menu-link');
         navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                setTimeout(() => {
-                    this.closeMobileMenu();
-                }, 300);
+            link.addEventListener('click', (e) => {
+                // إغلاق القائمة فوراً
+                this.closeMobileMenu();
+                this.addClickGlowEffect(link);
+                
+                // منع السلوك الافتراضي إذا كان رابط تنقل داخلي
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // الانتقال للقسم المطلوب
+                    this.scrollToSection(href);
+                }
             });
         });
         
@@ -609,38 +607,23 @@ class NavigationManager {
     }
     
     setupSmoothScroll() {
-        // روابط التنقل الداخلية
-        const navLinks = document.querySelectorAll('a[href^="#"]');
+        // روابط التنقل الداخلية خارج القائمة المتنقلة
+        const externalNavLinks = document.querySelectorAll('a[href^="#"]:not(.nav-collapse-content .nav-menu-link)');
         
-        navLinks.forEach(link => {
+        externalNavLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 
                 const targetId = link.getAttribute('href');
                 if (targetId === '#') return;
                 
-                const targetElement = document.querySelector(targetId);
-                if (!targetElement) return;
-                
-                // التمرير السلس
-                const navbarHeight = this.navbar ? this.navbar.offsetHeight : 0;
-                const targetPosition = targetElement.offsetTop - navbarHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-                
-                // تحديث الرابط
-                history.pushState(null, '', targetId);
-                
-                // تحديث الرابط النشط
-                this.setActiveNavLink(targetId.substring(1));
+                this.scrollToSection(targetId);
+                this.addClickGlowEffect(link);
             });
         });
         
         // روابط الأقسام الأخرى
-        const sectionLinks = document.querySelectorAll('a[href*="#"]:not([href="#"])');
+        const sectionLinks = document.querySelectorAll('a[href*="#"]:not([href="#"]):not(.nav-collapse-content .nav-menu-link)');
         sectionLinks.forEach(link => {
             if (link.getAttribute('href').startsWith('#')) {
                 link.addEventListener('click', (e) => {
@@ -649,25 +632,174 @@ class NavigationManager {
                     
                     if (targetElement) {
                         e.preventDefault();
-                        
-                        const navbarHeight = this.navbar ? this.navbar.offsetHeight : 0;
-                        const targetPosition = targetElement.offsetTop - navbarHeight;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                        
-                        history.pushState(null, '', targetId);
-                        this.setActiveNavLink(targetId.substring(1));
+                        this.scrollToSection(targetId);
+                        this.addClickGlowEffect(link);
                     }
                 });
             }
         });
     }
     
+    scrollToSection(targetId) {
+        const targetElement = document.querySelector(targetId);
+        if (!targetElement) return;
+        
+        // التمرير السلس
+        const navbarHeight = this.navbar ? this.navbar.offsetHeight : 0;
+        const targetPosition = targetElement.offsetTop - navbarHeight;
+        
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+        
+        // تحديث الرابط
+        history.pushState(null, '', targetId);
+        
+        // تحديث الرابط النشط
+        this.setActiveNavLink(targetId.substring(1));
+    }
+    
+    setupGlowEffects() {
+        // إضافة تأثير التوهج لجميع روابط التنقل
+        this.navLinks.forEach(link => {
+            this.setupLinkGlow(link);
+        });
+        
+        // إضافة تأثير التوهج لشريط التقدم
+        if (this.navProgressBar) {
+            this.setupProgressBarGlow();
+        }
+        
+        // إضافة تأثير التوهج لشعار الصورة
+        this.setupLogoGlow();
+    }
+    
+    setupLinkGlow(link) {
+        // إضافة تأثير التحويم للروابط خارج القائمة المتنقلة
+        if (!link.closest('.nav-collapse-content')) {
+            link.addEventListener('mouseenter', () => {
+                this.addHoverGlowEffect(link);
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                this.removeGlowEffect(link);
+            });
+        }
+        
+        // تأثير النقر
+        link.addEventListener('mousedown', () => {
+            this.addClickGlowEffect(link);
+        });
+    }
+    
+    setupProgressBarGlow() {
+        // تأثير متحرك لشريط التقدم
+        this.navProgressBar.style.transition = 'width 0.3s ease, box-shadow 0.5s ease';
+    }
+    
+    setupLogoGlow() {
+        const logoImage = document.querySelector('.logo-profile-image');
+        if (logoImage) {
+            logoImage.addEventListener('mouseenter', () => {
+                logoImage.style.filter = 'brightness(1.2) saturate(1.5)';
+                logoImage.style.transform = 'scale(1.05)';
+            });
+            
+            logoImage.addEventListener('mouseleave', () => {
+                logoImage.style.filter = '';
+                logoImage.style.transform = '';
+            });
+        }
+    }
+    
+    initGlowAnimation() {
+        // تأثير متحرك للقائمة عندما تكون مفتوحة
+        this.glowInterval = setInterval(() => {
+            if (this.isMenuOpen()) {
+                this.animateMenuGlow();
+            }
+        }, 2000);
+    }
+    
+    animateMenuGlow() {
+        const navLinks = document.querySelectorAll('.nav-collapse-content .nav-menu-link');
+        navLinks.forEach((link, index) => {
+            setTimeout(() => {
+                this.addPulseGlowEffect(link, index);
+            }, index * 200);
+        });
+    }
+    
+    addGlowEffect(element) {
+        const color = this.glowColors[this.currentGlowIndex];
+        element.style.boxShadow = `0 0 15px ${color}, 0 0 30px ${color}`;
+        element.style.textShadow = `0 0 10px ${color}`;
+        element.style.transition = 'all 0.3s ease';
+        
+        // تحديث الفهرس للون التالي
+        this.currentGlowIndex = (this.currentGlowIndex + 1) % this.glowColors.length;
+    }
+    
+    addHoverGlowEffect(element) {
+        const color = this.glowColors[this.currentGlowIndex];
+        element.style.boxShadow = `0 0 10px ${color}`;
+        element.style.textShadow = `0 0 5px ${color}`;
+        element.style.transform = 'translateY(-2px)';
+    }
+    
+    addClickGlowEffect(element) {
+        const color = this.glowColors[this.currentGlowIndex];
+        element.style.boxShadow = `0 0 20px ${color}, 0 0 40px ${color}`;
+        element.style.textShadow = `0 0 15px ${color}`;
+        element.style.transform = 'scale(0.95)';
+        
+        setTimeout(() => {
+            element.style.transform = '';
+            this.removeGlowEffect(element);
+        }, 300);
+    }
+    
+    addPulseGlowEffect(element, index) {
+        const color = this.glowColors[index % this.glowColors.length];
+        element.style.boxShadow = `0 0 15px ${color}`;
+        element.style.textShadow = `0 0 8px ${color}`;
+        
+        setTimeout(() => {
+            if (!element.classList.contains('active')) {
+                this.removeGlowEffect(element);
+            }
+        }, 1000);
+    }
+    
+    removeGlowEffect(element) {
+        if (!element.classList.contains('active')) {
+            element.style.boxShadow = '';
+            element.style.textShadow = '';
+            element.style.transform = '';
+        }
+    }
+    
+    toggleNavbarTogglerGlow(navbarToggler) {
+        if (navbarToggler) {
+            const menuIcon = navbarToggler.querySelector('.menu-icon');
+            if (menuIcon) {
+                const spans = menuIcon.querySelectorAll('span');
+                if (this.isMenuOpen()) {
+                    spans.forEach(span => {
+                        span.style.boxShadow = '0 0 10px #00ffaa';
+                    });
+                } else {
+                    spans.forEach(span => {
+                        span.style.boxShadow = '';
+                    });
+                }
+            }
+        }
+    }
+    
     toggleMobileMenu() {
-        const navbarContent = document.getElementById('navbarContent');
+        const navbarContent = document.querySelector('.nav-collapse-content');
         if (!navbarContent) return;
         
         if (navbarContent.classList.contains('show')) {
@@ -678,8 +810,8 @@ class NavigationManager {
     }
     
     openMobileMenu() {
-        const navbarContent = document.getElementById('navbarContent');
-        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarContent = document.querySelector('.nav-collapse-content');
+        const navbarToggler = document.querySelector('.mobile-toggle-btn');
         
         if (!navbarContent || !navbarToggler) return;
         
@@ -688,14 +820,19 @@ class NavigationManager {
         
         if (this.menuOverlay) {
             this.menuOverlay.classList.add('show');
+            // تأثير توهج للخلفية
+            this.menuOverlay.style.background = 'radial-gradient(circle at center, rgba(0,255,170,0.1) 0%, rgba(0,0,0,0.9) 70%)';
         }
         
         document.body.classList.add('menu-open');
+        
+        // بدء تأثير التوهج للقائمة المفتوحة
+        this.animateMenuGlow();
     }
     
     closeMobileMenu() {
-        const navbarContent = document.getElementById('navbarContent');
-        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarContent = document.querySelector('.nav-collapse-content');
+        const navbarToggler = document.querySelector('.mobile-toggle-btn');
         
         if (!navbarContent || !navbarToggler) return;
         
@@ -704,16 +841,444 @@ class NavigationManager {
         
         if (this.menuOverlay) {
             this.menuOverlay.classList.remove('show');
+            this.menuOverlay.style.background = '';
         }
         
         document.body.classList.remove('menu-open');
+        
+        // إزالة تأثيرات التوهج من الروابط
+        const navLinks = document.querySelectorAll('.nav-collapse-content .nav-menu-link');
+        navLinks.forEach(link => {
+            this.removeGlowEffect(link);
+        });
     }
     
     isMenuOpen() {
-        const navbarContent = document.getElementById('navbarContent');
+        const navbarContent = document.querySelector('.nav-collapse-content');
         return navbarContent && navbarContent.classList.contains('show');
     }
+    
+    // تنظيف عند التدمير
+    destroy() {
+        if (this.glowInterval) {
+            clearInterval(this.glowInterval);
+        }
+    }
 }
+
+// إضافة أنماط CSS للألوان المضيئة
+function addGlowStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .nav-menu-link {
+            transition: all 0.3s ease !important;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .nav-menu-link.active {
+            position: relative;
+            background: rgba(106, 17, 203, 0.15) !important;
+        }
+        
+        .nav-menu-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, #ff0080, #00ffaa, #0080ff);
+            border-radius: 2px;
+            animation: glowPulse 2s infinite;
+        }
+        
+        .nav-menu-icon {
+            transition: all 0.3s ease !important;
+        }
+        
+        .nav-scroll-progress-bar {
+            background: linear-gradient(90deg, #ff0080, #00ffaa, #0080ff, #ffaa00) !important;
+            background-size: 200% 100% !important;
+            animation: progressGlow 3s infinite linear !important;
+            height: 3px;
+            box-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+        }
+        
+        .logo-container {
+            transition: all 0.3s ease !important;
+        }
+        
+        .logo-container:hover .logo-image-glow {
+            opacity: 0.5 !important;
+            filter: blur(12px) !important;
+        }
+        
+        .logo-image-frame {
+            animation: rotateFrame 4s linear infinite !important;
+        }
+        
+        .download-cv-btn {
+            transition: all 0.3s ease !important;
+        }
+        
+        .download-cv-btn:hover {
+            box-shadow: 0 0 20px rgba(106, 17, 203, 0.7) !important;
+        }
+        
+        .theme-switch-handle {
+            transition: all 0.3s ease !important;
+        }
+        
+        .theme-switch-label:hover .theme-switch-handle {
+            box-shadow: 0 0 10px rgba(106, 17, 203, 0.7);
+        }
+        
+        .mobile-toggle-btn:hover .menu-icon span {
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.7);
+        }
+        
+        .border-top-line, .border-right-line, .border-bottom-line, .border-left-line {
+            animation-duration: 4s !important;
+        }
+        
+        .navbar.scrolled .border-top-line,
+        .navbar.scrolled .border-right-line,
+        .navbar.scrolled .border-bottom-line,
+        .navbar.scrolled .border-left-line {
+            animation-duration: 2s !important;
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% {
+                opacity: 0.8;
+                box-shadow: 0 0 5px #ff0080;
+                width: 30px;
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 15px #00ffaa, 0 0 25px #00ffaa;
+                width: 40px;
+            }
+        }
+        
+        @keyframes progressGlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        @keyframes rotateFrame {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+        
+        .menu-open {
+            overflow: hidden;
+        }
+        
+        .mobile-overlay.show {
+            animation: overlayFadeIn 0.3s ease;
+        }
+        
+        .nav-collapse-content.show {
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes overlayFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        
+        /* تأثيرات إضافية للبوتستراب */
+        .navbar-collapse {
+            transition: all 0.3s ease;
+        }
+        
+        .show.navbar-collapse {
+            display: block !important;
+        }
+        
+        /* تأثيرات التحويم للعناصر */
+        .nav-list-item:hover .nav-active-indicator {
+            opacity: 1;
+            transform: translateX(-50%) scale(1.2);
+        }
+        
+        /* تأثيرات للشعار */
+        .logo-main-name {
+            animation: gradientShift 3s ease infinite !important;
+            background-size: 200% 200% !important;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        /* تأثيرات للأيقونات */
+        .nav-menu-link:hover .nav-menu-icon {
+            transform: rotate(15deg) scale(1.2);
+            filter: drop-shadow(0 0 3px currentColor);
+        }
+        
+        /* تأثيرات خاصة للأزرار */
+        .download-cv-btn:hover i {
+            transform: translateY(-2px) rotate(15deg);
+        }
+        
+        /* تأثيرات للحدود المتحركة */
+        .navbar:hover .border-top-line,
+        .navbar:hover .border-right-line,
+        .navbar:hover .border-bottom-line,
+        .navbar:hover .border-left-line {
+            animation-duration: 2s;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// تهيئة الأنماط عند تحميل الصفحة
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addGlowStyles);
+} else {
+    addGlowStyles();
+}
+
+// تهيئة NavigationManager
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        const navManager = new NavigationManager();
+        navManager.init();
+        
+        // تنظيف عند إغلاق الصفحة
+        window.addEventListener('beforeunload', () => {
+            navManager.destroy();
+        });
+    });
+} else {
+    const navManager = new NavigationManager();
+    navManager.init();
+    
+    window.addEventListener('beforeunload', () => {
+        navManager.destroy();
+    });
+}
+
+// CSS الإضافي للتحسينات
+const additionalStyles = `
+/* تحسينات للشريط العلوي */
+.navbar-glass {
+    background: rgba(12, 12, 20, 0.9) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(106, 17, 203, 0.2) !important;
+    transition: all 0.4s ease !important;
+    padding: 0.8rem 0 !important;
+}
+
+.navbar.scrolled {
+    background: rgba(12, 12, 20, 0.95) !important;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3) !important;
+    padding: 0.5rem 0 !important;
+}
+
+/* تحسينات للحدود المتحركة */
+.animated-border-line {
+    animation-duration: 4s !important;
+}
+
+.border-top-line {
+    background: linear-gradient(90deg, 
+        transparent, 
+        #6a11cb, 
+        #2575fc, 
+        #ff0080, 
+        #ff8c00, 
+        transparent) !important;
+    background-size: 200% 100% !important;
+}
+
+.border-right-line {
+    background: linear-gradient(180deg, 
+        transparent, 
+        #6a11cb, 
+        #2575fc, 
+        #ff0080, 
+        #ff8c00, 
+        transparent) !important;
+    background-size: 100% 200% !important;
+}
+
+.border-bottom-line {
+    background: linear-gradient(90deg, 
+        transparent, 
+        #ff8c00, 
+        #ff0080, 
+        #2575fc, 
+        #6a11cb, 
+        transparent) !important;
+    background-size: 200% 100% !important;
+}
+
+.border-left-line {
+    background: linear-gradient(180deg, 
+        transparent, 
+        #ff8c00, 
+        #ff0080, 
+        #2575fc, 
+        #6a11cb, 
+        transparent) !important;
+    background-size: 100% 200% !important;
+}
+
+/* تحسينات للشعار */
+.logo-container:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3) !important;
+}
+
+.logo-image-glow {
+    animation: pulseGlow 2s ease-in-out infinite alternate !important;
+}
+
+/* تحسينات للقائمة المتنقلة */
+.nav-collapse-content {
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+}
+
+.nav-menu-link:hover,
+.nav-menu-link.active {
+    background: rgba(106, 17, 203, 0.15) !important;
+    box-shadow: inset 0 0 10px rgba(106, 17, 203, 0.2) !important;
+}
+
+.nav-active-indicator {
+    transition: all 0.3s ease !important;
+}
+
+/* تحسينات للأزرار */
+.download-cv-btn {
+    background: linear-gradient(45deg, #6a11cb, #2575fc) !important;
+    background-size: 200% 200% !important;
+    animation: buttonGlow 3s ease infinite !important;
+}
+
+@keyframes buttonGlow {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* تحسينات لزر السمة */
+.theme-switch-label {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+.theme-switch-label:hover {
+    border-color: rgba(106, 17, 203, 0.4) !important;
+}
+
+/* تحسينات لزر الهاتف */
+.mobile-toggle-btn {
+    transition: all 0.3s ease !important;
+}
+
+.mobile-toggle-btn:hover {
+    transform: scale(1.1) !important;
+}
+
+/* تحسينات للشريط السفلي */
+.nav-scroll-progress {
+    z-index: 9999 !important;
+}
+
+/* تحسينات للاستجابة */
+@media (max-width: 992px) {
+    .nav-collapse-content {
+        background: rgba(12, 12, 20, 0.98) !important;
+        backdrop-filter: blur(30px) !important;
+        -webkit-backdrop-filter: blur(30px) !important;
+    }
+    
+    .nav-menu-link {
+        padding: 12px 15px !important;
+        margin: 5px 0 !important;
+        border-radius: 10px !important;
+    }
+    
+    .nav-control-buttons {
+        gap: 10px !important;
+    }
+    
+    .download-cv-btn {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+}
+
+/* تحسينات للأجهزة الصغيرة */
+@media (max-width: 576px) {
+    .logo-container {
+        padding: 5px 8px !important;
+    }
+    
+    .nav-collapse-content {
+        width: 85% !important;
+        right: -100% !important;
+    }
+    
+    .nav-collapse-content.show {
+        right: 0 !important;
+    }
+}
+`;
+
+// إضافة الأنماط الإضافية
+const styleElement = document.createElement('style');
+styleElement.textContent = additionalStyles;
+document.head.appendChild(styleElement);
 
 // ==========================================================================
 // القسم الرئيسي (Hero Section)
@@ -2722,55 +3287,3 @@ window.addEventListener('error', function(e) {
 window.addEventListener('unhandledrejection', function(e) {
     console.error('رفض promise غير معالج:', e.reason);
 });
-// ==========================================================================
-// تهيئة التطبيق
-// ==========================================================================
-
-// بدء التطبيق بعد تحميل الصفحة
-document.addEventListener('DOMContentLoaded', () => {
-    // تهيئة مدير التنقل
-    const navigation = new NavigationManager();
-    navigation.init();
-    
-    // إضافة تأثيرات بسيطة للروابط
-    setTimeout(() => {
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.style.transition = 'all 0.2s ease';
-        });
-    }, 100);
-    
-    // إغلاق القائمة عند تغيير حجم النافذة (اختياري)
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 992 && navigation.isMenuOpen()) {
-            navigation.closeMobileMenu();
-        }
-    });
-});
-
-// التأكد من أن الروابط تعمل بشكل صحيح
-document.addEventListener('click', (e) => {
-    // إذا كان النقر على رابط تنقل داخلي
-    if (e.target.matches('.nav-link') || e.target.closest('.nav-link')) {
-        const link = e.target.matches('.nav-link') ? e.target : e.target.closest('.nav-link');
-        const href = link.getAttribute('href');
-        
-        // إذا كان الرابط يشير إلى قسم في الصفحة
-        if (href && href.startsWith('#')) {
-            const targetId = href.substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                // تأخير بسيط لإغلاق القائمة
-                setTimeout(() => {
-                    const navigation = window.navigationManager;
-                    if (navigation && navigation.isMenuOpen()) {
-                        navigation.closeMobileMenu();
-                    }
-                }, 100);
-            }
-        }
-    }
-});
-
-// جعل كائن NavigationManager متاحاً عالمياً للتصحيح
-window.navigationManager = new NavigationManager();
