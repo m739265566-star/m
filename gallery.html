@@ -395,6 +395,7 @@
         .swiper-slide {
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .swiper-slide img {
@@ -856,6 +857,25 @@
         .lightbox-close:hover {
             transform: rotate(90deg);
             background: var(--primary);
+        }
+
+        /* ===== High Quality Image Styles ===== */
+        .high-quality-img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            -ms-interpolation-mode: nearest-neighbor;
+        }
+
+        /* ===== Optimized Loading ===== */
+        .loading-img {
+            background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 100%);
+            background-size: 200% 100%;
+            animation: loadingAnimation 1.5s infinite;
+        }
+
+        @keyframes loadingAnimation {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         /* ===== Responsive Design ===== */
@@ -1665,7 +1685,8 @@
                         src="${image.src}" 
                         alt="${image.title}"
                         loading="lazy"
-                        onerror="this.src='${getFallbackImage(index)}'"
+                        class="high-quality-img"
+                        onerror="this.src='${getFallbackImage(index)}'; this.classList.add('loading-img')"
                     >
                     <div class="thumbnail-overlay">
                         <div class="thumbnail-info">
@@ -1851,11 +1872,17 @@
             lightboxImage.src = '';
             lightboxImage.src = image.src;
             lightboxImage.alt = image.title;
+            lightboxImage.classList.add('high-quality-img');
             lightboxTitle.textContent = image.title;
             lightboxDescription.textContent = image.description;
             
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // إيقاف السلايدر مؤقتاً عند فتح اللايت بوكس
+            if (mainSwiper) {
+                mainSwiper.autoplay.stop();
+            }
         }
 
         // ===== تحميل الصورة =====
