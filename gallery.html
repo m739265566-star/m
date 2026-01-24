@@ -1,4 +1,4 @@
-عدل في هذا الكود اريد عند النقر على الصورة سوى في عرض الشرايح او اي مكاناخر يتم فتح الصورة كامل ويكون هناك زر للاغلاق واريد واريد حدود لكل العناصر مضيئة متحركة واريجد تكون جودة الصورة افضل جوجة استخدم مكاتب وتكون الصفحة سريعة العرض والتنقل ارعض هذا الكود المرسل لك مع التعديل المطلوب منك <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -181,8 +181,18 @@
         }
 
         @keyframes logoGlow {
-            0% { box-shadow: var(--glow-primary); }
-            100% { box-shadow: 0 0 40px rgba(138, 43, 226, 0.8); }
+            0% { 
+                box-shadow: 
+                    var(--glow-primary),
+                    0 0 0 2px rgba(138, 43, 226, 0.2),
+                    0 0 0 4px rgba(138, 43, 226, 0.1);
+            }
+            100% { 
+                box-shadow: 
+                    0 0 40px rgba(138, 43, 226, 0.8),
+                    0 0 0 3px rgba(138, 43, 226, 0.3),
+                    0 0 0 6px rgba(138, 43, 226, 0.1);
+            }
         }
 
         .logo-text {
@@ -193,6 +203,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
         }
 
         /* ===== Mobile Menu Button ===== */
@@ -246,6 +257,34 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mini-category-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--primary), 
+                var(--accent), 
+                var(--accent2), 
+                var(--primary));
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderRotate 4s linear infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .mini-category-btn:hover,
@@ -254,6 +293,10 @@
             transform: translateY(-2px);
             box-shadow: var(--glow-primary);
             border-color: var(--primary);
+        }
+
+        .mini-category-btn.active::before {
+            opacity: 1;
         }
 
         /* ===== Home Button ===== */
@@ -272,6 +315,32 @@
             transition: var(--transition);
             text-decoration: none;
             white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--accent), 
+                var(--primary), 
+                var(--accent2), 
+                var(--accent));
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderRotate 4s linear infinite;
+            background-size: 400% 400%;
+        }
+
+        .home-btn:hover::before {
+            opacity: 1;
         }
 
         .home-btn:hover {
@@ -312,11 +381,20 @@
             background-clip: text;
             color: transparent;
             animation: titleGlow 3s infinite alternate;
+            text-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
         }
 
         @keyframes titleGlow {
-            0% { text-shadow: 0 0 20px rgba(138, 43, 226, 0.5); }
-            100% { text-shadow: 0 0 40px rgba(255, 20, 147, 0.7); }
+            0% { 
+                text-shadow: 
+                    0 0 20px rgba(138, 43, 226, 0.5),
+                    0 0 40px rgba(138, 43, 226, 0.2);
+            }
+            100% { 
+                text-shadow: 
+                    0 0 40px rgba(255, 20, 147, 0.7),
+                    0 0 60px rgba(255, 20, 147, 0.3);
+            }
         }
 
         .hero-subtitle {
@@ -350,6 +428,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
         }
 
         .section-title p {
@@ -366,46 +445,61 @@
             margin: 0 auto;
             border-radius: 20px;
             overflow: hidden;
-            border: 3px solid transparent;
+            position: relative;
             animation: borderGlow 4s infinite alternate;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid transparent;
         }
 
         @keyframes borderGlow {
             0% { 
                 border-color: rgba(138, 43, 226, 0.3);
-                box-shadow: 0 0 40px rgba(138, 43, 226, 0.4);
+                box-shadow: 
+                    0 0 40px rgba(138, 43, 226, 0.4),
+                    0 0 0 4px rgba(138, 43, 226, 0.1);
             }
             50% { 
                 border-color: rgba(255, 20, 147, 0.4);
-                box-shadow: 0 0 50px rgba(255, 20, 147, 0.5);
+                box-shadow: 
+                    0 0 50px rgba(255, 20, 147, 0.5),
+                    0 0 0 6px rgba(255, 20, 147, 0.15);
             }
             100% { 
                 border-color: rgba(0, 206, 209, 0.3);
-                box-shadow: 0 0 40px rgba(0, 206, 209, 0.4);
+                box-shadow: 
+                    0 0 40px rgba(0, 206, 209, 0.4),
+                    0 0 0 4px rgba(0, 206, 209, 0.1);
             }
         }
 
         .swiper {
             width: 100%;
-            height: 60vh;
-            min-height: 400px;
+            height: 70vh;
+            min-height: 500px;
         }
 
         .swiper-slide {
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--dark);
         }
 
         .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 8s ease;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 5s ease;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
 
         .swiper-slide-active img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .slide-overlay {
@@ -445,6 +539,28 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
             color: white !important;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .swiper-button-next::before,
+        .swiper-button-prev::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--primary), 
+                var(--accent), 
+                var(--accent2));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderRotate 3s linear infinite;
+            background-size: 400% 400%;
         }
 
         .swiper-button-next:after,
@@ -459,16 +575,43 @@
             border-color: var(--accent);
         }
 
+        .swiper-button-next:hover::before,
+        .swiper-button-prev:hover::before {
+            opacity: 1;
+        }
+
         .swiper-pagination-bullet {
             width: 12px !important;
             height: 12px !important;
             background: rgba(255, 255, 255, 0.5) !important;
             opacity: 1 !important;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .swiper-pagination-bullet::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .swiper-pagination-bullet-active {
             background: var(--primary) !important;
             transform: scale(1.2);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .swiper-pagination-bullet-active::before {
+            opacity: 1;
         }
 
         /* ===== Thumbnails Grid ===== */
@@ -480,7 +623,7 @@
         .thumbnails-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
-            gap: 20px;
+            gap: 25px;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -502,18 +645,48 @@
         @keyframes thumbnailFloat {
             0%, 100% { 
                 transform: translateY(0);
-                box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2);
+                box-shadow: 
+                    0 10px 20px rgba(138, 43, 226, 0.2),
+                    0 0 0 2px rgba(138, 43, 226, 0.1);
             }
             50% { 
                 transform: translateY(-10px);
-                box-shadow: 0 15px 30px rgba(138, 43, 226, 0.3);
+                box-shadow: 
+                    0 15px 30px rgba(138, 43, 226, 0.3),
+                    0 0 0 3px rgba(138, 43, 226, 0.15);
             }
+        }
+
+        .thumbnail-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--primary), 
+                var(--accent), 
+                var(--accent2), 
+                var(--primary));
+            border-radius: 17px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderRotate 6s linear infinite;
+            background-size: 400% 400%;
+        }
+
+        .thumbnail-item:hover::before {
+            opacity: 1;
         }
 
         .thumbnail-item:hover {
             transform: translateY(-10px) scale(1.05);
             border-color: var(--primary);
-            box-shadow: var(--glow-primary);
+            box-shadow: 
+                var(--glow-primary),
+                0 0 0 4px rgba(138, 43, 226, 0.2);
             animation: none;
         }
 
@@ -522,10 +695,11 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.8s ease;
+            image-rendering: -webkit-optimize-contrast;
         }
 
         .thumbnail-item:hover img {
-            transform: scale(1.15);
+            transform: scale(1.1);
         }
 
         .thumbnail-overlay {
@@ -533,7 +707,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
             padding: 20px;
             transform: translateY(100%);
             transition: transform 0.5s ease;
@@ -576,12 +750,108 @@
             cursor: pointer;
             transition: var(--transition);
             margin-right: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--primary), 
+                var(--accent), 
+                var(--accent2));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderRotate 3s linear infinite;
+            background-size: 400% 400%;
         }
 
         .download-btn:hover {
             background: var(--gradient-accent);
             transform: scale(1.1);
             box-shadow: var(--glow-accent);
+        }
+
+        .download-btn:hover::before {
+            opacity: 1;
+        }
+
+        /* ===== Load More Button ===== */
+        .load-more-container {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+        }
+
+        .load-more-btn {
+            padding: 15px 40px;
+            border-radius: 30px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glow-primary);
+        }
+
+        .load-more-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--primary), 
+                var(--accent), 
+                var(--accent2), 
+                var(--primary));
+            border-radius: 32px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderRotate 3s linear infinite;
+            background-size: 400% 400%;
+        }
+
+        .load-more-btn:hover::before {
+            opacity: 1;
+        }
+
+        .load-more-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                var(--glow-primary),
+                0 10px 30px rgba(138, 43, 226, 0.4);
+        }
+
+        .load-more-btn.loading {
+            opacity: 0.8;
+            cursor: not-allowed;
+        }
+
+        .load-more-btn.loading i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* ===== Categories Section ===== */
@@ -592,7 +862,7 @@
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-            gap: 20px;
+            gap: 25px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -611,22 +881,54 @@
         @keyframes categoryGlow {
             0% { 
                 border-color: rgba(138, 43, 226, 0.2);
-                box-shadow: 0 10px 30px rgba(138, 43, 226, 0.2);
+                box-shadow: 
+                    0 10px 30px rgba(138, 43, 226, 0.2),
+                    0 0 0 2px rgba(138, 43, 226, 0.1);
             }
             50% { 
                 border-color: rgba(0, 206, 209, 0.3);
-                box-shadow: 0 10px 30px rgba(0, 206, 209, 0.3);
+                box-shadow: 
+                    0 10px 30px rgba(0, 206, 209, 0.3),
+                    0 0 0 3px rgba(0, 206, 209, 0.15);
             }
             100% { 
                 border-color: rgba(255, 20, 147, 0.2);
-                box-shadow: 0 10px 30px rgba(255, 20, 147, 0.2);
+                box-shadow: 
+                    0 10px 30px rgba(255, 20, 147, 0.2),
+                    0 0 0 2px rgba(255, 20, 147, 0.1);
             }
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--primary), 
+                var(--accent), 
+                var(--accent2), 
+                var(--primary));
+            border-radius: 22px;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderRotate 6s linear infinite;
+            background-size: 400% 400%;
+        }
+
+        .category-card:hover::before {
+            opacity: 1;
         }
 
         .category-card:hover {
             transform: translateY(-10px) scale(1.05);
             border-color: var(--primary);
-            box-shadow: var(--glow-primary);
+            box-shadow: 
+                var(--glow-primary),
+                0 0 0 4px rgba(138, 43, 226, 0.2);
             animation: none;
         }
 
@@ -661,6 +963,7 @@
             align-items: center;
             padding: 20px;
             text-align: center;
+            z-index: 2;
         }
 
         .category-icon {
@@ -676,10 +979,35 @@
             transition: var(--transition);
             background: var(--gradient-primary);
             box-shadow: var(--glow-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--primary), 
+                var(--accent), 
+                var(--accent2));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderRotate 3s linear infinite;
+            background-size: 400% 400%;
         }
 
         .category-card:hover .category-icon {
             transform: scale(1.2) rotate(15deg);
+        }
+
+        .category-card:hover .category-icon::before {
+            opacity: 1;
         }
 
         .category-content h3 {
@@ -701,6 +1029,30 @@
             background: rgba(0, 0, 0, 0.7);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-footer::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--primary),
+                var(--accent),
+                var(--accent2),
+                transparent);
+            animation: footerGlow 4s linear infinite;
+            background-size: 200% 100%;
+        }
+
+        @keyframes footerGlow {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         .footer-content {
@@ -717,6 +1069,7 @@
             background-clip: text;
             color: transparent;
             margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
         }
 
         .footer-text {
@@ -731,6 +1084,19 @@
             font-size: 0.85rem;
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .copyright::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
         }
 
         /* ===== Lightbox ===== */
@@ -746,10 +1112,6 @@
             justify-content: center;
             z-index: 2000;
             padding: 20px;
-        }
-
-        .lightbox-overlay.active {
-            display: flex;
             animation: fadeIn 0.3s ease;
         }
 
@@ -758,16 +1120,23 @@
             to { opacity: 1; }
         }
 
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
         .lightbox-content {
             width: 100%;
-            max-width: 900px;
+            max-width: 1200px;
             max-height: 90vh;
             position: relative;
             background: var(--dark-light);
             border-radius: 20px;
             overflow: hidden;
-            border: 3px solid var(--primary);
-            box-shadow: var(--glow-primary);
+            border: 3px solid transparent;
+            box-shadow: 
+                var(--glow-primary),
+                0 0 0 6px rgba(138, 43, 226, 0.1),
+                0 0 60px rgba(0, 0, 0, 0.8);
             animation: lightboxAppear 0.5s ease;
         }
 
@@ -785,36 +1154,45 @@
         .lightbox-img {
             width: 100%;
             height: auto;
-            max-height: 60vh;
+            max-height: 70vh;
             object-fit: contain;
             display: block;
+            background: var(--dark);
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
 
         .lightbox-info {
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.95);
         }
 
         .lightbox-title {
             color: white;
             font-family: 'El Messiri', serif;
-            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
             margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--primary), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .lightbox-description {
             color: var(--gray);
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
-            margin-bottom: 20px;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
 
         .lightbox-actions {
             display: flex;
-            gap: 10px;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .lightbox-download {
-            padding: 12px 25px;
+            padding: 12px 30px;
             border-radius: 25px;
             background: var(--gradient-primary);
             color: white;
@@ -823,9 +1201,35 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             transition: var(--transition);
             font-size: clamp(0.9rem, 1.2vw, 1rem);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lightbox-download::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--primary), 
+                var(--accent), 
+                var(--accent2));
+            border-radius: 27px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderRotate 3s linear infinite;
+            background-size: 400% 400%;
+        }
+
+        .lightbox-download:hover::before {
+            opacity: 1;
         }
 
         .lightbox-download:hover {
@@ -838,24 +1242,51 @@
             position: absolute;
             top: 15px;
             left: 15px;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: var(--gradient-accent);
             border: none;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: var(--transition);
             z-index: 2001;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+        }
+
+        .lightbox-close::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--accent), 
+                var(--primary), 
+                var(--accent2));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderRotate 3s linear infinite;
+            background-size: 400% 400%;
+        }
+
+        .lightbox-close:hover::before {
+            opacity: 1;
         }
 
         .lightbox-close:hover {
-            transform: rotate(90deg);
+            transform: rotate(90deg) scale(1.1);
             background: var(--primary);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.7);
         }
 
         /* ===== Responsive Design ===== */
@@ -865,7 +1296,7 @@
             }
             
             .swiper {
-                height: 55vh;
+                height: 65vh;
             }
         }
 
@@ -886,8 +1317,12 @@
             }
             
             .swiper {
-                height: 50vh;
-                min-height: 350px;
+                height: 60vh;
+                min-height: 400px;
+            }
+            
+            .lightbox-content {
+                max-width: 95%;
             }
         }
 
@@ -953,8 +1388,8 @@
             }
             
             .swiper {
-                height: 40vh;
-                min-height: 300px;
+                height: 50vh;
+                min-height: 350px;
             }
             
             .swiper-button-next,
@@ -964,12 +1399,17 @@
             
             .thumbnails-grid {
                 grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
-                gap: 15px;
+                gap: 20px;
             }
             
             .categories-grid {
                 grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-                gap: 15px;
+                gap: 20px;
+            }
+            
+            .load-more-btn {
+                padding: 12px 30px;
+                font-size: 1rem;
             }
         }
 
@@ -1002,8 +1442,8 @@
             }
             
             .swiper {
-                height: 35vh;
-                min-height: 250px;
+                height: 45vh;
+                min-height: 300px;
             }
             
             .slide-overlay {
@@ -1016,14 +1456,18 @@
             
             .thumbnails-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .categories-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .lightbox-content {
-                max-width: 95%;
+                max-width: 100%;
+                border-radius: 0;
+                max-height: 100vh;
             }
             
             .lightbox-actions {
@@ -1033,6 +1477,11 @@
             .lightbox-download {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .load-more-btn {
+                padding: 10px 25px;
+                font-size: 0.9rem;
             }
         }
 
@@ -1053,8 +1502,12 @@
             }
             
             .swiper {
-                height: 30vh;
-                min-height: 200px;
+                height: 40vh;
+                min-height: 250px;
+            }
+            
+            .thumbnails-grid {
+                gap: 12px;
             }
         }
 
@@ -1065,7 +1518,7 @@
             }
             
             .swiper {
-                height: 50vh;
+                height: 70vh;
             }
             
             .thumbnails-grid {
@@ -1122,6 +1575,10 @@
             .lightbox-close:hover {
                 transform: none !important;
             }
+            
+            .swiper-slide img {
+                transform: scale(1) !important;
+            }
         }
     </style>
 </head>
@@ -1166,14 +1623,16 @@
         </div>
     </header>
     
-    
+    <!-- Hero Section -->
+   
     
     <!-- Slideshow Section -->
     <section class="slideshow-section">
-        <div class="section-title">
+        <div class="section-title" data-aos="fade-up">
+            <h2>أبرز الذكريات</h2>
         </div>
         
-        <div class="slideshow-container">
+        <div class="slideshow-container" data-aos="fade-up" data-aos-delay="200">
             <div class="swiper" id="mainSwiper">
                 <div class="swiper-wrapper" id="swiperWrapper">
                     <!-- Slides will be added by JavaScript -->
@@ -1191,7 +1650,7 @@
     
     <!-- Thumbnails Grid -->
     <section class="thumbnails-section" id="thumbnailsSection">
-        <div class="section-title">
+        <div class="section-title" data-aos="fade-up">
             <h2>جميع الصور</h2>
             <p>تصفح كامل مجموعتي من الذكريات المصورة</p>
         </div>
@@ -1199,11 +1658,19 @@
         <div class="thumbnails-grid" id="thumbnailsGrid">
             <!-- Thumbnails will be added by JavaScript -->
         </div>
+        
+        <!-- Load More Button -->
+        <div class="load-more-container" data-aos="fade-up">
+            <button class="load-more-btn" id="loadMoreBtn">
+                <i class="fas fa-plus"></i>
+                عرض المزيد من الصور
+            </button>
+        </div>
     </section>
     
     <!-- Categories Section -->
     <section class="categories-section" id="categoriesSection">
-        <div class="section-title">
+        <div class="section-title" data-aos="fade-up">
             <h2>الأقسام</h2>
             <p>اختر القسم الذي تود استعراضه</p>
         </div>
@@ -1261,21 +1728,24 @@
                     src: "images/t1.jpg",
                     title: "تصميم جرافيكي إبداعي",
                     description: "عمل فني يجمع بين التقنية والإبداع في تصميم جرافيكي احترافي",
-                    category: "work"
+                    category: "work",
+                    featured: true
                 },
                 {
                     id: 2,
                     src: "images/t2.jpg",
                     title: "واجهة ويب حديثة",
                     description: "تصميم واجهة مستخدم بتقنيات الويب المتطورة والعصرية",
-                    category: "work"
+                    category: "work",
+                    featured: true
                 },
                 {
                     id: 3,
                     src: "images/t3.jpg",
                     title: "هوية بصرية متكاملة",
                     description: "تصميم شامل يعبر عن هوية العلامة التجارية باحترافية",
-                    category: "work"
+                    category: "work",
+                    featured: true
                 },
                 {
                     id: 4,
@@ -1298,7 +1768,8 @@
                     src: "images/profile.jpg",
                     title: "لقطة شخصية احترافية",
                     description: "صورة شخصية تعبر عن الشخصية والمهنية بجودة عالية",
-                    category: "personal"
+                    category: "personal",
+                    featured: true
                 },
                 {
                     id: 7,
@@ -1326,16 +1797,18 @@
                     src: "images/g41.jpg",
                     title: "لحظة إنجاز مميزة",
                     description: "صورة تذكارية في لحظة فخر واعتزاز بإنجاز كبير",
-                    category: "personal"
+                    category: "personal",
+                    featured: true
                 },
                 
-                // صور افتراضية لأقسام أخرى
+                // صور إضافية للاختبار
                 {
                     id: 11,
                     src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop&q=80",
                     title: "يوم التخرج المجيد",
                     description: "لحظة تاريخية في مسيرة التعليم الأكاديمي",
-                    category: "graduation"
+                    category: "graduation",
+                    featured: true
                 },
                 {
                     id: 12,
@@ -1356,7 +1829,8 @@
                     src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=800&fit=crop&q=80",
                     title: "ورشة عمل تفاعلية",
                     description: "تعاون ومشاركة في ورشة عمل متميزة ومثمرة",
-                    category: "discussion"
+                    category: "discussion",
+                    featured: true
                 },
                 {
                     id: 15,
@@ -1370,7 +1844,66 @@
                     src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop&q=80",
                     title: "رحلة ومغامرة",
                     description: "مغامرات وتجارب جديدة ومثيرة في الحياة",
+                    category: "memories",
+                    featured: true
+                },
+                
+                // صور إضافية لنظام التحميل التدريجي
+                {
+                    id: 17,
+                    src: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1200&h=800&fit=crop&q=80",
+                    title: "لحظات ترفيهية",
+                    description: "أوقات ممتعة ومسلية في الأجواء الترفيهية",
                     category: "memories"
+                },
+                {
+                    id: 18,
+                    src: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1200&h=800&fit=crop&q=80",
+                    title: "إبداع فني مميز",
+                    description: "أعمال فنية تعبر عن الموهبة والإبداع",
+                    category: "work"
+                },
+                {
+                    id: 19,
+                    src: "https://images.unsplash.com/photo-1526779259212-939e64788e3c?w=1200&h=800&fit=crop&q=80",
+                    title: "مشاريع تقنية",
+                    description: "إنجازات في مجال التكنولوجيا والابتكار",
+                    category: "work"
+                },
+                {
+                    id: 20,
+                    src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&h=800&fit=crop&q=80",
+                    title: "صور شخصية احترافية",
+                    description: "لقطات شخصية بجودة احترافية",
+                    category: "personal"
+                },
+                {
+                    id: 21,
+                    src: "https://images.unsplash.com/photo-1494790108755-2616b786d4d1?w=1200&h=800&fit=crop&q=80",
+                    title: "ابتسامة تلقائية",
+                    description: "لحظات عفوية وابتسامات صادقة",
+                    category: "personal"
+                },
+                {
+                    id: 22,
+                    src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200&h=800&fit=crop&q=80",
+                    title: "تعبير فني",
+                    description: "أعمال تعبر عن المشاعر والأحاسيس",
+                    category: "work"
+                },
+                {
+                    id: 23,
+                    src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=1200&h=800&fit=crop&q=80",
+                    title: "شخصية قيادية",
+                    description: "لقطات تعبر عن القيادة والثقة",
+                    category: "personal"
+                },
+                {
+                    id: 24,
+                    src: "https://images.unsplash.com/photo-1521146764736-56c929d59c83?w=1200&h=800&fit=crop&q=80",
+                    title: "تعاون فريق عمل",
+                    description: "عمل جماعي وتناغم بين أعضاء الفريق",
+                    category: "work"
                 }
             ],
             
@@ -1424,6 +1957,9 @@
         let currentCategory = 'all';
         let mainSwiper = null;
         let currentLightboxImage = null;
+        let visibleImages = 8; // عدد الصور المعروضة في البداية
+        let imagesPerLoad = 8; // عدد الصور التي يتم تحميلها عند الضغط على "المزيد"
+        let currentDisplayedImages = [];
 
         // ===== تهيئة التطبيق =====
         document.addEventListener('DOMContentLoaded', () => {
@@ -1549,8 +2085,10 @@
         function initializeSlideshow() {
             const swiperWrapper = document.getElementById('swiperWrapper');
             
-            // عرض جميع الصور في الشرائح
-            galleryData.images.forEach((image, index) => {
+            // عرض الصور المميزة فقط في الشرائح
+            const featuredImages = galleryData.images.filter(img => img.featured);
+            
+            featuredImages.forEach((image, index) => {
                 const slide = document.createElement('div');
                 slide.className = 'swiper-slide';
                 
@@ -1587,26 +2125,20 @@
                 
                 // التمرير التلقائي
                 autoplay: {
-                    delay: 4000,
+                    delay: 5000,
                     disableOnInteraction: false,
                     pauseOnMouseEnter: true,
                 },
                 
                 // تأثيرات متنوعة
-                effect: 'creative',
-                creativeEffect: {
-                    prev: {
-                        shadow: true,
-                        translate: [0, 0, -400],
-                    },
-                    next: {
-                        translate: ['100%', 0, 0],
-                    },
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
                 },
                 
                 // التكبير
                 zoom: {
-                    maxRatio: 2,
+                    maxRatio: 3,
                     minRatio: 1,
                 },
                 
@@ -1643,6 +2175,14 @@
                 on: {
                     init: function () {
                         console.log('Swiper initialized successfully');
+                    },
+                    slideChange: function () {
+                        // إعادة ضبط تأثير الزوم عند تغيير الشريحة
+                        const activeSlide = this.slides[this.activeIndex];
+                        const img = activeSlide.querySelector('img');
+                        if (img) {
+                            img.style.transform = 'scale(1.05)';
+                        }
                     }
                 }
             });
@@ -1651,39 +2191,13 @@
         // ===== تهيئة الصور المصغرة =====
         function initializeThumbnails() {
             const grid = document.getElementById('thumbnailsGrid');
+            grid.innerHTML = '';
             
-            galleryData.images.forEach((image, index) => {
-                const item = document.createElement('div');
-                item.className = 'thumbnail-item';
-                item.setAttribute('data-aos', 'fade-up');
-                item.setAttribute('data-aos-delay', (index % 6) * 50);
-                item.setAttribute('data-category', image.category);
-                item.setAttribute('data-id', image.id);
-                
-                item.innerHTML = `
-                    <img 
-                        src="${image.src}" 
-                        alt="${image.title}"
-                        loading="lazy"
-                        onerror="this.src='${getFallbackImage(index)}'"
-                    >
-                    <div class="thumbnail-overlay">
-                        <div class="thumbnail-info">
-                            <h4 class="thumbnail-title">${image.title}</h4>
-                            <span class="thumbnail-category">${getCategoryName(image.category)}</span>
-                        </div>
-                        <button class="download-btn" onclick="downloadImage('${image.src}', '${image.title}')" aria-label="تحميل الصورة">
-                            <i class="fas fa-download"></i>
-                        </button>
-                    </div>
-                `;
-                
-                item.addEventListener('click', (e) => {
-                    if (!e.target.closest('.download-btn')) {
-                        openLightbox(image);
-                    }
-                });
-                
+            // عرض أول مجموعة من الصور فقط
+            currentDisplayedImages = galleryData.images.slice(0, visibleImages);
+            
+            currentDisplayedImages.forEach((image, index) => {
+                const item = createThumbnailItem(image, index);
                 grid.appendChild(item);
             });
             
@@ -1691,6 +2205,97 @@
             setTimeout(() => {
                 AOS.refresh();
             }, 500);
+            
+            // تحديث زر المزيد
+            updateLoadMoreButton();
+        }
+
+        // ===== إنشاء عنصر مصغر =====
+        function createThumbnailItem(image, index) {
+            const item = document.createElement('div');
+            item.className = 'thumbnail-item';
+            item.setAttribute('data-aos', 'fade-up');
+            item.setAttribute('data-aos-delay', (index % 8) * 50);
+            item.setAttribute('data-category', image.category);
+            item.setAttribute('data-id', image.id);
+            
+            item.innerHTML = `
+                <img 
+                    src="${image.src}" 
+                    alt="${image.title}"
+                    loading="lazy"
+                    onerror="this.src='${getFallbackImage(index)}'"
+                >
+                <div class="thumbnail-overlay">
+                    <div class="thumbnail-info">
+                        <h4 class="thumbnail-title">${image.title}</h4>
+                        <span class="thumbnail-category">${getCategoryName(image.category)}</span>
+                    </div>
+                    <button class="download-btn" onclick="downloadImage('${image.src}', '${image.title}')" aria-label="تحميل الصورة">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            `;
+            
+            item.addEventListener('click', (e) => {
+                if (!e.target.closest('.download-btn')) {
+                    openLightbox(image);
+                }
+            });
+            
+            return item;
+        }
+
+        // ===== تحميل المزيد من الصور =====
+        function loadMoreImages() {
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const grid = document.getElementById('thumbnailsGrid');
+            
+            // تعطيل الزر وإظهار حالة التحميل
+            loadMoreBtn.classList.add('loading');
+            loadMoreBtn.innerHTML = '<i class="fas fa-spinner"></i> جاري التحميل...';
+            
+            // محاكاة تأخير الشبكة
+            setTimeout(() => {
+                // حساب الصور التالية للتحميل
+                const currentLength = currentDisplayedImages.length;
+                const nextImages = galleryData.images.slice(currentLength, currentLength + imagesPerLoad);
+                
+                // إضافة الصور الجديدة
+                nextImages.forEach((image, index) => {
+                    const item = createThumbnailItem(image, currentLength + index);
+                    grid.appendChild(item);
+                });
+                
+                // تحديث الصور المعروضة
+                currentDisplayedImages = [...currentDisplayedImages, ...nextImages];
+                
+                // تحديث زر المزيد
+                updateLoadMoreButton();
+                
+                // إعادة تنشيط AOS للصور الجديدة
+                AOS.refresh();
+                
+                // إعادة ضبط الزر
+                loadMoreBtn.classList.remove('loading');
+                loadMoreBtn.innerHTML = '<i class="fas fa-plus"></i> عرض المزيد من الصور';
+                
+                // إظهار إشعار
+                showNotification(`تم تحميل ${nextImages.length} صورة جديدة`);
+            }, 800);
+        }
+
+        // ===== تحديث زر المزيد =====
+        function updateLoadMoreButton() {
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const remainingImages = galleryData.images.length - currentDisplayedImages.length;
+            
+            if (remainingImages > 0) {
+                loadMoreBtn.style.display = 'inline-flex';
+                loadMoreBtn.innerHTML = `<i class="fas fa-plus"></i> عرض المزيد (${remainingImages} صورة متبقية)`;
+            } else {
+                loadMoreBtn.style.display = 'none';
+            }
         }
 
         // ===== تهيئة الأقسام =====
@@ -1775,6 +2380,10 @@
                 }
             });
             
+            // زر المزيد
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            loadMoreBtn.addEventListener('click', loadMoreImages);
+            
             // Lightbox
             const lightbox = document.getElementById('lightbox');
             const closeLightbox = document.getElementById('closeLightbox');
@@ -1849,13 +2458,15 @@
             
             // إضافة مؤقت لتحميل الصورة بدقة عالية
             lightboxImage.src = '';
-            lightboxImage.src = image.src;
-            lightboxImage.alt = image.title;
-            lightboxTitle.textContent = image.title;
-            lightboxDescription.textContent = image.description;
-            
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                lightboxImage.src = image.src;
+                lightboxImage.alt = image.title;
+                lightboxTitle.textContent = image.title;
+                lightboxDescription.textContent = image.description;
+                
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 100);
         }
 
         // ===== تحميل الصورة =====
@@ -1875,6 +2486,12 @@
 
         // ===== إظهار إشعار =====
         function showNotification(message) {
+            // إزالة أي إشعارات سابقة
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.textContent = message;
@@ -1891,6 +2508,7 @@
                 box-shadow: var(--glow-primary);
                 font-size: 0.9rem;
                 max-width: calc(100% - 40px);
+                border: 2px solid rgba(255, 255, 255, 0.2);
             `;
             
             document.body.appendChild(notification);
@@ -1902,38 +2520,52 @@
 
         // ===== تصفير المعرض =====
         function filterGallery(categoryId) {
-            const thumbnails = document.querySelectorAll('.thumbnail-item');
+            const grid = document.getElementById('thumbnailsGrid');
+            grid.innerHTML = '';
             
-            thumbnails.forEach(thumb => {
-                if (categoryId === 'all' || thumb.getAttribute('data-category') === categoryId) {
-                    thumb.style.display = 'block';
-                    thumb.style.animation = 'fadeIn 0.5s ease';
-                } else {
-                    thumb.style.display = 'none';
-                }
+            // تصفية الصور حسب الفئة
+            let filteredImages;
+            if (categoryId === 'all') {
+                filteredImages = galleryData.images;
+            } else {
+                filteredImages = galleryData.images.filter(img => img.category === categoryId);
+            }
+            
+            // عرض أول مجموعة من الصور فقط
+            currentDisplayedImages = filteredImages.slice(0, visibleImages);
+            
+            currentDisplayedImages.forEach((image, index) => {
+                const item = createThumbnailItem(image, index);
+                grid.appendChild(item);
             });
+            
+            // تحديث زر المزيد
+            updateLoadMoreButton();
+            
+            // إعادة تنشيط AOS
+            setTimeout(() => {
+                AOS.refresh();
+            }, 300);
         }
 
         // ===== تحميل الصور المهمة مسبقًا =====
         function preloadImportantImages() {
-            // تحميل أول 3 صور من كل قسم مسبقًا
-            const importantImages = [];
+            // تحميل الصور المميزة أولاً
+            const featuredImages = galleryData.images.filter(img => img.featured);
             
-            galleryData.categories.forEach(category => {
-                if (category.id !== 'all') {
-                    const categoryImages = galleryData.images
-                        .filter(img => img.category === category.id)
-                        .slice(0, 3);
-                    importantImages.push(...categoryImages);
-                }
-            });
-            
-            // تحميل فريد للصور
-            const uniqueImages = [...new Set(importantImages)];
-            uniqueImages.forEach(image => {
+            featuredImages.forEach(image => {
                 const img = new Image();
                 img.src = image.src;
             });
+            
+            // تحميل باقي الصور في الخلفية
+            setTimeout(() => {
+                const otherImages = galleryData.images.filter(img => !img.featured);
+                otherImages.forEach(image => {
+                    const img = new Image();
+                    img.src = image.src;
+                });
+            }, 1000);
         }
 
         // ===== مساعدات =====
