@@ -312,7 +312,7 @@ class NameAnimation {
         
         // تأثير الطفو
         let floatDirection = 1;
-        let floatAmount = 0;
+        let floatAmount = 0; 
         
         const floatAnimation = () => {
             floatAmount += 0.1 * floatDirection;
@@ -339,16 +339,18 @@ class NameAnimation {
     setupTypedText() {
         if (!this.typedElement || typeof Typed === 'undefined') return;
         
-        const strings = [
-            'محلل ومبرمج نظم',
-            'مطور تطبيقات ويب',
-            'خبير قواعد بيانات',
-            'مصمم واجهات مستخدم',
-            'متخصص في الأرشفة الرقمية',
-            'حاصل على بكالوريوس علوم الحاسوب من جامعة القليم سبأ',
-            'خبرة 5+ سنوات في البرمجة',
-            'مطور حلول رقمية '
-        ];
+      const strings = [
+    'محلل ومبرمج نظم خبير',
+    'مطور تطبيقات ويب (Full-Stack)',
+    'أخصائي إدارة وقواعد بيانات',
+    'مصمم واجهات وتجربة المستخدم (UI/UX)',
+    'متخصص في حلول الأرشفة الرقمية',
+    'بكالوريوس علوم حاسوب - جامعة إقليم سبأ',
+    'خبرة مهنية تزيد عن 5 سنوات في البرمجة',
+    'مطور حلول رقمية تقنية',
+    'إتقان تام لحزمة برامج Microsoft Office',
+    'إجادة الطباعة السريعة باللغتين العربية والإنجليزية'
+];
         
         try {
             new Typed('#typed', {
