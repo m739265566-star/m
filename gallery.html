@@ -19,18 +19,6 @@
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- LazyLoad CSS -->
-    <style>
-        .lazy-load {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .lazy-load.loaded {
-            opacity: 1;
-        }
-    </style>
-    
     <style>
         /* ===== CSS Reset & Variables ===== */
         :root {
@@ -62,10 +50,6 @@
             /* Transitions */
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Shadows */
-            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            --shadow-xl: 0 35px 60px -15px rgba(0, 0, 0, 0.6);
         }
 
         * {
@@ -86,53 +70,6 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
-        }
-
-        /* ===== Loading Screen ===== */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--dark);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .loading-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(138, 43, 226, 0.2);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        .loading-text {
-            font-family: 'El Messiri', serif;
-            font-size: 1.2rem;
-            color: var(--light);
-            background: linear-gradient(45deg, var(--primary), var(--accent2));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-align: center;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         /* ===== Floating Particles ===== */
@@ -209,13 +146,6 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem 0;
             transition: var(--transition);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .main-header.scrolled {
-            padding: 0.7rem 0;
-            background: rgba(10, 10, 20, 0.98);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
         }
 
         .header-container {
@@ -235,7 +165,6 @@
             gap: 10px;
             text-decoration: none;
             z-index: 1001;
-            padding: 5px;
         }
 
         .logo-icon {
@@ -249,7 +178,6 @@
             font-size: 1.2rem;
             color: var(--light);
             animation: logoGlow 2s infinite alternate;
-            transition: var(--transition);
         }
 
         @keyframes logoGlow {
@@ -276,15 +204,6 @@
             background-clip: text;
             color: transparent;
             text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
-            transition: var(--transition);
-        }
-
-        .logo:hover .logo-icon {
-            transform: rotate(15deg) scale(1.1);
-        }
-
-        .logo:hover .logo-text {
-            text-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
         }
 
         /* ===== Mobile Menu Button ===== */
@@ -302,30 +221,6 @@
             align-items: center;
             justify-content: center;
             z-index: 1001;
-            position: relative;
-        }
-
-        .mobile-menu-btn::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            border-radius: 12px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .mobile-menu-btn:hover::before {
-            opacity: 1;
-        }
-
-        .mobile-menu-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.05);
         }
 
         /* ===== Mini Categories ===== */
@@ -453,41 +348,6 @@
             box-shadow: var(--glow-accent);
         }
 
-        /* ===== Scroll to Top Button ===== */
-        .scroll-to-top {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            z-index: 999;
-            box-shadow: var(--glow-primary);
-        }
-
-        .scroll-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .scroll-to-top:hover {
-            background: var(--gradient-accent);
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: var(--glow-accent);
-        }
-
         /* ===== Hero Section ===== */
         .hero-section {
             min-height: 100vh;
@@ -547,39 +407,6 @@
             margin-right: auto;
         }
 
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 40px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 20px;
-            min-width: 150px;
-        }
-
-        .stat-number {
-            font-family: 'El Messiri', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .stat-label {
-            color: var(--gray);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
         /* ===== Slideshow Section ===== */
         .slideshow-section {
             padding: 60px 20px;
@@ -590,7 +417,6 @@
             text-align: center;
             margin-bottom: 40px;
             position: relative;
-            padding-bottom: 20px;
         }
 
         .section-title h2 {
@@ -603,7 +429,6 @@
             background-clip: text;
             color: transparent;
             text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
-            display: inline-block;
         }
 
         .section-title p {
@@ -814,7 +639,6 @@
                 rgba(75, 0, 130, 0.1));
             border: 2px solid transparent;
             transition: var(--transition);
-            animation: thumbnailFloat 6s ease-in-out infinite alternate;
         }
 
         @keyframes thumbnailFloat {
@@ -1022,6 +846,11 @@
 
         .load-more-btn.loading i {
             animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* ===== Categories Section ===== */
@@ -1459,107 +1288,6 @@
             box-shadow: 0 0 30px rgba(138, 43, 226, 0.7);
         }
 
-        /* ===== Image Info Modal ===== */
-        .image-info-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 20px;
-        }
-
-        .image-info-modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .image-info-content {
-            background: var(--dark-light);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 500px;
-            width: 100%;
-            border: 2px solid var(--primary);
-            box-shadow: var(--glow-primary);
-        }
-
-        .image-info-title {
-            color: white;
-            font-family: 'El Messiri', serif;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .image-info-details {
-            color: var(--gray);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .image-info-details p {
-            margin-bottom: 10px;
-        }
-
-        /* ===== Quick View Modal ===== */
-        .quick-view-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 20px;
-        }
-
-        .quick-view-modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .quick-view-content {
-            max-width: 600px;
-            width: 100%;
-            background: var(--dark-light);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 2px solid var(--primary);
-            box-shadow: var(--glow-primary);
-        }
-
-        .quick-view-img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-
-        .quick-view-info {
-            padding: 20px;
-        }
-
-        .quick-view-title {
-            color: white;
-            font-family: 'El Messiri', serif;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-
-        .quick-view-description {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
         /* ===== Responsive Design ===== */
         @media (max-width: 1200px) {
             .header-container {
@@ -1594,10 +1322,6 @@
             
             .lightbox-content {
                 max-width: 95%;
-            }
-            
-            .hero-stats {
-                gap: 30px;
             }
         }
 
@@ -1686,19 +1410,6 @@
                 padding: 12px 30px;
                 font-size: 1rem;
             }
-            
-            .hero-stats {
-                gap: 20px;
-            }
-            
-            .stat-item {
-                min-width: 120px;
-                padding: 15px;
-            }
-            
-            .stat-number {
-                font-size: 2rem;
-            }
         }
 
         @media (max-width: 576px) {
@@ -1771,23 +1482,6 @@
                 padding: 10px 25px;
                 font-size: 0.9rem;
             }
-            
-            .scroll-to-top {
-                bottom: 20px;
-                left: 20px;
-                width: 45px;
-                height: 45px;
-                font-size: 1.1rem;
-            }
-            
-            .hero-stats {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .stat-item {
-                min-width: 100%;
-            }
         }
 
         @media (max-width: 375px) {
@@ -1814,14 +1508,6 @@
             .thumbnails-grid {
                 gap: 12px;
             }
-            
-            .scroll-to-top {
-                bottom: 15px;
-                left: 15px;
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
         }
 
         @media (orientation: landscape) and (max-height: 500px) {
@@ -1841,18 +1527,17 @@
 
         /* ===== Custom Scrollbar ===== */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb {
             background: var(--gradient-primary);
-            border-radius: 5px;
-            border: 2px solid rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
@@ -1897,12 +1582,6 @@
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader"></div>
-        <div class="loading-text">جاري تحميل معرض الذكريات...</div>
-    </div>
-    
     <!-- Floating Particles -->
     <div class="particles" id="particles"></div>
     
@@ -1910,7 +1589,7 @@
     <div class="glowing-orbs" id="glowingOrbs"></div>
     
     <!-- Header -->
-    <header class="main-header" id="mainHeader">
+    <header class="main-header">
         <div class="header-container">
             <!-- Logo -->
             <a href="#" class="logo">
@@ -1943,44 +1622,15 @@
         </div>
     </header>
     
-    <!-- Scroll to Top Button -->
-    <button class="scroll-to-top" id="scrollToTop" aria-label="الانتقال إلى الأعلى">
-        <i class="fas fa-chevron-up"></i>
-    </button>
-    
     <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title" data-aos="fade-up">معرض الذكريات الشخصي</h1>
-                <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
-                    أهلاً وسهلاً في معرض ذكرياتي المصور، حيث تجتمع اللحظات الثمينة في مكان واحد
-                </p>
-                
-                <!-- Statistics -->
-                <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
-                    <div class="stat-item">
-                        <span class="stat-number" id="totalPhotos">0</span>
-                        <span class="stat-label">صورة</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="totalCategories">0</span>
-                        <span class="stat-label">قسم</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="totalViews">0</span>
-                        <span class="stat-label">زيارة</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
     
     <!-- Slideshow Section -->
     <section class="slideshow-section">
         <div class="section-title" data-aos="fade-up">
-            <h2>أبرز الذكريات</h2>
-            <p>استمتع بعرض شرائح لأهم اللحظات في حياتي</p>
+           
+            <h2>أبرز الصور</h2>
+            
         </div>
         
         <div class="slideshow-container" data-aos="fade-up" data-aos-delay="200">
@@ -2060,31 +1710,6 @@
                         <i class="fas fa-download"></i>
                         تحميل الصورة
                     </button>
-                    <button class="lightbox-download" id="shareImage">
-                        <i class="fas fa-share-alt"></i>
-                        مشاركة
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Quick View Modal -->
-    <div class="quick-view-modal" id="quickViewModal">
-        <div class="quick-view-content">
-            <img class="quick-view-img" id="quickViewImage" src="" alt="">
-            <div class="quick-view-info">
-                <h3 class="quick-view-title" id="quickViewTitle"></h3>
-                <p class="quick-view-description" id="quickViewDescription"></p>
-                <div class="lightbox-actions">
-                    <button class="lightbox-download" id="quickViewOpen">
-                        <i class="fas fa-expand"></i>
-                        فتح كامل
-                    </button>
-                    <button class="lightbox-download" id="quickViewClose">
-                        <i class="fas fa-times"></i>
-                        إغلاق
-                    </button>
                 </div>
             </div>
         </div>
@@ -2105,10 +1730,7 @@
                     title: "تصميم جرافيكي إبداعي",
                     description: "عمل فني يجمع بين التقنية والإبداع في تصميم جرافيكي احترافي",
                     category: "work",
-                    featured: true,
-                    date: "2024-03-15",
-                    size: "2.4 MB",
-                    dimensions: "1920x1080"
+                    featured: true
                 },
                 {
                     id: 2,
@@ -2116,10 +1738,7 @@
                     title: "واجهة ويب حديثة",
                     description: "تصميم واجهة مستخدم بتقنيات الويب المتطورة والعصرية",
                     category: "work",
-                    featured: true,
-                    date: "2024-03-10",
-                    size: "1.8 MB",
-                    dimensions: "1920x1080"
+                    featured: true
                 },
                 {
                     id: 3,
@@ -2127,30 +1746,21 @@
                     title: "هوية بصرية متكاملة",
                     description: "تصميم شامل يعبر عن هوية العلامة التجارية باحترافية",
                     category: "work",
-                    featured: true,
-                    date: "2024-03-05",
-                    size: "3.1 MB",
-                    dimensions: "2560x1440"
+                    featured: true
                 },
                 {
                     id: 4,
                     src: "images/t4.jpg",
                     title: "إعلان متميز",
                     description: "تصميم إعلاني جذاب يوصل الرسالة بشكل فعال",
-                    category: "work",
-                    date: "2024-02-28",
-                    size: "2.2 MB",
-                    dimensions: "1920x1080"
+                    category: "work"
                 },
                 {
                     id: 5,
                     src: "images/t5.jpg",
                     title: "عرض تقديمي احترافي",
                     description: "تصميم شرائح عالية الجودة للعروض التقديمية المهمة",
-                    category: "work",
-                    date: "2024-02-20",
-                    size: "1.5 MB",
-                    dimensions: "1920x1080"
+                    category: "work"
                 },
                 
                 // صور شخصية
@@ -2160,40 +1770,28 @@
                     title: "لقطة شخصية احترافية",
                     description: "صورة شخصية تعبر عن الشخصية والمهنية بجودة عالية",
                     category: "personal",
-                    featured: true,
-                    date: "2024-03-12",
-                    size: "2.8 MB",
-                    dimensions: "2000x2000"
+                    featured: true
                 },
                 {
                     id: 7,
                     src: "images/profile.jpeg",
                     title: "لقطة تذكارية مميزة",
                     description: "صورة شخصية في لحظة خاصة وجميلة لا تنسى",
-                    category: "personal",
-                    date: "2024-03-01",
-                    size: "2.1 MB",
-                    dimensions: "1500x1500"
+                    category: "personal"
                 },
                 {
                     id: 8,
                     src: "images/ind.png",
                     title: "تعبير فني شخصي",
                     description: "عمل فني يعبر عن الشخصية المستقلة والإبداعية",
-                    category: "personal",
-                    date: "2024-02-15",
-                    size: "1.9 MB",
-                    dimensions: "1920x1080"
+                    category: "personal"
                 },
                 {
                     id: 9,
                     src: "images/pal.png",
                     title: "إبداع وتفرد فني",
                     description: "تصميم فني يعبر عن التفرد والإبداع الشخصي",
-                    category: "personal",
-                    date: "2024-02-10",
-                    size: "2.5 MB",
-                    dimensions: "1920x1080"
+                    category: "personal"
                 },
                 {
                     id: 10,
@@ -2201,10 +1799,7 @@
                     title: "لحظة إنجاز مميزة",
                     description: "صورة تذكارية في لحظة فخر واعتزاز بإنجاز كبير",
                     category: "personal",
-                    featured: true,
-                    date: "2024-02-05",
-                    size: "3.2 MB",
-                    dimensions: "2560x1440"
+                    featured: true
                 },
                 
                 // صور إضافية للاختبار
@@ -2214,30 +1809,21 @@
                     title: "يوم التخرج المجيد",
                     description: "لحظة تاريخية في مسيرة التعليم الأكاديمي",
                     category: "graduation",
-                    featured: true,
-                    date: "2024-01-30",
-                    size: "2.7 MB",
-                    dimensions: "1920x1080"
+                    featured: true
                 },
                 {
                     id: 12,
                     src: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&h=800&fit=crop&q=80",
                     title: "حفل التكريم والتخرج",
                     description: "احتفال بالإنجازات الأكاديمية والتميز العلمي",
-                    category: "graduation",
-                    date: "2024-01-25",
-                    size: "2.3 MB",
-                    dimensions: "1920x1080"
+                    category: "graduation"
                 },
                 {
                     id: 13,
                     src: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?w=1200&h=800&fit=crop&q=80",
                     title: "جلسة مناقشة علمية",
                     description: "حوار علمي مثمر وبناء مع الخبراء والمتخصصين",
-                    category: "discussion",
-                    date: "2024-01-20",
-                    size: "2.0 MB",
-                    dimensions: "1920x1080"
+                    category: "discussion"
                 },
                 {
                     id: 14,
@@ -2245,20 +1831,14 @@
                     title: "ورشة عمل تفاعلية",
                     description: "تعاون ومشاركة في ورشة عمل متميزة ومثمرة",
                     category: "discussion",
-                    featured: true,
-                    date: "2024-01-15",
-                    size: "2.6 MB",
-                    dimensions: "1920x1080"
+                    featured: true
                 },
                 {
                     id: 15,
                     src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&h=800&fit=crop&q=80",
                     title: "ذكريات جميلة",
                     description: "لحظات سعيدة لا تنسى من الذاكرة الجميلة",
-                    category: "memories",
-                    date: "2024-01-10",
-                    size: "2.4 MB",
-                    dimensions: "1920x1080"
+                    category: "memories"
                 },
                 {
                     id: 16,
@@ -2266,10 +1846,7 @@
                     title: "رحلة ومغامرة",
                     description: "مغامرات وتجارب جديدة ومثيرة في الحياة",
                     category: "memories",
-                    featured: true,
-                    date: "2024-01-05",
-                    size: "3.0 MB",
-                    dimensions: "2560x1440"
+                    featured: true
                 },
                 
                 // صور إضافية لنظام التحميل التدريجي
@@ -2278,80 +1855,56 @@
                     src: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1200&h=800&fit=crop&q=80",
                     title: "لحظات ترفيهية",
                     description: "أوقات ممتعة ومسلية في الأجواء الترفيهية",
-                    category: "memories",
-                    date: "2023-12-28",
-                    size: "2.2 MB",
-                    dimensions: "1920x1080"
+                    category: "memories"
                 },
                 {
                     id: 18,
                     src: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1200&h=800&fit=crop&q=80",
                     title: "إبداع فني مميز",
                     description: "أعمال فنية تعبر عن الموهبة والإبداع",
-                    category: "work",
-                    date: "2023-12-20",
-                    size: "2.5 MB",
-                    dimensions: "1920x1080"
+                    category: "work"
                 },
                 {
                     id: 19,
                     src: "https://images.unsplash.com/photo-1526779259212-939e64788e3c?w=1200&h=800&fit=crop&q=80",
                     title: "مشاريع تقنية",
                     description: "إنجازات في مجال التكنولوجيا والابتكار",
-                    category: "work",
-                    date: "2023-12-15",
-                    size: "2.1 MB",
-                    dimensions: "1920x1080"
+                    category: "work"
                 },
                 {
                     id: 20,
                     src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&h=800&fit=crop&q=80",
                     title: "صور شخصية احترافية",
                     description: "لقطات شخصية بجودة احترافية",
-                    category: "personal",
-                    date: "2023-12-10",
-                    size: "2.8 MB",
-                    dimensions: "2000x2000"
+                    category: "personal"
                 },
                 {
                     id: 21,
                     src: "https://images.unsplash.com/photo-1494790108755-2616b786d4d1?w=1200&h=800&fit=crop&q=80",
                     title: "ابتسامة تلقائية",
                     description: "لحظات عفوية وابتسامات صادقة",
-                    category: "personal",
-                    date: "2023-12-05",
-                    size: "2.3 MB",
-                    dimensions: "1500x1500"
+                    category: "personal"
                 },
                 {
                     id: 22,
                     src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200&h=800&fit=crop&q=80",
                     title: "تعبير فني",
                     description: "أعمال تعبر عن المشاعر والأحاسيس",
-                    category: "work",
-                    date: "2023-11-30",
-                    size: "2.4 MB",
-                    dimensions: "1920x1080"
+                    category: "work"
                 },
                 {
                     id: 23,
                     src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=1200&h=800&fit=crop&q=80",
                     title: "شخصية قيادية",
                     description: "لقطات تعبر عن القيادة والثقة",
-                    category: "personal",
-                    date: "2023-11-25",
-                    size: "2.6 MB",
-                    dimensions: "2000x2000"
+                    category: "personal"
                 },
                 {
                     id: 24,
                     src: "https://images.unsplash.com/photo-1521146764736-56c929d59c83?w=1200&h=800&fit=crop&q=80",
                     title: "تعاون فريق عمل",
                     description: "عمل جماعي وتناغم بين أعضاء الفريق",
-                    category: "work",
-                    date: "2023-11-20",
-                    size: "2.7 MB",
-                    dimensions: "1920x1080"
+                    category: "work"
                 }
             ],
             
@@ -2405,25 +1958,12 @@
         let currentCategory = 'all';
         let mainSwiper = null;
         let currentLightboxImage = null;
-        let visibleImages = 8;
-        let imagesPerLoad = 8;
+        let visibleImages = 8; // عدد الصور المعروضة في البداية
+        let imagesPerLoad = 8; // عدد الصور التي يتم تحميلها عند الضغط على "المزيد"
         let currentDisplayedImages = [];
-        let totalViews = localStorage.getItem('galleryViews') || 0;
 
         // ===== تهيئة التطبيق =====
         document.addEventListener('DOMContentLoaded', () => {
-            // زيادة عدد الزيارات
-            totalViews++;
-            localStorage.setItem('galleryViews', totalViews);
-            
-            // إخفاء شاشة التحميل بعد 2 ثانية
-            setTimeout(() => {
-                document.getElementById('loadingScreen').classList.add('hidden');
-                initializeApp();
-            }, 2000);
-        });
-
-        function initializeApp() {
             AOS.init({
                 duration: 800,
                 once: true,
@@ -2438,35 +1978,7 @@
             initializeCategories();
             setupEventListeners();
             preloadImportantImages();
-            updateStatistics();
-            setupIntersectionObserver();
-            
-            console.log('🎨 معرض الذكريات الشخصي جاهز للاستخدام!');
-        }
-
-        // ===== تحديث الإحصائيات =====
-        function updateStatistics() {
-            document.getElementById('totalPhotos').textContent = galleryData.images.length;
-            document.getElementById('totalCategories').textContent = galleryData.categories.length;
-            document.getElementById('totalViews').textContent = totalViews.toLocaleString();
-            
-            // تأثير العد التدريجي
-            const counters = document.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
-                const target = parseInt(counter.textContent.replace(/,/g, ''));
-                const increment = target / 100;
-                let current = 0;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    counter.textContent = Math.floor(current).toLocaleString();
-                }, 20);
-            });
-        }
+        });
 
         // ===== إنشاء الجسيمات العائمة =====
         function createParticles() {
@@ -2627,8 +2139,8 @@
                 
                 // التكبير
                 zoom: {
-                    maxRatio: 3,
-                    minRatio: 1,
+                    maxRatio: 4,
+                    minRatio: 4,
                 },
                 
                 // الترقيم
@@ -2714,7 +2226,6 @@
                     alt="${image.title}"
                     loading="lazy"
                     onerror="this.src='${getFallbackImage(index)}'"
-                    class="lazy-load"
                 >
                 <div class="thumbnail-overlay">
                     <div class="thumbnail-info">
@@ -2731,12 +2242,6 @@
                 if (!e.target.closest('.download-btn')) {
                     openLightbox(image);
                 }
-            });
-            
-            // إضافة تأثير التحميل المتدرج
-            const img = item.querySelector('img');
-            img.addEventListener('load', () => {
-                img.classList.add('loaded');
             });
             
             return item;
@@ -2880,20 +2385,10 @@
             const loadMoreBtn = document.getElementById('loadMoreBtn');
             loadMoreBtn.addEventListener('click', loadMoreImages);
             
-            // زر الانتقال للأعلى
-            const scrollToTopBtn = document.getElementById('scrollToTop');
-            scrollToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
             // Lightbox
             const lightbox = document.getElementById('lightbox');
             const closeLightbox = document.getElementById('closeLightbox');
             const downloadImageBtn = document.getElementById('downloadImage');
-            const shareImageBtn = document.getElementById('shareImage');
             
             closeLightbox.addEventListener('click', () => {
                 lightbox.classList.remove('active');
@@ -2903,37 +2398,6 @@
             lightbox.addEventListener('click', (e) => {
                 if (e.target === lightbox) {
                     lightbox.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-            
-            // زر المشاركة
-            shareImageBtn.addEventListener('click', () => {
-                if (currentLightboxImage) {
-                    shareImage(currentLightboxImage);
-                }
-            });
-            
-            // Quick View Modal
-            const quickViewModal = document.getElementById('quickViewModal');
-            const quickViewClose = document.getElementById('quickViewClose');
-            const quickViewOpen = document.getElementById('quickViewOpen');
-            
-            quickViewClose.addEventListener('click', () => {
-                quickViewModal.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-            
-            quickViewOpen.addEventListener('click', () => {
-                quickViewModal.classList.remove('active');
-                if (currentLightboxImage) {
-                    openLightbox(currentLightboxImage);
-                }
-            });
-            
-            quickViewModal.addEventListener('click', (e) => {
-                if (e.target === quickViewModal) {
-                    quickViewModal.classList.remove('active');
                     document.body.style.overflow = '';
                 }
             });
@@ -2949,10 +2413,6 @@
                         miniCategoriesContainer.classList.remove('active');
                         document.body.style.overflow = '';
                     }
-                    if (quickViewModal.classList.contains('active')) {
-                        quickViewModal.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
                 }
             });
             
@@ -2964,30 +2424,15 @@
             
             // إخفاء الهيدر عند التمرير
             let lastScrollTop = 0;
-            const header = document.getElementById('mainHeader');
+            const header = document.querySelector('.main-header');
             
             window.addEventListener('scroll', () => {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 
-                // إظهار/إخفاء الهيدر
                 if (scrollTop > lastScrollTop && scrollTop > 100) {
                     header.style.transform = 'translateY(-100%)';
                 } else {
                     header.style.transform = 'translateY(0)';
-                }
-                
-                // إضافة/إزالة كلاس scrolled
-                if (scrollTop > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-                
-                // إظهار/إخفاء زر الانتقال للأعلى
-                if (scrollTop > 500) {
-                    scrollToTopBtn.classList.add('visible');
-                } else {
-                    scrollToTopBtn.classList.remove('visible');
                 }
                 
                 lastScrollTop = scrollTop;
@@ -3025,24 +2470,6 @@
             }, 100);
         }
 
-        // ===== فتح Quick View =====
-        function openQuickView(image) {
-            currentLightboxImage = image;
-            
-            const quickViewModal = document.getElementById('quickViewModal');
-            const quickViewImage = document.getElementById('quickViewImage');
-            const quickViewTitle = document.getElementById('quickViewTitle');
-            const quickViewDescription = document.getElementById('quickViewDescription');
-            
-            quickViewImage.src = image.src;
-            quickViewImage.alt = image.title;
-            quickViewTitle.textContent = image.title;
-            quickViewDescription.textContent = image.description;
-            
-            quickViewModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
         // ===== تحميل الصورة =====
         function downloadImage(imageSrc, imageTitle) {
             const link = document.createElement('a');
@@ -3056,29 +2483,6 @@
             
             // إشعار تحميل
             showNotification('جاري تحميل الصورة...');
-        }
-
-        // ===== مشاركة الصورة =====
-        function shareImage(image) {
-            if (navigator.share) {
-                navigator.share({
-                    title: image.title,
-                    text: image.description,
-                    url: image.src,
-                })
-                .then(() => console.log('تم المشاركة بنجاح'))
-                .catch((error) => console.log('خطأ في المشاركة:', error));
-            } else {
-                // نسخ الرابط إلى الحافظة
-                navigator.clipboard.writeText(image.src)
-                    .then(() => {
-                        showNotification('تم نسخ رابط الصورة إلى الحافظة');
-                    })
-                    .catch(err => {
-                        console.error('خطأ في النسخ:', err);
-                        showNotification('تعذر نسخ الرابط');
-                    });
-            }
         }
 
         // ===== إظهار إشعار =====
@@ -3106,7 +2510,6 @@
                 font-size: 0.9rem;
                 max-width: calc(100% - 40px);
                 border: 2px solid rgba(255, 255, 255, 0.2);
-                backdrop-filter: blur(10px);
             `;
             
             document.body.appendChild(notification);
@@ -3164,33 +2567,6 @@
                     img.src = image.src;
                 });
             }, 1000);
-        }
-
-        // ===== Intersection Observer للتحميل المتدرج =====
-        function setupIntersectionObserver() {
-            const options = {
-                root: null,
-                rootMargin: '50px',
-                threshold: 0.1
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        if (img.dataset.src) {
-                            img.src = img.dataset.src;
-                            img.removeAttribute('data-src');
-                        }
-                        observer.unobserve(img);
-                    }
-                });
-            }, options);
-            
-            // مراقبة جميع الصور
-            document.querySelectorAll('img[data-src]').forEach(img => {
-                observer.observe(img);
-            });
         }
 
         // ===== مساعدات =====
@@ -3284,6 +2660,9 @@
                 });
             });
         }
+
+        // ===== تهيئة كاملة =====
+        console.log('🎨 معرض الذكريات الشخصي جاهز للاستخدام!');
     </script>
 </body>
 </html>
