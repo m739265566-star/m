@@ -2140,38 +2140,15 @@ class ProjectsSection {
         modal.className = 'project-modal';
         modal.innerHTML = `
             <div class="modal-content">
-                <div class="modal-header">
-                    <h3><i class="fas fa-project-diagram"></i> ${title}</h3>
-                    <button class="modal-close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="project-details">
-                        <p class="description">${description}</p>
-                        
-                        <div class="technologies">
-                            <h4><i class="fas fa-tools"></i> التقنيات المستخدمة</h4>
-                            <div class="tech-tags">
-                                ${technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                            </div>
-                        </div>
-                        
-                        <div class="project-features">
-                            <h4><i class="fas fa-star"></i> المميزات</h4>
-                            <ul>
-                                <li>تصميم متجاوب وعصري</li>
-                                <li>واجهة مستخدم سهلة الاستخدام</li>
-                                <li>أداء عالي وسريع</li>
-                                <li>توافق مع جميع المتصفحات</li>
-                            </ul>
-                        </div>
+               
+              
+                      
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary">
-                        <i class="fas fa-eye"></i> عرض المشروع
                     </button>
                     <button class="btn btn-outline-primary">
-                        <i class="fas fa-code"></i> عرض الكود
                     </button>
                 </div>
             </div>
