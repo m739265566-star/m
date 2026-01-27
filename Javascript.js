@@ -340,7 +340,7 @@ class NameAnimation {
         if (!this.typedElement || typeof Typed === 'undefined') return;
         
       const strings = [
-    'محلل ومبرمج نظم خبير',
+    'محلل ومبرمج نظم ',
     'مطور تطبيقات ويب (Full-Stack)',
     'أخصائي إدارة وقواعد بيانات',
     'مصمم واجهات وتجربة المستخدم (UI/UX)',
