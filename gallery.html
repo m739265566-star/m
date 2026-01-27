@@ -72,6 +72,75 @@
             position: relative;
         }
 
+        /* ===== Loading States ===== */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(138, 43, 226, 0.3);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            color: var(--light);
+            font-size: 1.2rem;
+            font-family: 'El Messiri', serif;
+        }
+
+        /* ===== Image Loading Animation ===== */
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .image-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(10, 10, 20, 0.8) 0%, 
+                rgba(26, 26, 46, 0.9) 50%, 
+                rgba(10, 10, 20, 0.8) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            z-index: 1;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .image-loaded {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .image-loaded.active {
+            opacity: 1;
+        }
+
         /* ===== Floating Particles ===== */
         .particles {
             position: fixed;
@@ -348,65 +417,6 @@
             box-shadow: var(--glow-accent);
         }
 
-        /* ===== Hero Section ===== */
-        .hero-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 100px 20px 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-title {
-            font-family: 'El Messiri', serif;
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, var(--primary), var(--accent2), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: titleGlow 3s infinite alternate;
-            text-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
-        }
-
-        @keyframes titleGlow {
-            0% { 
-                text-shadow: 
-                    0 0 20px rgba(138, 43, 226, 0.5),
-                    0 0 40px rgba(138, 43, 226, 0.2);
-            }
-            100% { 
-                text-shadow: 
-                    0 0 40px rgba(255, 20, 147, 0.7),
-                    0 0 60px rgba(255, 20, 147, 0.3);
-            }
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1rem, 3vw, 1.3rem);
-            color: var(--gray);
-            margin-bottom: 2rem;
-            line-height: 1.6;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
         /* ===== Slideshow Section ===== */
         .slideshow-section {
             padding: 60px 20px;
@@ -487,19 +497,30 @@
             background: var(--dark);
         }
 
+        .swiper-slide .image-container {
+            width: 100%;
+            height: 100%;
+        }
+
         .swiper-slide img {
-            width: auto;
-            height: auto;
-            max-width: 100%;
-            max-height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            transition: transform 5s ease;
+            transition: transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
+            image-rendering: pixelated;
+            transform-origin: center center;
         }
 
         .swiper-slide-active img {
-            transform: scale(1.05);
+            transform: scale(1.1);
+            animation: subtleZoom 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtleZoom {
+            0% { transform: scale(1.05); }
+            100% { transform: scale(1.1); }
         }
 
         .slide-overlay {
@@ -510,7 +531,7 @@
             padding: 30px;
             background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
             transform: translateY(100%);
-            transition: transform 0.8s ease;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .swiper-slide-active .slide-overlay {
@@ -641,21 +662,6 @@
             transition: var(--transition);
         }
 
-        @keyframes thumbnailFloat {
-            0%, 100% { 
-                transform: translateY(0);
-                box-shadow: 
-                    0 10px 20px rgba(138, 43, 226, 0.2),
-                    0 0 0 2px rgba(138, 43, 226, 0.1);
-            }
-            50% { 
-                transform: translateY(-10px);
-                box-shadow: 
-                    0 15px 30px rgba(138, 43, 226, 0.3),
-                    0 0 0 3px rgba(138, 43, 226, 0.15);
-            }
-        }
-
         .thumbnail-item::before {
             content: '';
             position: absolute;
@@ -686,19 +692,23 @@
             box-shadow: 
                 var(--glow-primary),
                 0 0 0 4px rgba(138, 43, 226, 0.2);
-            animation: none;
+        }
+
+        .thumbnail-item .image-container {
+            width: 100%;
+            height: 100%;
         }
 
         .thumbnail-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.8s ease;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             image-rendering: -webkit-optimize-contrast;
         }
 
         .thumbnail-item:hover img {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
         .thumbnail-overlay {
@@ -709,7 +719,7 @@
             background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
             padding: 20px;
             transform: translateY(100%);
-            transition: transform 0.5s ease;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -940,11 +950,11 @@
             background-size: cover;
             background-position: center;
             filter: brightness(0.7);
-            transition: transform 0.8s ease;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .category-card:hover .category-bg {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
         .category-content {
@@ -1150,15 +1160,26 @@
             }
         }
 
+        .lightbox-img-container {
+            position: relative;
+            width: 100%;
+            max-height: 70vh;
+            overflow: hidden;
+            background: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .lightbox-img {
             width: 100%;
             height: auto;
             max-height: 70vh;
             object-fit: contain;
             display: block;
-            background: var(--dark);
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
+            transition: opacity 0.5s ease;
         }
 
         .lightbox-info {
@@ -1286,6 +1307,26 @@
             transform: rotate(90deg) scale(1.1);
             background: var(--primary);
             box-shadow: 0 0 30px rgba(138, 43, 226, 0.7);
+        }
+
+        /* ===== Progressive Loading Indicator ===== */
+        .image-progress {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            z-index: 2;
+        }
+
+        .image-progress-ring {
+            width: 100%;
+            height: 100%;
+            border: 3px solid rgba(138, 43, 226, 0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
         /* ===== Responsive Design ===== */
@@ -1582,6 +1623,12 @@
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">جاري تحميل المعرض...</div>
+    </div>
+    
     <!-- Floating Particles -->
     <div class="particles" id="particles"></div>
     
@@ -1622,14 +1669,11 @@
         </div>
     </header>
     
-    <!-- Hero Section -->
-    
-    
     <!-- Slideshow Section -->
     <section class="slideshow-section">
         <div class="section-title" data-aos="fade-up">
-           
-            
+            <h2>عرض الشرائح</h2>
+            <p>تصفح أفضل الصور مع تأثيرات متنوعة وحركات سلسة</p>
         </div>
         
         <div class="slideshow-container" data-aos="fade-up" data-aos-delay="200">
@@ -1697,7 +1741,13 @@
     <!-- Lightbox -->
     <div class="lightbox-overlay" id="lightbox">
         <div class="lightbox-content">
-            <img class="lightbox-img" id="lightboxImage" src="" alt="">
+            <div class="lightbox-img-container">
+                <div class="image-loading"></div>
+                <div class="image-progress" id="imageProgress">
+                    <div class="image-progress-ring"></div>
+                </div>
+                <img class="lightbox-img" id="lightboxImage" src="" alt="">
+            </div>
             <button class="lightbox-close" id="closeLightbox">
                 <i class="fas fa-times"></i>
             </button>
@@ -1726,15 +1776,15 @@
                 {
                     id: 1,
                     src: "images/port1.png",
-                    title: "تصميم بوابة  الطالب  ",
-                    description: "عمل فني يجمع بين الجمال والإبداع في تصميم متجاوب  احترافي",
+                    title: "تصميم بوابة الطالب",
+                    description: "عمل فني يجمع بين الجمال والإبداع في تصميم متجاوب احترافي",
                     category: "work",
                     featured: true
                 },
                 {
                     id: 2,
                     src: "images/port2.png",
-                    title: "لوحات تحكم احترافية   ",
+                    title: "لوحات تحكم احترافية",
                     description: "تصميم واجهة تحكم لبوابة الطالب الكترونية بتقنيات الويب المتطورة والعصرية",
                     category: "work",
                     featured: true
@@ -1742,22 +1792,22 @@
                 {
                     id: 3,
                     src: "images/port3.png",
-                    title: "نظام ادارة المستخديمن الاحترافي  ",
-                    description: "تصميم شامل يعبر عن هوية العلامة التجارية ",
+                    title: "نظام ادارة المستخدمين الاحترافي",
+                    description: "تصميم شامل يعبر عن هوية العلامة التجارية",
                     category: "work",
                     featured: true
                 },
                 {
                     id: 4,
                     src: "images/port5.png",
-                    title: " صفحة عرض الجداول الدراسية ",
+                    title: "صفحة عرض الجداول الدراسية",
                     description: "تصميم إعلاني جذاب يوصل الرسالة بشكل فعال",
                     category: "work"
                 },
                 {
                     id: 5,
                     src: "images/port4.png",
-                    title: " ادارة الطلاب",
+                    title: "ادارة الطلاب",
                     description: "تصميم شرائح عالية الجودة للعروض التقديمية المهمة",
                     category: "work"
                 },
@@ -1774,22 +1824,22 @@
                 {
                     id: 7,
                     src: "images/g5.jpg",
-                    title: "لقطة مع الزميل وسيم الحذيفي  ",
+                    title: "لقطة مع الزميل وسيم الحذيفي",
                     description: "صورة شخصية في لحظة خاصة وجميلة لا تنسى",
                     category: "personal"
                 },
                 {
                     id: 8,
                     src: "images/g8.jpg",
-                    title: "لقطة مع الزميل اصيل الصبري  ",
+                    title: "لقطة مع الزميل اصيل الصبري",
                     description: "عمل فني يعبر عن الشخصية المستقلة والإبداعية",
                     category: "personal"
                 },
                 {
                     id: 9,
                     src: "images/t8.jpg",
-                    title: " لقطة مع الاخ آدم    ",
-                    description: "تصميم فني يعبر عن التفردن  والإبداع الشخصي",
+                    title: "لقطة مع الاخ آدم",
+                    description: "تصميم فني يعبر عن التفرد والإبداع الشخصي",
                     category: "personal"
                 },
                 {
@@ -1820,14 +1870,14 @@
                 {
                     id: 13,
                     src: "images/m1.jpg",
-                    title: "لقطة جماعية اثناء مناقشة مشروع التخرج  ",
-                    description: "مناقشة  علمي مثمر وبناء مع الاستاذة والمتخصصين",
+                    title: "لقطة جماعية اثناء مناقشة مشروع التخرج",
+                    description: "مناقشة علمي مثمر وبناء مع الاستاذة والمتخصصين",
                     category: "discussion"
                 },
                 {
                     id: 14,
                     src: "images/m5.jpg",
-                    title: "لقطة اثناء مناقشة مشروع التخرج ",
+                    title: "لقطة اثناء مناقشة مشروع التخرج",
                     description: "تعاون ومشاركة في ورشة عمل متميزة ومثمرة",
                     category: "discussion",
                     featured: true
@@ -1835,15 +1885,15 @@
                 {
                     id: 15,
                     src: "images/t11.jpg",
-                    title: "لقطة مع الزملاء اثناء جلسة التصوير  ",
+                    title: "لقطة مع الزملاء اثناء جلسة التصوير",
                     description: "لحظات سعيدة لا تنسى من الذاكرة الجميلة",
                     category: "memories"
                 },
                 {
                     id: 16,
                     src: "images/ind.png",
-                    title: " بوابة الطالب    ",
-                    description: "لقطة الصفحة الرئسية مشروع بوابة الطالب ",
+                    title: "بوابة الطالب",
+                    description: "لقطة الصفحة الرئسية مشروع بوابة الطالب",
                     category: "work",
                     featured: true
                 },
@@ -1852,57 +1902,57 @@
                 {
                     id: 17,
                     src: "images/t10.jpg",
-                    title: "لقطة مع الكوكباني  ",
-                    description: "أوقات ممتعة ومسلية في الأجواء ",
+                    title: "لقطة مع الكوكباني",
+                    description: "أوقات ممتعة ومسلية في الأجواء",
                     category: "memories"
                 },
                 {
                     id: 18,
                     src: "images/port6.png",
-                    title: " صفحة عرض الفعاليات والانشظة من مشروع التخرج ",
+                    title: "صفحة عرض الفعاليات والانشطة من مشروع التخرج",
                     description: "أعمال فنية تعبر عن الموهبة والإبداع",
                     category: "work"
                 },
                 {
                     id: 19,
                     src: "images/col.png",
-                    title: " صفحة خدمات الطالب ",
+                    title: "صفحة خدمات الطالب",
                     description: "إنجازات في مجال التكنولوجيا والابتكار",
                     category: "work"
                 },
                 {
                     id: 20,
                     src: "images/t22.jpg",
-                    title: "[صورة جماعية جلسات التصوير]  ",
-                    description: "لقطات شخصية  ",
+                    title: "صورة جماعية جلسات التصوير",
+                    description: "لقطات شخصية",
                     category: "personal"
                 },
                 {
                     id: 21,
                     src: "images/t6.jpg",
-                    title: "جلسة تصوير ",
+                    title: "جلسة تصوير",
                     description: "لحظات عفوية وابتسامات صادقة",
                     category: "personal"
                 },
                 {
                     id: 22,
                     src: "images/pal.png",
-                    title: "لقطة من لعبة البالون  ",
+                    title: "لقطة من لعبة البالون",
                     description: "أعمال تعبر عن المشاعر والأحاسيس",
                     category: "work"
                 },
                 {
                     id: 23,
                     src: "images/m4.jpg",
-                    title: "  مناقشة مشروع التخرج مع المهندس اصيل     ",
+                    title: "مناقشة مشروع التخرج مع المهندس اصيل",
                     description: "لقطات تعبر عن الفرح والثقة",
                     category: "personal"
                 },
                 {
                     id: 24,
                     src: "images/g9.jpg",
-                    title: " لقطة  افضل مع افضل مبتسم  ",
-                    description: "   ",
+                    title: "لقطة افضل مع افضل مبتسم",
+                    description: "لحظة جميلة",
                     category: "personal"
                 }
             ],
@@ -1957,12 +2007,22 @@
         let currentCategory = 'all';
         let mainSwiper = null;
         let currentLightboxImage = null;
-        let visibleImages = 8; // عدد الصور المعروضة في البداية
-        let imagesPerLoad = 8; // عدد الصور التي يتم تحميلها عند الضغط على "المزيد"
+        let visibleImages = 8;
+        let imagesPerLoad = 8;
         let currentDisplayedImages = [];
+        let imageCache = new Map();
+        let loadingTimeout = null;
 
         // ===== تهيئة التطبيق =====
         document.addEventListener('DOMContentLoaded', () => {
+            // إخفاء شاشة التحميل بعد 2 ثانية كحد أقصى
+            loadingTimeout = setTimeout(() => {
+                document.getElementById('loadingOverlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }, 500);
+            }, 2000);
+
             AOS.init({
                 duration: 800,
                 once: true,
@@ -1976,7 +2036,7 @@
             initializeThumbnails();
             initializeCategories();
             setupEventListeners();
-            preloadImportantImages();
+            preloadCriticalImages();
         });
 
         // ===== إنشاء الجسيمات العائمة =====
@@ -2050,27 +2110,19 @@
                 `;
                 
                 button.addEventListener('click', () => {
-                    // إزالة النشط من جميع الأزرار
                     document.querySelectorAll('.mini-category-btn').forEach(btn => {
                         btn.classList.remove('active');
                     });
                     
-                    // إضافة النشط للزر المحدد
                     button.classList.add('active');
-                    
-                    // تحديث الفئة الحالية
                     currentCategory = category.id;
-                    
-                    // تصفير المعرض
                     filterGallery(currentCategory);
                     
-                    // إغلاق القائمة على الهاتف
                     if (window.innerWidth <= 768) {
                         document.getElementById('miniCategoriesContainer').classList.remove('active');
                         document.body.style.overflow = '';
                     }
                     
-                    // التمرير لقسم الصور المصغرة
                     document.getElementById('thumbnailsSection').scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
@@ -2081,11 +2133,9 @@
             });
         }
 
-        // ===== تهيئة عرض الشرائح =====
+        // ===== تهيئة عرض الشرائح مع تحسينات =====
         function initializeSlideshow() {
             const swiperWrapper = document.getElementById('swiperWrapper');
-            
-            // عرض الصور المميزة فقط في الشرائح
             const featuredImages = galleryData.images.filter(img => img.featured);
             
             featuredImages.forEach((image, index) => {
@@ -2093,12 +2143,17 @@
                 slide.className = 'swiper-slide';
                 
                 slide.innerHTML = `
-                    <img 
-                        src="${image.src}" 
-                        alt="${image.title}"
-                        loading="lazy"
-                        onerror="this.src='${getFallbackImage(index)}'"
-                    >
+                    <div class="image-container">
+                        <div class="image-loading"></div>
+                        <img 
+                            src="${image.src}"
+                            data-src="${image.src}"
+                            alt="${image.title}"
+                            loading="lazy"
+                            onerror="this.src='${getFallbackImage(index)}'"
+                            onload="this.classList.add('loaded'); this.parentElement.querySelector('.image-loading').style.display='none';"
+                        >
+                    </div>
                     <div class="slide-overlay">
                         <h3 class="slide-title">${image.title}</h3>
                         <p class="slide-description">${image.description}</p>
@@ -2112,50 +2167,58 @@
                 swiperWrapper.appendChild(slide);
             });
             
-            // تهيئة Swiper مع حركات متنوعة
+            // تحميل الصور في الشرائح
+            loadSlideImages();
+            
+            // تهيئة Swiper مع تأثيرات متنوعة
             mainSwiper = new Swiper('#mainSwiper', {
-                // أساسيات
                 direction: 'horizontal',
                 loop: true,
-                speed: 800,
+                speed: 1000,
                 grabCursor: true,
                 centeredSlides: true,
                 slidesPerView: 1,
                 spaceBetween: 0,
                 
-                // التمرير التلقائي
                 autoplay: {
                     delay: 5000,
                     disableOnInteraction: false,
                     pauseOnMouseEnter: true,
                 },
                 
-                // تأثيرات متنوعة
-                effect: 'fade',
+                effect: 'creative',
+                creativeEffect: {
+                    prev: {
+                        shadow: true,
+                        translate: [0, 0, -400],
+                        opacity: 0
+                    },
+                    next: {
+                        translate: ['100%', 0, 0],
+                        opacity: 1
+                    },
+                },
+                
                 fadeEffect: {
                     crossFade: true
                 },
                 
-                // التكبير
                 zoom: {
-                    maxRatio: 4,
-                    minRatio: 4,
+                    maxRatio: 3,
+                    minRatio: 1,
                 },
                 
-                // الترقيم
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true,
                     dynamicBullets: true,
                 },
                 
-                // التنقل
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 },
                 
-                // Breakpoints
                 breakpoints: {
                     320: {
                         slidesPerView: 1,
@@ -2171,21 +2234,79 @@
                     }
                 },
                 
-                // الأحداث
                 on: {
                     init: function () {
                         console.log('Swiper initialized successfully');
+                        if (loadingTimeout) {
+                            clearTimeout(loadingTimeout);
+                            document.getElementById('loadingOverlay').style.opacity = '0';
+                            setTimeout(() => {
+                                document.getElementById('loadingOverlay').style.display = 'none';
+                            }, 500);
+                        }
                     },
                     slideChange: function () {
-                        // إعادة ضبط تأثير الزوم عند تغيير الشريحة
                         const activeSlide = this.slides[this.activeIndex];
                         const img = activeSlide.querySelector('img');
-                        if (img) {
-                            img.style.transform = 'scale(1.05)';
+                        if (img && !img.classList.contains('loaded')) {
+                            loadImage(img);
                         }
                     }
                 }
             });
+        }
+
+        // ===== تحميل صور الشرائح =====
+        function loadSlideImages() {
+            const slides = document.querySelectorAll('.swiper-slide img');
+            slides.forEach((img, index) => {
+                if (index < 3) { // تحميل أول 3 صور فوراً
+                    loadImage(img);
+                } else { // الباقي عند التمرير
+                    if ('IntersectionObserver' in window) {
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    loadImage(entry.target);
+                                    observer.unobserve(entry.target);
+                                }
+                            });
+                        }, {
+                            rootMargin: '50px',
+                            threshold: 0.1
+                        });
+                        observer.observe(img);
+                    } else {
+                        loadImage(img);
+                    }
+                }
+            });
+        }
+
+        // ===== تحميل الصور الذكي =====
+        function loadImage(imgElement) {
+            const src = imgElement.getAttribute('data-src') || imgElement.src;
+            
+            if (imageCache.has(src)) {
+                imgElement.src = src;
+                imgElement.classList.add('loaded');
+                imgElement.parentElement.querySelector('.image-loading').style.display = 'none';
+                return;
+            }
+            
+            const img = new Image();
+            img.onload = () => {
+                imageCache.set(src, true);
+                imgElement.src = src;
+                imgElement.classList.add('loaded');
+                imgElement.parentElement.querySelector('.image-loading').style.display = 'none';
+            };
+            img.onerror = () => {
+                imgElement.src = getFallbackImage(0);
+                imgElement.classList.add('loaded');
+                imgElement.parentElement.querySelector('.image-loading').style.display = 'none';
+            };
+            img.src = src;
         }
 
         // ===== تهيئة الصور المصغرة =====
@@ -2193,7 +2314,6 @@
             const grid = document.getElementById('thumbnailsGrid');
             grid.innerHTML = '';
             
-            // عرض أول مجموعة من الصور فقط
             currentDisplayedImages = galleryData.images.slice(0, visibleImages);
             
             currentDisplayedImages.forEach((image, index) => {
@@ -2201,16 +2321,14 @@
                 grid.appendChild(item);
             });
             
-            // إضافة تأثيرات دخول
             setTimeout(() => {
                 AOS.refresh();
             }, 500);
             
-            // تحديث زر المزيد
             updateLoadMoreButton();
         }
 
-        // ===== إنشاء عنصر مصغر =====
+        // ===== إنشاء عنصر مصغر مع تحسينات =====
         function createThumbnailItem(image, index) {
             const item = document.createElement('div');
             item.className = 'thumbnail-item';
@@ -2220,12 +2338,17 @@
             item.setAttribute('data-id', image.id);
             
             item.innerHTML = `
-                <img 
-                    src="${image.src}" 
-                    alt="${image.title}"
-                    loading="lazy"
-                    onerror="this.src='${getFallbackImage(index)}'"
-                >
+                <div class="image-container">
+                    <div class="image-loading"></div>
+                    <img 
+                        src="${image.src}"
+                        data-src="${image.src}"
+                        alt="${image.title}"
+                        loading="lazy"
+                        onerror="this.src='${getFallbackImage(index)}'"
+                        onload="this.classList.add('loaded'); this.parentElement.querySelector('.image-loading').style.display='none';"
+                    >
+                </div>
                 <div class="thumbnail-overlay">
                     <div class="thumbnail-info">
                         <h4 class="thumbnail-title">${image.title}</h4>
@@ -2236,6 +2359,25 @@
                     </button>
                 </div>
             `;
+            
+            // تحميل الصورة عند الظهور
+            const img = item.querySelector('img');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            loadImage(img);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    rootMargin: '100px',
+                    threshold: 0.1
+                });
+                observer.observe(img);
+            } else {
+                loadImage(img);
+            }
             
             item.addEventListener('click', (e) => {
                 if (!e.target.closest('.download-btn')) {
@@ -2251,38 +2393,27 @@
             const loadMoreBtn = document.getElementById('loadMoreBtn');
             const grid = document.getElementById('thumbnailsGrid');
             
-            // تعطيل الزر وإظهار حالة التحميل
             loadMoreBtn.classList.add('loading');
             loadMoreBtn.innerHTML = '<i class="fas fa-spinner"></i> جاري التحميل...';
             
-            // محاكاة تأخير الشبكة
             setTimeout(() => {
-                // حساب الصور التالية للتحميل
                 const currentLength = currentDisplayedImages.length;
                 const nextImages = galleryData.images.slice(currentLength, currentLength + imagesPerLoad);
                 
-                // إضافة الصور الجديدة
                 nextImages.forEach((image, index) => {
                     const item = createThumbnailItem(image, currentLength + index);
                     grid.appendChild(item);
                 });
                 
-                // تحديث الصور المعروضة
                 currentDisplayedImages = [...currentDisplayedImages, ...nextImages];
-                
-                // تحديث زر المزيد
                 updateLoadMoreButton();
-                
-                // إعادة تنشيط AOS للصور الجديدة
                 AOS.refresh();
                 
-                // إعادة ضبط الزر
                 loadMoreBtn.classList.remove('loading');
                 loadMoreBtn.innerHTML = '<i class="fas fa-plus"></i> عرض المزيد من الصور';
                 
-                // إظهار إشعار
                 showNotification(`تم تحميل ${nextImages.length} صورة جديدة`);
-            }, 800);
+            }, 500);
         }
 
         // ===== تحديث زر المزيد =====
@@ -2309,7 +2440,6 @@
                 card.setAttribute('data-aos-delay', index * 100);
                 card.setAttribute('data-category', category.id);
                 
-                // اختيار صورة عشوائية من القسم
                 let categoryImages;
                 if (category.id === 'all') {
                     categoryImages = galleryData.images;
@@ -2336,7 +2466,6 @@
                     currentCategory = category.id;
                     filterGallery(currentCategory);
                     
-                    // تحديث الأزرار المصغرة
                     document.querySelectorAll('.mini-category-btn').forEach(btn => {
                         btn.classList.remove('active');
                         if (btn.getAttribute('data-category') === category.id) {
@@ -2344,7 +2473,6 @@
                         }
                     });
                     
-                    // التمرير لقسم الصور المصغرة
                     document.getElementById('thumbnailsSection').scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
@@ -2357,7 +2485,6 @@
 
         // ===== إعداد مستمعي الأحداث =====
         function setupEventListeners() {
-            // القائمة المتنقلة
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const closeMenuBtn = document.getElementById('closeMenuBtn');
             const miniCategoriesContainer = document.getElementById('miniCategoriesContainer');
@@ -2372,7 +2499,6 @@
                 document.body.style.overflow = '';
             });
             
-            // إغلاق القائمة عند الضغط خارجها
             miniCategoriesContainer.addEventListener('click', (e) => {
                 if (e.target === miniCategoriesContainer) {
                     miniCategoriesContainer.classList.remove('active');
@@ -2380,11 +2506,9 @@
                 }
             });
             
-            // زر المزيد
             const loadMoreBtn = document.getElementById('loadMoreBtn');
             loadMoreBtn.addEventListener('click', loadMoreImages);
             
-            // Lightbox
             const lightbox = document.getElementById('lightbox');
             const closeLightbox = document.getElementById('closeLightbox');
             const downloadImageBtn = document.getElementById('downloadImage');
@@ -2401,7 +2525,6 @@
                 }
             });
             
-            // إغلاق بالضغط على ESC
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     if (lightbox.classList.contains('active')) {
@@ -2421,7 +2544,6 @@
                 }
             });
             
-            // إخفاء الهيدر عند التمرير
             let lastScrollTop = 0;
             const header = document.querySelector('.main-header');
             
@@ -2437,7 +2559,6 @@
                 lastScrollTop = scrollTop;
             });
             
-            // إعادة تهيئة Swiper عند تغيير حجم النافذة
             window.addEventListener('resize', () => {
                 if (mainSwiper) {
                     setTimeout(() => {
@@ -2447,7 +2568,7 @@
             });
         }
 
-        // ===== فتح Lightbox =====
+        // ===== فتح Lightbox مع تحسينات =====
         function openLightbox(image) {
             currentLightboxImage = image;
             
@@ -2455,18 +2576,43 @@
             const lightboxImage = document.getElementById('lightboxImage');
             const lightboxTitle = document.getElementById('lightboxTitle');
             const lightboxDescription = document.getElementById('lightboxDescription');
+            const imageProgress = document.getElementById('imageProgress');
+            const lightboxImgContainer = lightbox.querySelector('.lightbox-img-container');
             
-            // إضافة مؤقت لتحميل الصورة بدقة عالية
-            lightboxImage.src = '';
-            setTimeout(() => {
+            // إظهار مؤشر التحميل
+            imageProgress.style.display = 'block';
+            lightboxImgContainer.querySelector('.image-loading').style.display = 'block';
+            lightboxImage.style.opacity = '0';
+            
+            // تحميل الصورة عالية الدقة
+            const highResImage = new Image();
+            highResImage.onload = () => {
                 lightboxImage.src = image.src;
                 lightboxImage.alt = image.title;
+                lightboxImage.style.opacity = '1';
+                imageProgress.style.display = 'none';
+                lightboxImgContainer.querySelector('.image-loading').style.display = 'none';
                 lightboxTitle.textContent = image.title;
                 lightboxDescription.textContent = image.description;
                 
                 lightbox.classList.add('active');
                 document.body.style.overflow = 'hidden';
-            }, 100);
+            };
+            
+            highResImage.onerror = () => {
+                lightboxImage.src = getFallbackImage(0);
+                lightboxImage.alt = image.title;
+                lightboxImage.style.opacity = '1';
+                imageProgress.style.display = 'none';
+                lightboxImgContainer.querySelector('.image-loading').style.display = 'none';
+                lightboxTitle.textContent = image.title;
+                lightboxDescription.textContent = image.description;
+                
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+            
+            highResImage.src = image.src;
         }
 
         // ===== تحميل الصورة =====
@@ -2480,13 +2626,11 @@
             link.click();
             document.body.removeChild(link);
             
-            // إشعار تحميل
             showNotification('جاري تحميل الصورة...');
         }
 
         // ===== إظهار إشعار =====
         function showNotification(message) {
-            // إزالة أي إشعارات سابقة
             const existingNotification = document.querySelector('.notification');
             if (existingNotification) {
                 existingNotification.remove();
@@ -2523,7 +2667,6 @@
             const grid = document.getElementById('thumbnailsGrid');
             grid.innerHTML = '';
             
-            // تصفية الصور حسب الفئة
             let filteredImages;
             if (categoryId === 'all') {
                 filteredImages = galleryData.images;
@@ -2531,7 +2674,6 @@
                 filteredImages = galleryData.images.filter(img => img.category === categoryId);
             }
             
-            // عرض أول مجموعة من الصور فقط
             currentDisplayedImages = filteredImages.slice(0, visibleImages);
             
             currentDisplayedImages.forEach((image, index) => {
@@ -2539,33 +2681,35 @@
                 grid.appendChild(item);
             });
             
-            // تحديث زر المزيد
             updateLoadMoreButton();
             
-            // إعادة تنشيط AOS
             setTimeout(() => {
                 AOS.refresh();
             }, 300);
         }
 
         // ===== تحميل الصور المهمة مسبقًا =====
-        function preloadImportantImages() {
+        function preloadCriticalImages() {
             // تحميل الصور المميزة أولاً
             const featuredImages = galleryData.images.filter(img => img.featured);
             
             featuredImages.forEach(image => {
                 const img = new Image();
                 img.src = image.src;
+                imageCache.set(image.src, true);
             });
             
-            // تحميل باقي الصور في الخلفية
-            setTimeout(() => {
-                const otherImages = galleryData.images.filter(img => !img.featured);
-                otherImages.forEach(image => {
-                    const img = new Image();
-                    img.src = image.src;
+            // تحميل باقي الصور تدريجياً
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => {
+                    const otherImages = galleryData.images.filter(img => !img.featured);
+                    otherImages.forEach(image => {
+                        const img = new Image();
+                        img.src = image.src;
+                        imageCache.set(image.src, true);
+                    });
                 });
-            }, 1000);
+            }
         }
 
         // ===== مساعدات =====
@@ -2623,7 +2767,6 @@
         if ('ontouchstart' in window) {
             document.body.classList.add('touch-device');
             
-            // تحسينات لللمس
             document.addEventListener('touchstart', function(e) {
                 const target = e.target;
                 if (target.closest('.thumbnail-item') || target.closest('.category-card')) {
@@ -2642,10 +2785,10 @@
             });
         }
 
-        // ===== تحسينات للأداء =====
+        // ===== تحسينات الأداء المتقدمة =====
         if ('requestIdleCallback' in window) {
             requestIdleCallback(() => {
-                // تحميل الصور المتبقية في وقت الخمول
+                // تحسينات إضافية في وقت الخمول
                 const loadedImages = new Set();
                 document.querySelectorAll('img').forEach(img => {
                     if (img.src) loadedImages.add(img.src);
@@ -2662,6 +2805,7 @@
 
         // ===== تهيئة كاملة =====
         console.log('🎨 معرض الذكريات الشخصي جاهز للاستخدام!');
+        console.log('✨ ميزات محسنة: تحميل سريع، حركات متطورة، دقة عالية');
     </script>
 </body>
 </html>
