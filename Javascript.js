@@ -299,7 +299,7 @@ class NameAnimation {
         if (!this.typedName) return;
         
         // تأثير النيون للاسم في القسم الرئيسي
-        const colors = ['#f9f910', '#a2fc25', 'hsl(60, 100%, 50%)', '#e1ff00', 'rgb(11, 244, 174)'];
+        const colors = ['#f9f910', '#a2fc25', 'hsl(60, 100%, 50%)', 'rgb(255, 0, 0)', 'rgb(11, 244, 174)'];
         let currentColor = 0;
         
         // تغيير لون الاسم
