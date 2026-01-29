@@ -299,13 +299,13 @@ class NameAnimation {
         if (!this.typedName) return;
         
         // تأثير النيون للاسم في القسم الرئيسي
-        const colors = ['#6a11cb', '#2575fc', '#ff0080', '#ff8c00', '#11998e'];
+        const colors = ['#f9f910', '#a2fc25', 'hsl(60, 100%, 50%)', '#e1ff00', 'rgb(11, 244, 174)'];
         let currentColor = 0;
         
         // تغيير لون الاسم
         setInterval(() => {
             this.typedName.style.color = colors[currentColor];
-            this.typedName.style.textShadow = `0 0 10px ${colors[currentColor]}, 0 0 20px ${colors[currentColor]}, 0 0 30px ${colors[currentColor]}`;
+            this.typedName.style.textShadow = `0 0 40px ${colors[currentColor]}, 0 0 20px ${colors[currentColor]}, 0 0 30px ${colors[currentColor]}`;
             
             currentColor = (currentColor + 1) % colors.length;
         }, 2000);

@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
   <url>
-    <loc>https://m739265556-star.github.io/m/</loc>
+    <loc>https://m739265566-star.github.io/m/</loc>
     <lastmod>2024-05-21</lastmod>
     <priority>1.0</priority>
-  </url>
+    
+    <image:image>
+      <image:loc>https://m739265566-star.github.io/m/images/ghamdan.jp</image:loc>
+      <image:title>المهندس غمدان معوضة</image:title>
+      <image:caption>المهندس غمدان معوضة - خريج جامعة إقليم سبأ</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://m739265566-star.github.io/m/images/port1.jpg</image:loc>
+      <image:title>مشروع بوابة كلية الحاسوب جامعة اقليم سبأ</image:title>
+      <image:caption>واجهة مشروع التخرج للمهندس غمدان معوضة</image:caption>
+    </image:image>
+
+    </url>
 </urlset>
