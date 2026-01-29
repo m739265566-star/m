@@ -7,7 +7,6 @@
     <title>المهندس غمدان معوضة | كلية تكنولوجياالمعلومات وعلوم الحاسوب | جامعة إقليم سبأ</title>
 
     <meta name="description" content="الموقع الشخصي للمهندس غمدان معوضة، خريج جامعة إقليم سبأ. مشروع التخرج: بوابة كلية الحاسوب، قسم تكنولوجيا المعلومات. استكشف تفاصيل المشروع والمهارات التقنية.">
-<img src="images/dens.jfif" alt="المهندس غمدان معوضة - خريج جامعة إقليم سبأ - بوابة كلية الحاسوب">
     <meta name="keywords" content="غمدان معوضة, غمدان عبده علي صالح معوضة, جامعة إقليم سبأ, كلية تكنولوجيا المعلومات وعلوم الحاسوب, بوابة كلية الحاسوب, مشروع تخرج حاسوب, قسم تكنولوجيا المعلومات, مأرب">
 
     <meta property="og:title" content="المهندس غمدان معوضة - مشروع بوابة كلية الحاسوب">
@@ -196,7 +195,8 @@
         <!-- Logo with Profile Image -->
         <a class="navbar-brand logo-container" href="#home">
             <div class="logo-image-wrapper">
-                <img src="images/dens.jfif" 
+                                <img src="images/dens.jfif" 
+
                      alt=" بكالوريوس علوم الحاسوب " 
                      class="logo-profile-image">
                 <div class="logo-image-glow"></div>
@@ -298,10 +298,82 @@
                 </div>
                 
                 <!-- Download CV Button -->
-                <a href="#" class="btn download-cv-btn" id="downloadCV">
-                    <i class="fas fa-download"></i>
-                    <span>السيرة الذاتية</span>
-                </a>
+               <a href="projects/student-portal.pdf" id="downCV" class="custom-pdf-btn" download>
+    <div class="icon-box">
+        <i class="fas fa-file-pdf"></i>
+    </div>
+    <div class="text-container">
+        <span class="title">مشروع التخرج</span>
+        <span class="subtitle">Download PDF</span>
+    </div>
+    <i class="fas fa-cloud-download-alt download-icon"></i>
+</a>
+
+<style>
+    .custom-pdf-btn {
+        display: inline-flex;
+        align-items: center;
+        background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+        color: #ffffff !important;
+        text-decoration: none !important;
+        padding: 12px 25px;
+        border-radius: 12px;
+        font-family: 'Segoe UI', Roboto, sans-serif;
+        direction: rtl;
+        gap: 15px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 4px 15px rgba(183, 28, 28, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .icon-box {
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        padding-left: 12px;
+    }
+
+    .text-container {
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+    }
+
+    .text-container .title {
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+    }
+
+    .text-container .subtitle {
+        font-size: 10px;
+        opacity: 0.8;
+        text-transform: uppercase;
+    }
+
+    .download-icon {
+        font-size: 18px;
+        margin-right: auto; /* يدفع الأيقونة لليسار في التصميم العربي */
+        transition: transform 0.3s ease;
+    }
+
+    /* تأثيرات التفاعل (Hover) */
+    .custom-pdf-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(183, 28, 28, 0.5);
+        background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
+    }
+
+    .custom-pdf-btn:hover .download-icon {
+        transform: translateY(3px);
+    }
+
+    .custom-pdf-btn:active {
+        transform: translateY(0);
+    }
+</style>
             </div>
         </div>
     </div>
@@ -372,7 +444,7 @@
                     <!-- Description -->
                     <p class="hero-description">
                         مبرمج ومحلل نظم بخبرة إدارية، متخصص في تطوير الحلول الرقمية والأرشفة الإلكترونية. 
-                        أمتلك خبرة واسعة في تصميم وتنفيذ الأنظمة الإدارية المتكاملة.
+                        أمتلك خبرة واسعة في برمجةوتصميم وتنفيذ الأنظمة الإدارية المتكاملة.
                     </p>
                     
                     <!-- CTA Buttons -->
@@ -393,36 +465,7 @@
                     </div>
                     
                     <!-- Social Links -->
-                    <div class="hero-social">
-                        <p class="social-title">تابعني على:</p>
-                        <div class="social-icons">
-                            <a href="#" class="social-icon" data-tooltip="LinkedIn">
-                                <i class="fab fa-linkedin-in"></i>
-                                <span class="icon-wave"></span>
-                            </a>
-                            <a href="#" class="social-icon" data-tooltip="GitHub">
-                                <i class="fab fa-github"></i>
-                                <span class="icon-wave"></span>
-                            </a>
-                            <a href="#" class="social-icon" data-tooltip="Twitter">
-                                <i class="fab fa-twitter"></i>
-                                <span class="icon-wave"></span>
-                            </a>
-                            <a href="#" class="social-icon" data-tooltip="Facebook">
-                                <i class="fab fa-facebook-f"></i>
-                                <span class="icon-wave"></span>
-                            </a>
-                            <a href="#" class="social-icon" data-tooltip="Instagram">
-                                <i class="fab fa-instagram"></i>
-                                <span class="icon-wave"></span>
-                            </a>
-                            <a href="#" class="social-icon" data-tooltip="Behance">
-                                <i class="fab fa-behance"></i>
-                                <span class="icon-wave"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                    
                 
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
                     <!-- Hero Image Container -->
@@ -590,7 +633,7 @@
                                 <div class="tab-pane fade show active" id="about-content">
                                     <h3 class="tab-title">    خريج جامعة إقليم سبأ| كلية تكنولوجيا المعلومات وعلوم الحاسوب</h3>
                                     <p>
-                                        أنا غمدان عبده، مبرمج ومحلل نظم متخصص في تطوير الحلول الرقمية والإلكترونية. 
+                                           مبرمج ومحلل نظم . 
                                         أحمل درجة البكالوريوس في علوم الحاسوب بتقدير جيد جداً، وأمتلك خبرة عملية في 
                                         تصميم وتنفيذ الأنظمة الإدارية المتكاملة.
                                     </p>
