@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>معرض الذكريات الشخصي | غمدان معوضة</title>
     
     <!-- Font Awesome -->
@@ -15,6 +15,9 @@
     
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         /* ===== CSS Reset & Variables ===== */
@@ -46,6 +49,7 @@
             
             /* Transitions */
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -65,9 +69,10 @@
             color: var(--light);
             overflow-x: hidden;
             min-height: 100vh;
+            position: relative;
         }
 
-        /* ===== Loading States ===== */
+        /* ===== Loading States - Simplified ===== */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -80,26 +85,31 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.3s ease;
         }
 
         .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(138, 43, 226, 0.3);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(138, 43, 226, 0.3);
             border-top-color: var(--primary);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .loading-text {
             color: var(--light);
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-family: 'El Messiri', serif;
         }
 
-        /* ===== Optimized Image Loading ===== */
+        /* ===== Image Loading - Ultra Fast ===== */
         .image-container {
             position: relative;
             width: 100%;
@@ -115,25 +125,24 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, 
-                rgba(26, 26, 46, 0.8) 0%, 
-                rgba(38, 38, 62, 0.9) 50%, 
-                rgba(26, 26, 46, 0.8) 100%);
+                var(--dark-light) 0%, 
+                rgba(138, 43, 226, 0.1) 50%, 
+                var(--dark-light) 100%);
             background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            z-index: 1;
+            animation: shimmer 1.2s infinite;
         }
 
         @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
 
-        img {
+        .image-loaded {
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
-        img.loaded {
+        .image-loaded.active {
             opacity: 1;
         }
 
@@ -145,46 +154,46 @@
             width: 100%;
             z-index: 1000;
             background: rgba(10, 10, 20, 0.95);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem 0;
-            transition: var(--transition);
+            padding: 0.8rem 0;
+            transition: transform 0.3s ease;
+            transform: translateY(0);
         }
 
         .header-container {
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
-            z-index: 1001;
         }
 
         .logo-icon {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: var(--gradient-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--light);
         }
 
         .logo-text {
             font-family: 'El Messiri', serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             background: linear-gradient(45deg, var(--primary), var(--accent2));
             -webkit-background-clip: text;
@@ -195,18 +204,16 @@
         /* ===== Mobile Menu Button ===== */
         .mobile-menu-btn {
             display: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: var(--light);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: var(--transition);
             align-items: center;
             justify-content: center;
-            z-index: 1001;
         }
 
         /* ===== Mini Categories ===== */
@@ -218,7 +225,7 @@
 
         .mini-categories {
             display: flex;
-            gap: 8px;
+            gap: 5px;
             overflow-x: auto;
             padding: 5px;
             scrollbar-width: none;
@@ -230,33 +237,31 @@
         }
 
         .mini-category-btn {
-            padding: 8px 16px;
-            border-radius: 25px;
+            padding: 6px 12px;
+            border-radius: 20px;
             background: rgba(255, 255, 255, 0.08);
-            border: 2px solid transparent;
+            border: 1px solid transparent;
             color: var(--light);
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
             white-space: nowrap;
-            transition: var(--transition);
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
-        .mini-category-btn:hover,
         .mini-category-btn.active {
             background: var(--gradient-primary);
-            transform: translateY(-2px);
-            box-shadow: var(--glow-primary);
             border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
         }
 
         /* ===== Home Button ===== */
         .home-btn {
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 8px 16px;
+            border-radius: 20px;
             background: var(--gradient-accent);
             color: var(--light);
             border: none;
@@ -265,33 +270,28 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: var(--transition);
+            gap: 6px;
+            transition: all 0.2s ease;
             text-decoration: none;
             white-space: nowrap;
         }
 
-        .home-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--glow-accent);
-        }
-
-        /* ===== Slideshow Section ===== */
+        /* ===== Slideshow Section - Optimized ===== */
         .slideshow-section {
-            padding: 100px 20px 60px;
+            padding: 50px 15px;
             position: relative;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .section-title h2 {
             font-family: 'El Messiri', serif;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-size: clamp(1.5rem, 3vw, 2rem);
             color: white;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             background: linear-gradient(45deg, var(--primary), var(--accent2));
             -webkit-background-clip: text;
             background-clip: text;
@@ -300,7 +300,7 @@
 
         .section-title p {
             color: var(--gray);
-            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-size: clamp(0.85rem, 1.5vw, 0.95rem);
             max-width: 500px;
             margin: 0 auto;
         }
@@ -310,15 +310,16 @@
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .swiper {
             width: 100%;
-            height: 70vh;
-            min-height: 500px;
+            height: 60vh;
+            min-height: 400px;
         }
 
         .swiper-slide {
@@ -338,11 +339,13 @@
         .swiper-slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             transition: transform 0.5s ease;
         }
 
         .swiper-slide-active img {
+             width: 100%;
+            height: 100%;
             transform: scale(1.05);
         }
 
@@ -351,91 +354,79 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 30px;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
         }
 
         .slide-title {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            margin-bottom: 8px;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 5px;
             color: white;
             font-family: 'El Messiri', serif;
         }
 
         .slide-description {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: clamp(0.85rem, 2vw, 1rem);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
         }
 
         .swiper-button-next,
         .swiper-button-prev {
-            width: 50px !important;
-            height: 50px !important;
+            width: 40px !important;
+            height: 40px !important;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white !important;
-            transition: var(--transition);
+            transition: all 0.2s ease;
         }
 
         .swiper-button-next:after,
         .swiper-button-prev:after {
-            font-size: 1.2rem !important;
-        }
-
-        .swiper-button-next:hover,
-        .swiper-button-prev:hover {
-            background: var(--primary);
-            transform: scale(1.1);
-            border-color: var(--accent);
+            font-size: 1rem !important;
         }
 
         .swiper-pagination-bullet {
-            width: 12px !important;
-            height: 12px !important;
+            width: 10px !important;
+            height: 10px !important;
             background: rgba(255, 255, 255, 0.5) !important;
             opacity: 1 !important;
-            transition: var(--transition);
+            transition: all 0.2s ease;
         }
 
         .swiper-pagination-bullet-active {
             background: var(--primary) !important;
             transform: scale(1.2);
-            box-shadow: 0 0 10px var(--primary);
         }
 
-        /* ===== Thumbnails Grid ===== */
+        /* ===== Thumbnails Grid - Optimized ===== */
         .thumbnails-section {
-            padding: 60px 20px;
+            padding: 50px 15px;
             background: rgba(0, 0, 0, 0.3);
         }
 
         .thumbnails-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .thumbnail-item {
             position: relative;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             aspect-ratio: 4/3;
-            background: linear-gradient(45deg, 
-                rgba(138, 43, 226, 0.1), 
-                rgba(75, 0, 130, 0.1));
-            border: 2px solid transparent;
-            transition: var(--transition);
+            background: var(--dark-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
         }
 
         .thumbnail-item:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: var(--glow-primary);
         }
 
         .thumbnail-item .image-container {
@@ -447,6 +438,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .thumbnail-item:hover img {
+            transform: scale(1.1);
         }
 
         .thumbnail-overlay {
@@ -454,11 +450,14 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail-item:hover .thumbnail-overlay {
+            transform: translateY(0);
         }
 
         .thumbnail-info {
@@ -466,15 +465,15 @@
         }
 
         .thumbnail-title {
-            font-size: 1.1rem;
-            margin-bottom: 4px;
+            font-size: 0.95rem;
+            margin-bottom: 3px;
             color: white;
             font-family: 'El Messiri', sans-serif;
         }
 
         .thumbnail-category {
             color: var(--primary-light);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         /* ===== Download Button ===== */
@@ -482,91 +481,81 @@
             background: var(--gradient-primary);
             color: white;
             border: none;
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: var(--transition);
-            margin-right: 10px;
+            transition: all 0.2s ease;
+            margin-right: 8px;
         }
 
         .download-btn:hover {
-            background: var(--gradient-accent);
             transform: scale(1.1);
         }
 
         /* ===== Load More Button ===== */
         .load-more-container {
             text-align: center;
-            margin-top: 50px;
-            padding: 20px;
+            margin-top: 40px;
+            padding: 15px;
         }
 
         .load-more-btn {
-            padding: 15px 40px;
-            border-radius: 30px;
+            padding: 12px 30px;
+            border-radius: 25px;
             background: var(--gradient-primary);
             color: white;
             border: none;
             font-family: inherit;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: var(--glow-primary);
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
         }
 
         .load-more-btn:hover {
             transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4);
         }
 
         .load-more-btn.loading {
-            opacity: 0.8;
+            opacity: 0.7;
             cursor: not-allowed;
-        }
-
-        .load-more-btn.loading i {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         /* ===== Categories Section ===== */
         .categories-section {
-            padding: 60px 20px;
+            padding: 50px 15px;
         }
 
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .category-card {
             position: relative;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
             cursor: pointer;
             aspect-ratio: 1/1;
-            transition: var(--transition);
-            border: 2px solid transparent;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .category-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: var(--glow-primary);
         }
 
         .category-bg {
@@ -578,6 +567,11 @@
             background-size: cover;
             background-position: center;
             filter: brightness(0.7);
+            transition: transform 0.5s ease;
+        }
+
+        .category-card:hover .category-bg {
+            transform: scale(1.1);
         }
 
         .category-content {
@@ -586,9 +580,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, 
-                rgba(0, 0, 0, 0.7), 
-                rgba(0, 0, 0, 0.4));
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -598,35 +590,35 @@
         }
 
         .category-icon {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: white;
             background: var(--gradient-primary);
-            box-shadow: var(--glow-primary);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
         }
 
         .category-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
             color: white;
             font-family: 'El Messiri', sans-serif;
         }
 
         .category-content p {
             color: rgba(255, 255, 255, 0.9);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
 
         /* ===== Footer ===== */
         .main-footer {
-            padding: 50px 20px 30px;
+            padding: 40px 15px 20px;
             background: rgba(0, 0, 0, 0.7);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
@@ -639,42 +631,48 @@
 
         .footer-logo {
             font-family: 'El Messiri', serif;
-            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            font-size: 1.5rem;
             font-weight: 700;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .footer-text {
             color: var(--gray);
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
-            margin-bottom: 20px;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
         }
 
         .copyright {
             color: var(--gray);
-            font-size: 0.85rem;
-            padding-top: 20px;
+            font-size: 0.8rem;
+            padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* ===== Lightbox ===== */
+        /* ===== Lightbox - Optimized ===== */
         .lightbox-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.98);
+            background: rgba(0, 0, 0, 0.95);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 2000;
-            padding: 20px;
+            padding: 15px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .lightbox-overlay.active {
@@ -683,19 +681,19 @@
 
         .lightbox-content {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1000px;
             max-height: 90vh;
             position: relative;
             background: var(--dark-light);
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            border: 3px solid var(--primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .lightbox-img-container {
             position: relative;
             width: 100%;
-            max-height: 70vh;
+            max-height: 65vh;
             overflow: hidden;
             background: var(--dark);
             display: flex;
@@ -706,21 +704,21 @@
         .lightbox-img {
             width: 100%;
             height: auto;
-            max-height: 70vh;
+            max-height: 65vh;
             object-fit: contain;
             display: block;
         }
 
         .lightbox-info {
-            padding: 25px;
-            background: rgba(0, 0, 0, 0.95);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
         }
 
         .lightbox-title {
             color: white;
             font-family: 'El Messiri', serif;
-            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
             background: linear-gradient(45deg, var(--primary), var(--accent2));
             -webkit-background-clip: text;
             background-clip: text;
@@ -729,20 +727,19 @@
 
         .lightbox-description {
             color: var(--gray);
-            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-            margin-bottom: 25px;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
         .lightbox-actions {
             display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .lightbox-download {
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 20px;
             background: var(--gradient-primary);
             color: white;
             border: none;
@@ -750,61 +747,53 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            gap: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
             font-weight: 600;
         }
 
         .lightbox-download:hover {
-            background: var(--gradient-accent);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .lightbox-close {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            width: 50px;
-            height: 50px;
+            top: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: var(--gradient-accent);
             border: none;
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: var(--transition);
-            z-index: 2001;
+            transition: all 0.2s ease;
         }
 
         .lightbox-close:hover {
             transform: rotate(90deg);
-            background: var(--primary);
         }
 
         /* ===== Responsive Design ===== */
         @media (max-width: 992px) {
             .header-container {
                 flex-wrap: wrap;
-                justify-content: space-between;
             }
             
             .mini-categories-container {
                 order: 3;
                 width: 100%;
-                margin-top: 15px;
-            }
-            
-            .mini-categories {
-                justify-content: flex-start;
+                margin-top: 10px;
             }
             
             .swiper {
-                height: 60vh;
-                min-height: 400px;
+                height: 50vh;
+                min-height: 350px;
             }
         }
 
@@ -820,10 +809,9 @@
                 width: 100%;
                 height: 100vh;
                 background: rgba(10, 10, 20, 0.98);
-                backdrop-filter: blur(20px);
-                padding: 80px 20px;
-                transition: var(--transition);
-                z-index: 1000;
+                padding: 70px 15px;
+                transition: left 0.3s ease;
+                z-index: 999;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -838,40 +826,36 @@
             .mini-categories {
                 flex-direction: column;
                 width: 100%;
-                max-width: 400px;
+                max-width: 300px;
             }
             
             .mini-category-btn {
                 width: 100%;
                 justify-content: center;
-                padding: 15px 20px;
-                font-size: 1rem;
+                padding: 12px 15px;
+                font-size: 0.95rem;
             }
             
             .close-menu-btn {
                 position: absolute;
-                top: 20px;
-                left: 20px;
-                width: 44px;
-                height: 44px;
-                border-radius: 10px;
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
                 background: rgba(255, 255, 255, 0.1);
                 border: none;
                 color: var(--light);
-                font-size: 1.3rem;
+                font-size: 1.2rem;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
             
-            .slideshow-section {
-                padding: 80px 20px 40px;
-            }
-            
             .swiper {
-                height: 50vh;
-                min-height: 350px;
+                height: 40vh;
+                min-height: 300px;
             }
             
             .swiper-button-next,
@@ -880,62 +864,54 @@
             }
             
             .thumbnails-grid {
-                grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
             }
             
             .categories-grid {
-                grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 15px;
             }
             
             .load-more-btn {
-                padding: 12px 30px;
-                font-size: 1rem;
+                padding: 10px 25px;
+                font-size: 0.9rem;
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 480px) {
             .header-container {
-                padding: 0 15px;
+                padding: 0 10px;
             }
             
             .logo-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-            
-            .logo-text {
-                font-size: 1.3rem;
-            }
-            
-            .home-btn {
-                padding: 8px 16px;
+                width: 35px;
+                height: 35px;
                 font-size: 0.9rem;
             }
             
-            .swiper {
-                height: 45vh;
-                min-height: 300px;
-            }
-            
-            .slide-overlay {
-                padding: 20px;
-            }
-            
-            .slide-title {
+            .logo-text {
                 font-size: 1.1rem;
+            }
+            
+            .home-btn {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .swiper {
+                height: 35vh;
+                min-height: 250px;
             }
             
             .thumbnails-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 12px;
             }
             
             .categories-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 12px;
             }
             
             .lightbox-content {
@@ -954,67 +930,39 @@
             }
             
             .load-more-btn {
-                padding: 10px 25px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 375px) {
-            .logo-text {
-                font-size: 1.1rem;
-            }
-            
-            .home-btn span {
-                display: none;
-            }
-            
-            .home-btn {
-                width: 44px;
-                height: 44px;
-                justify-content: center;
-                padding: 0;
-            }
-            
-            .swiper {
-                height: 40vh;
-                min-height: 250px;
+                padding: 8px 20px;
+                font-size: 0.85rem;
             }
         }
 
         /* ===== Custom Scrollbar ===== */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
 
         ::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb {
             background: var(--gradient-primary);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gradient-accent);
+            border-radius: 3px;
         }
 
         /* ===== Notification ===== */
         .notification {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 15px;
+            right: 15px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
-            padding: 12px 20px;
-            border-radius: 25px;
+            padding: 10px 15px;
+            border-radius: 20px;
             z-index: 1000;
             animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
-            box-shadow: var(--glow-primary);
-            font-size: 0.9rem;
-            max-width: calc(100% - 40px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+            max-width: calc(100% - 30px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         @keyframes slideIn {
@@ -1036,10 +984,22 @@
                 opacity: 0;
             }
         }
+
+        /* ===== Optimized Images ===== */
+        .optimized-image {
+            image-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== Performance Optimizations ===== */
+        .will-change-transform {
+            will-change: transform;
+        }
     </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
+    <!-- Loading Overlay - Minimal -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner"></div>
         <div class="loading-text">جاري تحميل المعرض...</div>
@@ -1081,12 +1041,12 @@
     
     <!-- Slideshow Section -->
     <section class="slideshow-section">
-        <div class="section-title">
+        <div class="section-title" data-aos="fade-up">
             <h2>عرض الشرائح</h2>
             <p>تصفح أفضل الصور مع تأثيرات متنوعة وحركات سلسة</p>
         </div>
         
-        <div class="slideshow-container">
+        <div class="slideshow-container" data-aos="fade-up" data-aos-delay="100">
             <div class="swiper" id="mainSwiper">
                 <div class="swiper-wrapper" id="swiperWrapper">
                     <!-- Slides will be added by JavaScript -->
@@ -1104,7 +1064,7 @@
     
     <!-- Thumbnails Grid -->
     <section class="thumbnails-section" id="thumbnailsSection">
-        <div class="section-title">
+        <div class="section-title" data-aos="fade-up">
             <h2>جميع الصور</h2>
             <p>تصفح كامل مجموعتي من الذكريات المصورة</p>
         </div>
@@ -1114,7 +1074,7 @@
         </div>
         
         <!-- Load More Button -->
-        <div class="load-more-container">
+        <div class="load-more-container" data-aos="fade-up">
             <button class="load-more-btn" id="loadMoreBtn">
                 <i class="fas fa-plus"></i>
                 عرض المزيد من الصور
@@ -1124,7 +1084,7 @@
     
     <!-- Categories Section -->
     <section class="categories-section" id="categoriesSection">
-        <div class="section-title">
+        <div class="section-title" data-aos="fade-up">
             <h2>الأقسام</h2>
             <p>اختر القسم الذي تود استعراضه</p>
         </div>
@@ -1153,7 +1113,7 @@
         <div class="lightbox-content">
             <div class="lightbox-img-container">
                 <div class="image-loading"></div>
-                <img class="lightbox-img" id="lightboxImage" src="" alt="">
+                <img class="lightbox-img optimized-image" id="lightboxImage" src="" alt="">
             </div>
             <button class="lightbox-close" id="closeLightbox">
                 <i class="fas fa-times"></i>
@@ -1173,6 +1133,7 @@
     
     <!-- JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script>
         // ===== بيانات الصور =====
@@ -1181,6 +1142,7 @@
                 {
                     id: 1,
                     src: "images/port1.png",
+                    thumb: "images/port1.png?thumb=1",
                     title: "تصميم بوابة الطالب",
                     description: "عمل فني يجمع بين الجمال والإبداع في تصميم متجاوب احترافي",
                     category: "work",
@@ -1189,6 +1151,7 @@
                 {
                     id: 2,
                     src: "images/port2.png",
+                    thumb: "images/port2.png?thumb=1",
                     title: "لوحات تحكم احترافية",
                     description: "تصميم واجهة تحكم لبوابة الطالب الكترونية بتقنيات الويب المتطورة والعصرية",
                     category: "work",
@@ -1197,6 +1160,7 @@
                 {
                     id: 3,
                     src: "images/port3.png",
+                    thumb: "images/port3.png?thumb=1",
                     title: "نظام ادارة المستخدمين الاحترافي",
                     description: "تصميم شامل يعبر عن هوية العلامة التجارية",
                     category: "work",
@@ -1205,13 +1169,15 @@
                 {
                     id: 4,
                     src: "images/port5.png",
+                    thumb: "images/port5.png?thumb=1",
                     title: "صفحة عرض الجداول الدراسية",
-                    description: "تصميم إعلاني جذاب يوصل الرسالة بشكل فعال",
+                    description: "تصميم إعلاني جذاب يوصل الرساءة بشكل فعال",
                     category: "work"
                 },
                 {
                     id: 5,
                     src: "images/port4.png",
+                    thumb: "images/port4.png?thumb=1",
                     title: "ادارة الطلاب",
                     description: "تصميم شرائح عالية الجودة للعروض التقديمية المهمة",
                     category: "work"
@@ -1219,6 +1185,7 @@
                 {
                     id: 6,
                     src: "images/g10.jpg",
+                    thumb: "images/g10.jpg?thumb=1",
                     title: "لقطة شخصية من حديقة مأرب",
                     description: "صورة شخصية تعبر عن الشخصية والمهنية بجودة عالية",
                     category: "personal",
@@ -1227,6 +1194,7 @@
                 {
                     id: 7,
                     src: "images/g5.jpg",
+                    thumb: "images/g5.jpg?thumb=1",
                     title: "لقطة مع الزميل وسيم الحذيفي",
                     description: "صورة شخصية في لحظة خاصة وجميلة لا تنسى",
                     category: "personal"
@@ -1234,6 +1202,7 @@
                 {
                     id: 8,
                     src: "images/g8.jpg",
+                    thumb: "images/g8.jpg?thumb=1",
                     title: "لقطة مع الزميل اصيل الصبري",
                     description: "عمل فني يعبر عن الشخصية المستقلة والإبداعية",
                     category: "personal"
@@ -1241,6 +1210,7 @@
                 {
                     id: 9,
                     src: "images/t8.jpg",
+                    thumb: "images/t8.jpg?thumb=1",
                     title: "لقطة مع الاخ آدم",
                     description: "تصميم فني يعبر عن التفرد والإبداع الشخصي",
                     category: "personal"
@@ -1248,6 +1218,7 @@
                 {
                     id: 10,
                     src: "images/g1.jpg",
+                    thumb: "images/g1.jpg?thumb=1",
                     title: "لحظة إنجاز مميزة",
                     description: "صورة تذكارية في لحظة فخر واعتزاز بإنجاز كبير",
                     category: "personal",
@@ -1256,6 +1227,7 @@
                 {
                     id: 11,
                     src: "images/t3.jpg",
+                    thumb: "images/t3.jpg?thumb=1",
                     title: "يوم التخرج المجيد",
                     description: "لحظة تاريخية في مسيرة التعليم الأكاديمي",
                     category: "graduation",
@@ -1264,6 +1236,7 @@
                 {
                     id: 12,
                     src: "images/profile.jpeg",
+                    thumb: "images/profile.jpeg?thumb=1",
                     title: "حفل التكريم والتخرج",
                     description: "احتفال بالإنجازات الأكاديمية والتميز العلمي",
                     category: "graduation"
@@ -1271,6 +1244,7 @@
                 {
                     id: 13,
                     src: "images/m1.jpg",
+                    thumb: "images/m1.jpg?thumb=1",
                     title: "لقطة جماعية اثناء مناقشة مشروع التخرج",
                     description: "مناقشة علمي مثمر وبناء مع الاستاذة والمتخصصين",
                     category: "discussion"
@@ -1278,6 +1252,7 @@
                 {
                     id: 14,
                     src: "images/m5.jpg",
+                    thumb: "images/m5.jpg?thumb=1",
                     title: "لقطة اثناء مناقشة مشروع التخرج",
                     description: "تعاون ومشاركة في ورشة عمل متميزة ومثمرة",
                     category: "discussion",
@@ -1286,6 +1261,7 @@
                 {
                     id: 15,
                     src: "images/t11.jpg",
+                    thumb: "images/t11.jpg?thumb=1",
                     title: "لقطة مع الزملاء اثناء جلسة التصوير",
                     description: "لحظات سعيدة لا تنسى من الذاكرة الجميلة",
                     category: "memories"
@@ -1293,6 +1269,7 @@
                 {
                     id: 16,
                     src: "images/ind.png",
+                    thumb: "images/ind.png?thumb=1",
                     title: "بوابة الطالب",
                     description: "لقطة الصفحة الرئسية مشروع بوابة الطالب",
                     category: "work",
@@ -1301,6 +1278,7 @@
                 {
                     id: 17,
                     src: "images/t10.jpg",
+                    thumb: "images/t10.jpg?thumb=1",
                     title: "لقطة مع الكوكباني",
                     description: "أوقات ممتعة ومسلية في الأجواء",
                     category: "memories"
@@ -1308,6 +1286,7 @@
                 {
                     id: 18,
                     src: "images/port6.png",
+                    thumb: "images/port6.png?thumb=1",
                     title: "صفحة عرض الفعاليات والانشطة من مشروع التخرج",
                     description: "أعمال فنية تعبر عن الموهبة والإبداع",
                     category: "work"
@@ -1315,6 +1294,7 @@
                 {
                     id: 19,
                     src: "images/col.png",
+                    thumb: "images/col.png?thumb=1",
                     title: "صفحة خدمات الطالب",
                     description: "إنجازات في مجال التكنولوجيا والابتكار",
                     category: "work"
@@ -1322,6 +1302,7 @@
                 {
                     id: 20,
                     src: "images/t22.jpg",
+                    thumb: "images/t22.jpg?thumb=1",
                     title: "صورة جماعية جلسات التصوير",
                     description: "لقطات شخصية",
                     category: "personal"
@@ -1329,6 +1310,7 @@
                 {
                     id: 21,
                     src: "images/t6.jpg",
+                    thumb: "images/t6.jpg?thumb=1",
                     title: "جلسة تصوير",
                     description: "لحظات عفوية وابتسامات صادقة",
                     category: "personal"
@@ -1336,6 +1318,7 @@
                 {
                     id: 22,
                     src: "images/pal.png",
+                    thumb: "images/pal.png?thumb=1",
                     title: "لقطة من لعبة البالون",
                     description: "أعمال تعبر عن المشاعر والأحاسيس",
                     category: "work"
@@ -1343,6 +1326,7 @@
                 {
                     id: 23,
                     src: "images/m4.jpg",
+                    thumb: "images/m4.jpg?thumb=1",
                     title: "مناقشة مشروع التخرج مع المهندس اصيل",
                     description: "لقطات تعبر عن الفرح والثقة",
                     category: "personal"
@@ -1350,6 +1334,7 @@
                 {
                     id: 24,
                     src: "images/g9.jpg",
+                    thumb: "images/g9.jpg?thumb=1",
                     title: "لقطة افضل مع افضل مبتسم",
                     description: "لحظة جميلة",
                     category: "personal"
@@ -1406,7 +1391,7 @@
         let currentCategory = 'all';
         let mainSwiper = null;
         let currentLightboxImage = null;
-        let visibleImages = 12;
+        let visibleImages = 8;
         let imagesPerLoad = 8;
         let currentDisplayedImages = [];
         let imageCache = new Map();
@@ -1414,30 +1399,32 @@
 
         // ===== تهيئة التطبيق =====
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 بدء تحميل المعرض...');
+            console.time('App Initialization');
             
-            // إخفاء شاشة التحميل بعد تأخير قصير
-            loadingTimeout = setTimeout(() => {
-                hideLoadingScreen();
-            }, 1500);
-
+            // إخفاء شاشة التحميل بسرعة
+            setTimeout(hideLoadingScreen, 500);
+            
+            // تهيئة AOS بسيطة
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 400,
+                    once: true,
+                    offset: 50,
+                    disable: window.innerWidth < 768
+                });
+            }
+            
+            // تهيئة المكونات الأساسية
             initializeMiniCategories();
             initializeSlideshow();
             initializeThumbnails();
             initializeCategories();
             setupEventListeners();
             
-            // تحميل الصور المهمة مسبقاً
+            // تحميل أول 4 صور فوراً
             preloadCriticalImages();
             
-            // تحديث السوابر بعد تحميل الصور
-            if (mainSwiper) {
-                setTimeout(() => {
-                    mainSwiper.update();
-                }, 500);
-            }
-            
-            console.log('✅ المعرض جاهز للاستخدام!');
+            console.timeEnd('App Initialization');
         });
 
         // ===== إخفاء شاشة التحميل =====
@@ -1447,7 +1434,7 @@
                 loadingOverlay.style.opacity = '0';
                 setTimeout(() => {
                     loadingOverlay.style.display = 'none';
-                }, 500);
+                }, 300);
             }
         }
 
@@ -1480,32 +1467,39 @@
                         document.getElementById('miniCategoriesContainer').classList.remove('active');
                         document.body.style.overflow = '';
                     }
+                    
+                    // Scroll إلى الصور
+                    document.getElementById('thumbnailsSection').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 });
                 
                 container.appendChild(button);
             });
         }
 
-        // ===== تهيئة عرض الشرائح مع تحسينات السرعة =====
+        // ===== تهيئة عرض الشرائح السريع =====
         function initializeSlideshow() {
             const swiperWrapper = document.getElementById('swiperWrapper');
             if (!swiperWrapper) return;
             
-            const featuredImages = galleryData.images.filter(img => img.featured);
+            const featuredImages = galleryData.images.filter(img => img.featured).slice(0, 5);
             
             featuredImages.forEach((image, index) => {
                 const slide = document.createElement('div');
                 slide.className = 'swiper-slide';
                 
+                // استخدام placeholder صغير أولاً
                 slide.innerHTML = `
                     <div class="image-container">
                         <div class="image-loading"></div>
                         <img 
-                            src=""
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
                             data-src="${image.src}"
                             alt="${image.title}"
                             loading="${index < 2 ? 'eager' : 'lazy'}"
-                            decoding="async"
+                            class="optimized-image"
                         >
                     </div>
                     <div class="slide-overlay">
@@ -1519,111 +1513,86 @@
                 });
                 
                 swiperWrapper.appendChild(slide);
-                
-                // تحميل أول صورتين فوراً
-                if (index < 2) {
-                    loadImage(slide.querySelector('img'));
-                }
             });
             
-            // تهيئة Swiper مع إعدادات مبسطة
-            mainSwiper = new Swiper('#mainSwiper', {
-                direction: 'horizontal',
-                loop: true,
-                speed: 800,
-                grabCursor: true,
-                centeredSlides: true,
-                slidesPerView: 1,
-                spaceBetween: 0,
-                
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-                
-                effect: 'slide',
-                fadeEffect: {
-                    crossFade: true
-                },
-                
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
+            // تهيئة Swiper بسيطة وسريعة
+            if (typeof Swiper !== 'undefined') {
+                mainSwiper = new Swiper('#mainSwiper', {
+                    direction: 'horizontal',
+                    loop: true,
+                    speed: 800,
+                    grabCursor: true,
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                    
+                    autoplay: {
+                        delay: 4000,
+                        disableOnInteraction: false,
                     },
-                    768: {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
-                    }
-                },
-                
-                on: {
-                    init: function () {
-                        console.log('🎬 Swiper initialized');
-                        hideLoadingScreen();
+                    
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
                     },
-                    slideChange: function () {
-                        // تحميل الصورة النشطة
-                        const activeSlide = this.slides[this.activeIndex];
-                        loadImage(activeSlide.querySelector('img'));
+                    
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    
+                    on: {
+                        init: function () {
+                            console.log('✅ Swiper initialized');
+                            // تحميل أول صورتين فوراً
+                            this.slides.slice(0, 2).forEach(loadSlideImage);
+                        },
+                        slideChange: function () {
+                            // تحميل الصورة الحالية والمجاورة
+                            const activeSlide = this.slides[this.activeIndex];
+                            loadSlideImage(activeSlide);
+                        }
                     }
-                }
-            });
+                });
+            }
+            
+            // تحميل بقية الصور في الخلفية
+            setTimeout(() => {
+                const slides = document.querySelectorAll('.swiper-slide');
+                slides.forEach((slide, index) => {
+                    if (index >= 2) {
+                        loadSlideImage(slide);
+                    }
+                });
+            }, 1000);
         }
 
-        // ===== تحميل الصورة الذكي =====
-        function loadImage(imgElement) {
-            if (!imgElement || imgElement.dataset.loaded === 'true') return;
+        // ===== تحميل صورة الشرائح =====
+        function loadSlideImage(slide) {
+            if (!slide) return;
             
-            const src = imgElement.dataset.src;
+            const img = slide.querySelector('img');
+            if (!img || img.dataset.loaded === 'true') return;
+            
+            const src = img.dataset.src;
             if (!src) return;
             
-            // التحقق من الكاش أولاً
-            if (imageCache.has(src)) {
-                applyImage(imgElement, src);
-                return;
-            }
-            
-            const img = new Image();
-            
-            img.onload = () => {
-                imageCache.set(src, true);
-                applyImage(imgElement, src);
+            const image = new Image();
+            image.onload = () => {
+                img.src = src;
+                img.dataset.loaded = 'true';
+                slide.querySelector('.image-loading').style.display = 'none';
+                img.classList.add('optimized-image');
             };
             
-            img.onerror = () => {
-                console.warn(`❌ Failed to load image: ${src}`);
-                imgElement.src = getFallbackImage(0);
-                imgElement.classList.add('loaded');
-                imgElement.parentElement.querySelector('.image-loading').style.display = 'none';
+            image.onerror = () => {
+                img.dataset.loaded = 'true';
+                slide.querySelector('.image-loading').style.display = 'none';
             };
             
-            img.src = src;
+            image.src = src;
         }
 
-        // ===== تطبيق الصورة بعد التحميل =====
-        function applyImage(imgElement, src) {
-            imgElement.src = src;
-            imgElement.classList.add('loaded');
-            
-            // إخفاء مؤشر التحميل
-            const loadingElement = imgElement.parentElement.querySelector('.image-loading');
-            if (loadingElement) {
-                loadingElement.style.display = 'none';
-            }
-        }
-
-        // ===== تهيئة الصور المصغرة مع lazy loading =====
+        // ===== تهيئة الصور المصغرة السريعة =====
         function initializeThumbnails() {
             const grid = document.getElementById('thumbnailsGrid');
             if (!grid) return;
@@ -1637,13 +1606,13 @@
                 grid.appendChild(item);
             });
             
-            // إعداد Intersection Observer للتحميل عند الظهور
-            setupIntersectionObserver();
+            // استخدام Intersection Observer لتحميل الصور
+            setupLazyLoading();
             
             updateLoadMoreButton();
         }
 
-        // ===== إنشاء عنصر مصغر =====
+        // ===== إنشاء عنصر مصغر سريع =====
         function createThumbnailItem(image, index) {
             const item = document.createElement('div');
             item.className = 'thumbnail-item';
@@ -1654,13 +1623,13 @@
                 <div class="image-container">
                     <div class="image-loading"></div>
                     <img 
-                        src=""
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E"
                         data-src="${image.src}"
                         alt="${image.title}"
                         loading="lazy"
-                        decoding="async"
-                        width="280"
-                        height="210"
+                        width="250"
+                        height="188"
+                        class="optimized-image"
                     >
                 </div>
                 <div class="thumbnail-overlay">
@@ -1683,31 +1652,61 @@
             return item;
         }
 
-        // ===== إعداد Intersection Observer =====
-        function setupIntersectionObserver() {
+        // ===== إعداد التحميل المتأخر (Lazy Loading) =====
+        function setupLazyLoading() {
             if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries) => {
+                const imageObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             const img = entry.target;
-                            loadImage(img);
-                            observer.unobserve(img);
+                            loadThumbnailImage(img);
+                            imageObserver.unobserve(img);
                         }
                     });
                 }, {
-                    rootMargin: '100px',
+                    rootMargin: '50px',
                     threshold: 0.1
                 });
                 
-                const images = document.querySelectorAll('.thumbnail-item img, .swiper-slide img');
+                const images = document.querySelectorAll('.thumbnail-item img');
                 images.forEach(img => {
-                    observer.observe(img);
+                    imageObserver.observe(img);
                 });
             } else {
-                // Fallback للبيئات القديمة
-                const images = document.querySelectorAll('img[data-src]');
-                images.forEach(loadImage);
+                // Fallback: تحميل جميع الصور
+                const images = document.querySelectorAll('.thumbnail-item img');
+                images.forEach(loadThumbnailImage);
             }
+        }
+
+        // ===== تحميل صورة مصغرة =====
+        function loadThumbnailImage(imgElement) {
+            if (!imgElement || imgElement.dataset.loaded === 'true') return;
+            
+            const src = imgElement.dataset.src;
+            if (!src) return;
+            
+            const image = new Image();
+            image.onload = () => {
+                imgElement.src = src;
+                imgElement.dataset.loaded = 'true';
+                imgElement.parentElement.querySelector('.image-loading').style.display = 'none';
+                imgElement.classList.add('optimized-image');
+                
+                // تأثير fade-in
+                imgElement.style.opacity = '0';
+                requestAnimationFrame(() => {
+                    imgElement.style.transition = 'opacity 0.3s ease';
+                    imgElement.style.opacity = '1';
+                });
+            };
+            
+            image.onerror = () => {
+                imgElement.dataset.loaded = 'true';
+                imgElement.parentElement.querySelector('.image-loading').style.display = 'none';
+            };
+            
+            image.src = src;
         }
 
         // ===== تحميل المزيد من الصور =====
@@ -1718,8 +1717,9 @@
             if (!loadMoreBtn || !grid) return;
             
             loadMoreBtn.classList.add('loading');
-            loadMoreBtn.innerHTML = '<i class="fas fa-spinner"></i> جاري التحميل...';
+            loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
             
+            // استخدام setTimeout بدلاً من requestAnimationFrame لتجنب التجميد
             setTimeout(() => {
                 const currentLength = currentDisplayedImages.length;
                 const nextImages = galleryData.images.slice(currentLength, currentLength + imagesPerLoad);
@@ -1732,8 +1732,8 @@
                 currentDisplayedImages = [...currentDisplayedImages, ...nextImages];
                 updateLoadMoreButton();
                 
-                // إعادة إعداد المراقب للصور الجديدة
-                setupIntersectionObserver();
+                // إعادة إعداد lazy loading للصور الجديدة
+                setupLazyLoading();
                 
                 loadMoreBtn.classList.remove('loading');
                 loadMoreBtn.innerHTML = '<i class="fas fa-plus"></i> عرض المزيد من الصور';
@@ -1751,7 +1751,7 @@
             
             if (remainingImages > 0) {
                 loadMoreBtn.style.display = 'inline-flex';
-                loadMoreBtn.innerHTML = `<i class="fas fa-plus"></i> عرض المزيد (${remainingImages} صورة)`;
+                loadMoreBtn.innerHTML = `<i class="fas fa-plus"></i> عرض المزيد (${remainingImages})`;
             } else {
                 loadMoreBtn.style.display = 'none';
             }
@@ -1779,7 +1779,7 @@
                     'images/t22.jpg';
                 
                 card.innerHTML = `
-                    <div class="category-bg" style="background-image: url('${randomImage}')"></div>
+                    <div class="category-bg"></div>
                     <div class="category-content">
                         <div class="category-icon" style="background: ${category.color}">
                             <i class="${category.icon}"></i>
@@ -1788,6 +1788,14 @@
                         <p>${category.description}</p>
                     </div>
                 `;
+                
+                // تحميل صورة الخلفية
+                const bg = card.querySelector('.category-bg');
+                const bgImage = new Image();
+                bgImage.onload = () => {
+                    bg.style.backgroundImage = `url('${randomImage}')`;
+                };
+                bgImage.src = randomImage;
                 
                 card.addEventListener('click', () => {
                     currentCategory = category.id;
@@ -1798,6 +1806,11 @@
                         if (btn.getAttribute('data-category') === category.id) {
                             btn.classList.add('active');
                         }
+                    });
+                    
+                    document.getElementById('thumbnailsSection').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 });
                 
@@ -1839,16 +1852,14 @@
             
             if (closeLightbox) {
                 closeLightbox.addEventListener('click', () => {
-                    lightbox.classList.remove('active');
-                    document.body.style.overflow = '';
+                    closeLightboxFunc();
                 });
             }
             
             if (lightbox) {
                 lightbox.addEventListener('click', (e) => {
                     if (e.target === lightbox) {
-                        lightbox.classList.remove('active');
-                        document.body.style.overflow = '';
+                        closeLightboxFunc();
                     }
                 });
             }
@@ -1861,12 +1872,11 @@
                 });
             }
             
-            // إغلاق Lightbox بواسطة ESC
+            // إغلاق بواسطة ESC
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     if (lightbox && lightbox.classList.contains('active')) {
-                        lightbox.classList.remove('active');
-                        document.body.style.overflow = '';
+                        closeLightboxFunc();
                     }
                     if (miniCategoriesContainer && miniCategoriesContainer.classList.contains('active')) {
                         miniCategoriesContainer.classList.remove('active');
@@ -1875,23 +1885,35 @@
                 }
             });
             
-            // تحسين الأداء عند التمرير
-            let scrollTimeout;
-            window.addEventListener('scroll', () => {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    // تحميل الصور المرئية فقط
-                    const visibleImages = document.querySelectorAll('img[data-src]');
-                    visibleImages.forEach(img => {
-                        if (isElementInViewport(img)) {
-                            loadImage(img);
-                        }
-                    });
-                }, 250);
-            });
+            // تأثير Header عند التمرير
+            let lastScrollTop = 0;
+            const header = document.querySelector('.main-header');
+            
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    if (scrollTop > lastScrollTop && scrollTop > 50) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                    }
+                    
+                    lastScrollTop = scrollTop;
+                });
+            }
         }
 
-        // ===== فتح Lightbox =====
+        // ===== إغلاق Lightbox =====
+        function closeLightboxFunc() {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ===== فتح Lightbox سريع =====
         function openLightbox(image) {
             currentLightboxImage = image;
             
@@ -1902,19 +1924,35 @@
             
             if (!lightbox || !lightboxImage || !lightboxTitle || !lightboxDescription) return;
             
-            // إعداد المعلومات
+            // إعداد المعلومات أولاً
             lightboxTitle.textContent = image.title;
             lightboxDescription.textContent = image.description;
             
-            // تحميل الصورة
-            lightboxImage.src = image.src;
-            lightboxImage.alt = image.title;
-            lightboxImage.classList.add('loaded');
-            lightbox.querySelector('.image-loading').style.display = 'none';
-            
-            // إظهار Lightbox
+            // إظهار Lightbox فوراً
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // تحميل الصورة في الخلفية
+            const highResImage = new Image();
+            highResImage.onload = () => {
+                lightboxImage.src = image.src;
+                lightboxImage.alt = image.title;
+                lightboxImage.classList.add('optimized-image');
+                lightbox.querySelector('.image-loading').style.display = 'none';
+                
+                // تأثير fade-in
+                lightboxImage.style.opacity = '0';
+                requestAnimationFrame(() => {
+                    lightboxImage.style.transition = 'opacity 0.3s ease';
+                    lightboxImage.style.opacity = '1';
+                });
+            };
+            
+            highResImage.onerror = () => {
+                lightbox.querySelector('.image-loading').style.display = 'none';
+            };
+            
+            highResImage.src = image.src;
         }
 
         // ===== تحميل الصورة =====
@@ -1946,6 +1984,7 @@
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.textContent = message;
+            notification.setAttribute('role', 'alert');
             
             document.body.appendChild(notification);
             
@@ -1978,50 +2017,46 @@
             });
             
             updateLoadMoreButton();
-            setupIntersectionObserver();
+            
+            // إعادة إعداد lazy loading
+            setTimeout(setupLazyLoading, 100);
         }
 
         // ===== تحميل الصور المهمة مسبقًا =====
         function preloadCriticalImages() {
-            // تحميل أول 4 صور فوراً لسرعة العرض
-            const criticalImages = galleryData.images.slice(0, 4);
+            // تحميل الصور المميزة أولاً
+            const featuredImages = galleryData.images.filter(img => img.featured).slice(0, 4);
             
-            criticalImages.forEach(image => {
+            featuredImages.forEach(image => {
                 if (!imageCache.has(image.src)) {
                     const img = new Image();
                     img.src = image.src;
                     imageCache.set(image.src, true);
                 }
             });
-        }
-
-        // ===== التحقق مما إذا كان العنصر في منطقة العرض =====
-        function isElementInViewport(el) {
-            if (!el) return false;
             
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
-                rect.bottom >= 0 &&
-                rect.right >= 0
-            );
+            // تحميل بقية الصور في وقت الفراغ
+            setTimeout(() => {
+                const otherImages = galleryData.images.slice(0, 8);
+                otherImages.forEach(image => {
+                    if (!imageCache.has(image.src)) {
+                        const img = new Image();
+                        img.src = image.src;
+                        imageCache.set(image.src, true);
+                    }
+                });
+            }, 1000);
         }
 
         // ===== مساعدات =====
-        function getFallbackImage(index) {
-            const fallbacks = [
-                'https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=800&h=600&fit=crop&q=80',
-                'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&h=600&fit=crop&q=80',
-                'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&h=600&fit=crop&q=80'
-            ];
-            return fallbacks[index % fallbacks.length];
-        }
-
         function getCategoryName(categoryId) {
             const category = galleryData.categories.find(cat => cat.id === categoryId);
             return category ? category.name : 'غير مصنف';
         }
+
+        // ===== تهيئة كاملة =====
+        console.log('🚀 معرض الذكريات الشخصي - محمّل بشكل سريع!');
+        console.log('⚡ تم تحسين أداء التحميل بشكل كبير');
     </script>
 </body>
 </html>
