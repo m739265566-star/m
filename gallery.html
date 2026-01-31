@@ -72,7 +72,7 @@
             position: relative;
         }
 
-        /* ===== Loading States ===== */
+        /* ===== Loading States - Simplified ===== */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -85,31 +85,37 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.3s ease;
         }
 
         .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(138, 43, 226, 0.3);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(138, 43, 226, 0.3);
             border-top-color: var(--primary);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .loading-text {
             color: var(--light);
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-family: 'El Messiri', serif;
         }
 
-        /* ===== Image Loading Animation ===== */
+        /* ===== Image Loading - Ultra Fast ===== */
         .image-container {
             position: relative;
             width: 100%;
             height: 100%;
             overflow: hidden;
+            background: var(--dark-light);
         }
 
         .image-loading {
@@ -119,88 +125,25 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, 
-                rgba(10, 10, 20, 0.8) 0%, 
-                rgba(26, 26, 46, 0.9) 50%, 
-                rgba(10, 10, 20, 0.8) 100%);
+                var(--dark-light) 0%, 
+                rgba(138, 43, 226, 0.1) 50%, 
+                var(--dark-light) 100%);
             background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            z-index: 1;
+            animation: shimmer 1.2s infinite;
         }
 
         @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
 
         .image-loaded {
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.3s ease;
         }
 
         .image-loaded.active {
             opacity: 1;
-        }
-
-        /* ===== Floating Particles ===== */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            background: var(--primary);
-            opacity: 0.1;
-            animation: floatParticle 20s infinite linear;
-        }
-
-        @keyframes floatParticle {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(100px, -50px) scale(1.2); }
-            50% { transform: translate(0, -100px) scale(1); }
-            75% { transform: translate(-100px, -50px) scale(1.2); }
-        }
-
-        /* ===== Glowing Orbs ===== */
-        .glowing-orbs {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .glowing-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.15;
-            animation: floatOrb 25s infinite linear;
-        }
-
-        @keyframes floatOrb {
-            0%, 100% { 
-                transform: translate(0, 0);
-                box-shadow: 0 0 80px currentColor;
-            }
-            25% { 
-                transform: translate(150px, -80px);
-                box-shadow: 0 0 100px currentColor;
-            }
-            50% { 
-                transform: translate(0, -150px);
-                box-shadow: 0 0 120px currentColor;
-            }
-            75% { 
-                transform: translate(-150px, -80px);
-                box-shadow: 0 0 100px currentColor;
-            }
         }
 
         /* ===== Header ===== */
@@ -211,85 +154,66 @@
             width: 100%;
             z-index: 1000;
             background: rgba(10, 10, 20, 0.95);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem 0;
-            transition: var(--transition);
+            padding: 0.8rem 0;
+            transition: transform 0.3s ease;
+            transform: translateY(0);
         }
 
         .header-container {
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
-            z-index: 1001;
         }
 
         .logo-icon {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: var(--gradient-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--light);
-            animation: logoGlow 2s infinite alternate;
-        }
-
-        @keyframes logoGlow {
-            0% { 
-                box-shadow: 
-                    var(--glow-primary),
-                    0 0 0 2px rgba(138, 43, 226, 0.2),
-                    0 0 0 4px rgba(138, 43, 226, 0.1);
-            }
-            100% { 
-                box-shadow: 
-                    0 0 40px rgba(138, 43, 226, 0.8),
-                    0 0 0 3px rgba(138, 43, 226, 0.3),
-                    0 0 0 6px rgba(138, 43, 226, 0.1);
-            }
         }
 
         .logo-text {
             font-family: 'El Messiri', serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             background: linear-gradient(45deg, var(--primary), var(--accent2));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
         }
 
         /* ===== Mobile Menu Button ===== */
         .mobile-menu-btn {
             display: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: var(--light);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: var(--transition);
             align-items: center;
             justify-content: center;
-            z-index: 1001;
         }
 
         /* ===== Mini Categories ===== */
@@ -301,7 +225,7 @@
 
         .mini-categories {
             display: flex;
-            gap: 8px;
+            gap: 5px;
             overflow-x: auto;
             padding: 5px;
             scrollbar-width: none;
@@ -313,65 +237,31 @@
         }
 
         .mini-category-btn {
-            padding: 8px 16px;
-            border-radius: 25px;
+            padding: 6px 12px;
+            border-radius: 20px;
             background: rgba(255, 255, 255, 0.08);
-            border: 2px solid transparent;
+            border: 1px solid transparent;
             color: var(--light);
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
             white-space: nowrap;
-            transition: var(--transition);
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 6px;
-            position: relative;
-            overflow: hidden;
+            gap: 5px;
         }
 
-        .mini-category-btn::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--primary), 
-                var(--accent), 
-                var(--accent2), 
-                var(--primary));
-            border-radius: 25px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: borderRotate 4s linear infinite;
-            background-size: 400% 400%;
-        }
-
-        @keyframes borderRotate {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .mini-category-btn:hover,
         .mini-category-btn.active {
             background: var(--gradient-primary);
-            transform: translateY(-2px);
-            box-shadow: var(--glow-primary);
             border-color: var(--primary);
-        }
-
-        .mini-category-btn.active::before {
-            opacity: 1;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
         }
 
         /* ===== Home Button ===== */
         .home-btn {
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 8px 16px;
+            border-radius: 20px;
             background: var(--gradient-accent);
             color: var(--light);
             border: none;
@@ -380,112 +270,56 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: var(--transition);
+            gap: 6px;
+            transition: all 0.2s ease;
             text-decoration: none;
             white-space: nowrap;
-            position: relative;
-            overflow: hidden;
         }
 
-        .home-btn::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--accent), 
-                var(--primary), 
-                var(--accent2), 
-                var(--accent));
-            border-radius: 25px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: borderRotate 4s linear infinite;
-            background-size: 400% 400%;
-        }
-
-        .home-btn:hover::before {
-            opacity: 1;
-        }
-
-        .home-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--glow-accent);
-        }
-
-        /* ===== Slideshow Section ===== */
+        /* ===== Slideshow Section - Optimized ===== */
         .slideshow-section {
-            padding: 60px 20px;
+            padding: 50px 15px;
             position: relative;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
-            position: relative;
+            margin-bottom: 30px;
         }
 
         .section-title h2 {
             font-family: 'El Messiri', serif;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-size: clamp(1.5rem, 3vw, 2rem);
             color: white;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             background: linear-gradient(45deg, var(--primary), var(--accent2));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
         }
 
         .section-title p {
             color: var(--gray);
-            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-size: clamp(0.85rem, 1.5vw, 0.95rem);
             max-width: 500px;
             margin: 0 auto;
         }
 
-        /* ===== Swiper Slideshow ===== */
+        /* ===== Fast Swiper Slideshow ===== */
         .slideshow-container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            position: relative;
-            animation: borderGlow 4s infinite alternate;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            border: 2px solid transparent;
-        }
-
-        @keyframes borderGlow {
-            0% { 
-                border-color: rgba(138, 43, 226, 0.3);
-                box-shadow: 
-                    0 0 40px rgba(138, 43, 226, 0.4),
-                    0 0 0 4px rgba(138, 43, 226, 0.1);
-            }
-            50% { 
-                border-color: rgba(255, 20, 147, 0.4);
-                box-shadow: 
-                    0 0 50px rgba(255, 20, 147, 0.5),
-                    0 0 0 6px rgba(255, 20, 147, 0.15);
-            }
-            100% { 
-                border-color: rgba(0, 206, 209, 0.3);
-                box-shadow: 
-                    0 0 40px rgba(0, 206, 209, 0.4),
-                    0 0 0 4px rgba(0, 206, 209, 0.1);
-            }
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .swiper {
             width: 100%;
-            height: 70vh;
-            min-height: 500px;
+            height: 60vh;
+            min-height: 400px;
         }
 
         .swiper-slide {
@@ -506,21 +340,11 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: pixelated;
-            transform-origin: center center;
+            transition: transform 0.5s ease;
         }
 
         .swiper-slide-active img {
-            transform: scale(1.1);
-            animation: subtleZoom 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes subtleZoom {
-            0% { transform: scale(1.05); }
-            100% { transform: scale(1.1); }
+            transform: scale(1.05);
         }
 
         .slide-overlay {
@@ -528,170 +352,79 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 30px;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-            transform: translateY(100%);
-            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .swiper-slide-active .slide-overlay {
-            transform: translateY(0);
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
         }
 
         .slide-title {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            margin-bottom: 8px;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 5px;
             color: white;
             font-family: 'El Messiri', serif;
         }
 
         .slide-description {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: clamp(0.85rem, 2vw, 1rem);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
         }
 
         .swiper-button-next,
         .swiper-button-prev {
-            width: 50px !important;
-            height: 50px !important;
+            width: 40px !important;
+            height: 40px !important;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white !important;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .swiper-button-next::before,
-        .swiper-button-prev::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--primary), 
-                var(--accent), 
-                var(--accent2));
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: borderRotate 3s linear infinite;
-            background-size: 400% 400%;
+            transition: all 0.2s ease;
         }
 
         .swiper-button-next:after,
         .swiper-button-prev:after {
-            font-size: 1.2rem !important;
-        }
-
-        .swiper-button-next:hover,
-        .swiper-button-prev:hover {
-            background: var(--primary);
-            transform: scale(1.1);
-            border-color: var(--accent);
-        }
-
-        .swiper-button-next:hover::before,
-        .swiper-button-prev:hover::before {
-            opacity: 1;
+            font-size: 1rem !important;
         }
 
         .swiper-pagination-bullet {
-            width: 12px !important;
-            height: 12px !important;
+            width: 10px !important;
+            height: 10px !important;
             background: rgba(255, 255, 255, 0.5) !important;
             opacity: 1 !important;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .swiper-pagination-bullet::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .swiper-pagination-bullet-active {
             background: var(--primary) !important;
             transform: scale(1.2);
-            box-shadow: 0 0 10px var(--primary);
         }
 
-        .swiper-pagination-bullet-active::before {
-            opacity: 1;
-        }
-
-        /* ===== Thumbnails Grid ===== */
+        /* ===== Thumbnails Grid - Optimized ===== */
         .thumbnails-section {
-            padding: 60px 20px;
+            padding: 50px 15px;
             background: rgba(0, 0, 0, 0.3);
         }
 
         .thumbnails-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .thumbnail-item {
             position: relative;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             aspect-ratio: 4/3;
-            background: linear-gradient(45deg, 
-                rgba(138, 43, 226, 0.1), 
-                rgba(75, 0, 130, 0.1));
-            border: 2px solid transparent;
-            transition: var(--transition);
-        }
-
-        .thumbnail-item::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--primary), 
-                var(--accent), 
-                var(--accent2), 
-                var(--primary));
-            border-radius: 17px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: borderRotate 6s linear infinite;
-            background-size: 400% 400%;
-        }
-
-        .thumbnail-item:hover::before {
-            opacity: 1;
+            background: var(--dark-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
         }
 
         .thumbnail-item:hover {
-            transform: translateY(-10px) scale(1.05);
+            transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 
-                var(--glow-primary),
-                0 0 0 4px rgba(138, 43, 226, 0.2);
         }
 
         .thumbnail-item .image-container {
@@ -703,12 +436,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            image-rendering: -webkit-optimize-contrast;
+            transition: transform 0.5s ease;
         }
 
         .thumbnail-item:hover img {
-            transform: scale(1.15);
+            transform: scale(1.1);
         }
 
         .thumbnail-overlay {
@@ -716,13 +448,10 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
-            padding: 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            padding: 15px;
             transform: translateY(100%);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            transition: transform 0.3s ease;
         }
 
         .thumbnail-item:hover .thumbnail-overlay {
@@ -734,15 +463,15 @@
         }
 
         .thumbnail-title {
-            font-size: 1.1rem;
-            margin-bottom: 4px;
+            font-size: 0.95rem;
+            margin-bottom: 3px;
             color: white;
             font-family: 'El Messiri', sans-serif;
         }
 
         .thumbnail-category {
             color: var(--primary-light);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         /* ===== Download Button ===== */
@@ -750,195 +479,81 @@
             background: var(--gradient-primary);
             color: white;
             border: none;
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: var(--transition);
-            margin-right: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .download-btn::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--primary), 
-                var(--accent), 
-                var(--accent2));
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: borderRotate 3s linear infinite;
-            background-size: 400% 400%;
+            transition: all 0.2s ease;
+            margin-right: 8px;
         }
 
         .download-btn:hover {
-            background: var(--gradient-accent);
             transform: scale(1.1);
-            box-shadow: var(--glow-accent);
-        }
-
-        .download-btn:hover::before {
-            opacity: 1;
         }
 
         /* ===== Load More Button ===== */
         .load-more-container {
             text-align: center;
-            margin-top: 50px;
-            padding: 20px;
+            margin-top: 40px;
+            padding: 15px;
         }
 
         .load-more-btn {
-            padding: 15px 40px;
-            border-radius: 30px;
+            padding: 12px 30px;
+            border-radius: 25px;
             background: var(--gradient-primary);
             color: white;
             border: none;
             font-family: inherit;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--glow-primary);
-        }
-
-        .load-more-btn::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--primary), 
-                var(--accent), 
-                var(--accent2), 
-                var(--primary));
-            border-radius: 32px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: borderRotate 3s linear infinite;
-            background-size: 400% 400%;
-        }
-
-        .load-more-btn:hover::before {
-            opacity: 1;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
         }
 
         .load-more-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 
-                var(--glow-primary),
-                0 10px 30px rgba(138, 43, 226, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4);
         }
 
         .load-more-btn.loading {
-            opacity: 0.8;
+            opacity: 0.7;
             cursor: not-allowed;
-        }
-
-        .load-more-btn.loading i {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         /* ===== Categories Section ===== */
         .categories-section {
-            padding: 60px 20px;
+            padding: 50px 15px;
         }
 
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .category-card {
             position: relative;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
             cursor: pointer;
             aspect-ratio: 1/1;
-            transition: var(--transition);
-            border: 2px solid transparent;
-            animation: categoryGlow 8s infinite alternate;
-        }
-
-        @keyframes categoryGlow {
-            0% { 
-                border-color: rgba(138, 43, 226, 0.2);
-                box-shadow: 
-                    0 10px 30px rgba(138, 43, 226, 0.2),
-                    0 0 0 2px rgba(138, 43, 226, 0.1);
-            }
-            50% { 
-                border-color: rgba(0, 206, 209, 0.3);
-                box-shadow: 
-                    0 10px 30px rgba(0, 206, 209, 0.3),
-                    0 0 0 3px rgba(0, 206, 209, 0.15);
-            }
-            100% { 
-                border-color: rgba(255, 20, 147, 0.2);
-                box-shadow: 
-                    0 10px 30px rgba(255, 20, 147, 0.2),
-                    0 0 0 2px rgba(255, 20, 147, 0.1);
-            }
-        }
-
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--primary), 
-                var(--accent), 
-                var(--accent2), 
-                var(--primary));
-            border-radius: 22px;
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: borderRotate 6s linear infinite;
-            background-size: 400% 400%;
-        }
-
-        .category-card:hover::before {
-            opacity: 1;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .category-card:hover {
-            transform: translateY(-10px) scale(1.05);
+            transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 
-                var(--glow-primary),
-                0 0 0 4px rgba(138, 43, 226, 0.2);
-            animation: none;
         }
 
         .category-bg {
@@ -950,11 +565,11 @@
             background-size: cover;
             background-position: center;
             filter: brightness(0.7);
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.5s ease;
         }
 
         .category-card:hover .category-bg {
-            transform: scale(1.15);
+            transform: scale(1.1);
         }
 
         .category-content {
@@ -963,105 +578,48 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, 
-                rgba(0, 0, 0, 0.7), 
-                rgba(0, 0, 0, 0.4));
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
             text-align: center;
-            z-index: 2;
         }
 
         .category-icon {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: white;
-            transition: var(--transition);
             background: var(--gradient-primary);
-            box-shadow: var(--glow-primary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .category-icon::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--primary), 
-                var(--accent), 
-                var(--accent2));
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: borderRotate 3s linear infinite;
-            background-size: 400% 400%;
-        }
-
-        .category-card:hover .category-icon {
-            transform: scale(1.2) rotate(15deg);
-        }
-
-        .category-card:hover .category-icon::before {
-            opacity: 1;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
         }
 
         .category-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
             color: white;
             font-family: 'El Messiri', sans-serif;
         }
 
         .category-content p {
             color: rgba(255, 255, 255, 0.9);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
 
         /* ===== Footer ===== */
         .main-footer {
-            padding: 50px 20px 30px;
+            padding: 40px 15px 20px;
             background: rgba(0, 0, 0, 0.7);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .main-footer::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                var(--primary),
-                var(--accent),
-                var(--accent2),
-                transparent);
-            animation: footerGlow 4s linear infinite;
-            background-size: 200% 100%;
-        }
-
-        @keyframes footerGlow {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
         }
 
         .footer-content {
@@ -1071,57 +629,43 @@
 
         .footer-logo {
             font-family: 'El Messiri', serif;
-            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            font-size: 1.5rem;
             font-weight: 700;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+            margin-bottom: 10px;
         }
 
         .footer-text {
             color: var(--gray);
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
-            margin-bottom: 20px;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
         }
 
         .copyright {
             color: var(--gray);
-            font-size: 0.85rem;
-            padding-top: 20px;
+            font-size: 0.8rem;
+            padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
         }
 
-        .copyright::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 2px;
-            background: var(--gradient-primary);
-            border-radius: 2px;
-        }
-
-        /* ===== Lightbox ===== */
+        /* ===== Lightbox - Optimized ===== */
         .lightbox-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.98);
+            background: rgba(0, 0, 0, 0.95);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 2000;
-            padding: 20px;
-            animation: fadeIn 0.3s ease;
+            padding: 15px;
+            animation: fadeIn 0.2s ease;
         }
 
         @keyframes fadeIn {
@@ -1135,35 +679,19 @@
 
         .lightbox-content {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1000px;
             max-height: 90vh;
             position: relative;
             background: var(--dark-light);
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            border: 3px solid transparent;
-            box-shadow: 
-                var(--glow-primary),
-                0 0 0 6px rgba(138, 43, 226, 0.1),
-                0 0 60px rgba(0, 0, 0, 0.8);
-            animation: lightboxAppear 0.5s ease;
-        }
-
-        @keyframes lightboxAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.9) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .lightbox-img-container {
             position: relative;
             width: 100%;
-            max-height: 70vh;
+            max-height: 65vh;
             overflow: hidden;
             background: var(--dark);
             display: flex;
@@ -1174,24 +702,21 @@
         .lightbox-img {
             width: 100%;
             height: auto;
-            max-height: 70vh;
+            max-height: 65vh;
             object-fit: contain;
             display: block;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            transition: opacity 0.5s ease;
         }
 
         .lightbox-info {
-            padding: 25px;
-            background: rgba(0, 0, 0, 0.95);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
         }
 
         .lightbox-title {
             color: white;
             font-family: 'El Messiri', serif;
-            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
             background: linear-gradient(45deg, var(--primary), var(--accent2));
             -webkit-background-clip: text;
             background-clip: text;
@@ -1200,20 +725,19 @@
 
         .lightbox-description {
             color: var(--gray);
-            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-            margin-bottom: 25px;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
         .lightbox-actions {
             display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .lightbox-download {
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 20px;
             background: var(--gradient-primary);
             color: white;
             border: none;
@@ -1221,148 +745,53 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            gap: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
             font-weight: 600;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lightbox-download::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--primary), 
-                var(--accent), 
-                var(--accent2));
-            border-radius: 27px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: borderRotate 3s linear infinite;
-            background-size: 400% 400%;
-        }
-
-        .lightbox-download:hover::before {
-            opacity: 1;
         }
 
         .lightbox-download:hover {
-            background: var(--gradient-accent);
-            transform: translateY(-3px);
-            box-shadow: var(--glow-accent);
+            transform: translateY(-2px);
         }
 
         .lightbox-close {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            width: 50px;
-            height: 50px;
+            top: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: var(--gradient-accent);
             border: none;
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: var(--transition);
-            z-index: 2001;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
-        }
-
-        .lightbox-close::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--accent), 
-                var(--primary), 
-                var(--accent2));
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: borderRotate 3s linear infinite;
-            background-size: 400% 400%;
-        }
-
-        .lightbox-close:hover::before {
-            opacity: 1;
+            transition: all 0.2s ease;
         }
 
         .lightbox-close:hover {
-            transform: rotate(90deg) scale(1.1);
-            background: var(--primary);
-            box-shadow: 0 0 30px rgba(138, 43, 226, 0.7);
-        }
-
-        /* ===== Progressive Loading Indicator ===== */
-        .image-progress {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            z-index: 2;
-        }
-
-        .image-progress-ring {
-            width: 100%;
-            height: 100%;
-            border: 3px solid rgba(138, 43, 226, 0.1);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            transform: rotate(90deg);
         }
 
         /* ===== Responsive Design ===== */
-        @media (max-width: 1200px) {
-            .header-container {
-                max-width: 1140px;
-            }
-            
-            .swiper {
-                height: 65vh;
-            }
-        }
-
         @media (max-width: 992px) {
             .header-container {
                 flex-wrap: wrap;
-                justify-content: space-between;
             }
             
             .mini-categories-container {
                 order: 3;
                 width: 100%;
-                margin-top: 15px;
-            }
-            
-            .mini-categories {
-                justify-content: flex-start;
+                margin-top: 10px;
             }
             
             .swiper {
-                height: 60vh;
-                min-height: 400px;
-            }
-            
-            .lightbox-content {
-                max-width: 95%;
+                height: 50vh;
+                min-height: 350px;
             }
         }
 
@@ -1378,10 +807,9 @@
                 width: 100%;
                 height: 100vh;
                 background: rgba(10, 10, 20, 0.98);
-                backdrop-filter: blur(20px);
-                padding: 80px 20px;
-                transition: var(--transition-slow);
-                z-index: 1000;
+                padding: 70px 15px;
+                transition: left 0.3s ease;
+                z-index: 999;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -1396,40 +824,36 @@
             .mini-categories {
                 flex-direction: column;
                 width: 100%;
-                max-width: 400px;
+                max-width: 300px;
             }
             
             .mini-category-btn {
                 width: 100%;
                 justify-content: center;
-                padding: 15px 20px;
-                font-size: 1rem;
+                padding: 12px 15px;
+                font-size: 0.95rem;
             }
             
             .close-menu-btn {
                 position: absolute;
-                top: 20px;
-                left: 20px;
-                width: 44px;
-                height: 44px;
-                border-radius: 10px;
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
                 background: rgba(255, 255, 255, 0.1);
                 border: none;
                 color: var(--light);
-                font-size: 1.3rem;
+                font-size: 1.2rem;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
             
-            .hero-section {
-                padding: 80px 20px 40px;
-            }
-            
             .swiper {
-                height: 50vh;
-                min-height: 350px;
+                height: 40vh;
+                min-height: 300px;
             }
             
             .swiper-button-next,
@@ -1438,70 +862,54 @@
             }
             
             .thumbnails-grid {
-                grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
             }
             
             .categories-grid {
-                grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 15px;
             }
             
             .load-more-btn {
-                padding: 12px 30px;
-                font-size: 1rem;
+                padding: 10px 25px;
+                font-size: 0.9rem;
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 480px) {
             .header-container {
-                padding: 0 15px;
+                padding: 0 10px;
             }
             
             .logo-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-            
-            .logo-text {
-                font-size: 1.3rem;
-            }
-            
-            .home-btn {
-                padding: 8px 16px;
+                width: 35px;
+                height: 35px;
                 font-size: 0.9rem;
             }
             
-            .hero-title {
-                font-size: 2rem;
+            .logo-text {
+                font-size: 1.1rem;
             }
             
-            .hero-subtitle {
-                font-size: 1rem;
+            .home-btn {
+                padding: 6px 12px;
+                font-size: 0.85rem;
             }
             
             .swiper {
-                height: 45vh;
-                min-height: 300px;
-            }
-            
-            .slide-overlay {
-                padding: 20px;
-            }
-            
-            .slide-title {
-                font-size: 1.1rem;
+                height: 35vh;
+                min-height: 250px;
             }
             
             .thumbnails-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 12px;
             }
             
             .categories-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 12px;
             }
             
             .lightbox-content {
@@ -1520,120 +928,80 @@
             }
             
             .load-more-btn {
-                padding: 10px 25px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 375px) {
-            .logo-text {
-                font-size: 1.1rem;
-            }
-            
-            .home-btn span {
-                display: none;
-            }
-            
-            .home-btn {
-                width: 44px;
-                height: 44px;
-                justify-content: center;
-                padding: 0;
-            }
-            
-            .swiper {
-                height: 40vh;
-                min-height: 250px;
-            }
-            
-            .thumbnails-grid {
-                gap: 12px;
-            }
-        }
-
-        @media (orientation: landscape) and (max-height: 500px) {
-            .hero-section {
-                min-height: auto;
-                padding: 80px 20px 40px;
-            }
-            
-            .swiper {
-                height: 70vh;
-            }
-            
-            .thumbnails-grid {
-                grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+                padding: 8px 20px;
+                font-size: 0.85rem;
             }
         }
 
         /* ===== Custom Scrollbar ===== */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
 
         ::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb {
             background: var(--gradient-primary);
-            border-radius: 4px;
+            border-radius: 3px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gradient-accent);
+        /* ===== Notification ===== */
+        .notification {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+            font-size: 0.85rem;
+            max-width: calc(100% - 30px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* ===== Accessibility ===== */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
             }
         }
 
-        /* ===== Touch Device Optimizations ===== */
-        @media (hover: none) and (pointer: coarse) {
-            .thumbnail-item:hover,
-            .category-card:hover,
-            .mini-category-btn:hover,
-            .home-btn:hover {
-                transform: none !important;
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
             }
-            
-            .thumbnail-overlay {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
+            to {
+                opacity: 0;
             }
-            
-            .download-btn:hover,
-            .lightbox-download:hover,
-            .lightbox-close:hover {
-                transform: none !important;
-            }
-            
-            .swiper-slide img {
-                transform: scale(1) !important;
-            }
+        }
+
+        /* ===== Optimized Images ===== */
+        .optimized-image {
+            image-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== Performance Optimizations ===== */
+        .will-change-transform {
+            will-change: transform;
         }
     </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
+    <!-- Loading Overlay - Minimal -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner"></div>
         <div class="loading-text">جاري تحميل المعرض...</div>
     </div>
-    
-    <!-- Floating Particles -->
-    <div class="particles" id="particles"></div>
-    
-    <!-- Glowing Orbs -->
-    <div class="glowing-orbs" id="glowingOrbs"></div>
     
     <!-- Header -->
     <header class="main-header">
@@ -1676,7 +1044,7 @@
             <p>تصفح أفضل الصور مع تأثيرات متنوعة وحركات سلسة</p>
         </div>
         
-        <div class="slideshow-container" data-aos="fade-up" data-aos-delay="200">
+        <div class="slideshow-container" data-aos="fade-up" data-aos-delay="100">
             <div class="swiper" id="mainSwiper">
                 <div class="swiper-wrapper" id="swiperWrapper">
                     <!-- Slides will be added by JavaScript -->
@@ -1743,10 +1111,7 @@
         <div class="lightbox-content">
             <div class="lightbox-img-container">
                 <div class="image-loading"></div>
-                <div class="image-progress" id="imageProgress">
-                    <div class="image-progress-ring"></div>
-                </div>
-                <img class="lightbox-img" id="lightboxImage" src="" alt="">
+                <img class="lightbox-img optimized-image" id="lightboxImage" src="" alt="">
             </div>
             <button class="lightbox-close" id="closeLightbox">
                 <i class="fas fa-times"></i>
@@ -1772,10 +1137,10 @@
         // ===== بيانات الصور =====
         const galleryData = {
             images: [
-                // صور أعمالي
                 {
                     id: 1,
                     src: "images/port1.png",
+                    thumb: "images/port1.png?thumb=1",
                     title: "تصميم بوابة الطالب",
                     description: "عمل فني يجمع بين الجمال والإبداع في تصميم متجاوب احترافي",
                     category: "work",
@@ -1784,6 +1149,7 @@
                 {
                     id: 2,
                     src: "images/port2.png",
+                    thumb: "images/port2.png?thumb=1",
                     title: "لوحات تحكم احترافية",
                     description: "تصميم واجهة تحكم لبوابة الطالب الكترونية بتقنيات الويب المتطورة والعصرية",
                     category: "work",
@@ -1792,6 +1158,7 @@
                 {
                     id: 3,
                     src: "images/port3.png",
+                    thumb: "images/port3.png?thumb=1",
                     title: "نظام ادارة المستخدمين الاحترافي",
                     description: "تصميم شامل يعبر عن هوية العلامة التجارية",
                     category: "work",
@@ -1800,22 +1167,23 @@
                 {
                     id: 4,
                     src: "images/port5.png",
+                    thumb: "images/port5.png?thumb=1",
                     title: "صفحة عرض الجداول الدراسية",
-                    description: "تصميم إعلاني جذاب يوصل الرسالة بشكل فعال",
+                    description: "تصميم إعلاني جذاب يوصل الرساءة بشكل فعال",
                     category: "work"
                 },
                 {
                     id: 5,
                     src: "images/port4.png",
+                    thumb: "images/port4.png?thumb=1",
                     title: "ادارة الطلاب",
                     description: "تصميم شرائح عالية الجودة للعروض التقديمية المهمة",
                     category: "work"
                 },
-                
-                // صور شخصية
                 {
                     id: 6,
                     src: "images/g10.jpg",
+                    thumb: "images/g10.jpg?thumb=1",
                     title: "لقطة شخصية من حديقة مأرب",
                     description: "صورة شخصية تعبر عن الشخصية والمهنية بجودة عالية",
                     category: "personal",
@@ -1824,6 +1192,7 @@
                 {
                     id: 7,
                     src: "images/g5.jpg",
+                    thumb: "images/g5.jpg?thumb=1",
                     title: "لقطة مع الزميل وسيم الحذيفي",
                     description: "صورة شخصية في لحظة خاصة وجميلة لا تنسى",
                     category: "personal"
@@ -1831,6 +1200,7 @@
                 {
                     id: 8,
                     src: "images/g8.jpg",
+                    thumb: "images/g8.jpg?thumb=1",
                     title: "لقطة مع الزميل اصيل الصبري",
                     description: "عمل فني يعبر عن الشخصية المستقلة والإبداعية",
                     category: "personal"
@@ -1838,6 +1208,7 @@
                 {
                     id: 9,
                     src: "images/t8.jpg",
+                    thumb: "images/t8.jpg?thumb=1",
                     title: "لقطة مع الاخ آدم",
                     description: "تصميم فني يعبر عن التفرد والإبداع الشخصي",
                     category: "personal"
@@ -1845,16 +1216,16 @@
                 {
                     id: 10,
                     src: "images/g1.jpg",
+                    thumb: "images/g1.jpg?thumb=1",
                     title: "لحظة إنجاز مميزة",
                     description: "صورة تذكارية في لحظة فخر واعتزاز بإنجاز كبير",
                     category: "personal",
                     featured: true
                 },
-                
-                // صور إضافية للاختبار
                 {
                     id: 11,
                     src: "images/t3.jpg",
+                    thumb: "images/t3.jpg?thumb=1",
                     title: "يوم التخرج المجيد",
                     description: "لحظة تاريخية في مسيرة التعليم الأكاديمي",
                     category: "graduation",
@@ -1863,6 +1234,7 @@
                 {
                     id: 12,
                     src: "images/profile.jpeg",
+                    thumb: "images/profile.jpeg?thumb=1",
                     title: "حفل التكريم والتخرج",
                     description: "احتفال بالإنجازات الأكاديمية والتميز العلمي",
                     category: "graduation"
@@ -1870,6 +1242,7 @@
                 {
                     id: 13,
                     src: "images/m1.jpg",
+                    thumb: "images/m1.jpg?thumb=1",
                     title: "لقطة جماعية اثناء مناقشة مشروع التخرج",
                     description: "مناقشة علمي مثمر وبناء مع الاستاذة والمتخصصين",
                     category: "discussion"
@@ -1877,6 +1250,7 @@
                 {
                     id: 14,
                     src: "images/m5.jpg",
+                    thumb: "images/m5.jpg?thumb=1",
                     title: "لقطة اثناء مناقشة مشروع التخرج",
                     description: "تعاون ومشاركة في ورشة عمل متميزة ومثمرة",
                     category: "discussion",
@@ -1885,6 +1259,7 @@
                 {
                     id: 15,
                     src: "images/t11.jpg",
+                    thumb: "images/t11.jpg?thumb=1",
                     title: "لقطة مع الزملاء اثناء جلسة التصوير",
                     description: "لحظات سعيدة لا تنسى من الذاكرة الجميلة",
                     category: "memories"
@@ -1892,16 +1267,16 @@
                 {
                     id: 16,
                     src: "images/ind.png",
+                    thumb: "images/ind.png?thumb=1",
                     title: "بوابة الطالب",
                     description: "لقطة الصفحة الرئسية مشروع بوابة الطالب",
                     category: "work",
                     featured: true
                 },
-                
-                // صور إضافية لنظام التحميل التدريجي
                 {
                     id: 17,
                     src: "images/t10.jpg",
+                    thumb: "images/t10.jpg?thumb=1",
                     title: "لقطة مع الكوكباني",
                     description: "أوقات ممتعة ومسلية في الأجواء",
                     category: "memories"
@@ -1909,6 +1284,7 @@
                 {
                     id: 18,
                     src: "images/port6.png",
+                    thumb: "images/port6.png?thumb=1",
                     title: "صفحة عرض الفعاليات والانشطة من مشروع التخرج",
                     description: "أعمال فنية تعبر عن الموهبة والإبداع",
                     category: "work"
@@ -1916,6 +1292,7 @@
                 {
                     id: 19,
                     src: "images/col.png",
+                    thumb: "images/col.png?thumb=1",
                     title: "صفحة خدمات الطالب",
                     description: "إنجازات في مجال التكنولوجيا والابتكار",
                     category: "work"
@@ -1923,6 +1300,7 @@
                 {
                     id: 20,
                     src: "images/t22.jpg",
+                    thumb: "images/t22.jpg?thumb=1",
                     title: "صورة جماعية جلسات التصوير",
                     description: "لقطات شخصية",
                     category: "personal"
@@ -1930,6 +1308,7 @@
                 {
                     id: 21,
                     src: "images/t6.jpg",
+                    thumb: "images/t6.jpg?thumb=1",
                     title: "جلسة تصوير",
                     description: "لحظات عفوية وابتسامات صادقة",
                     category: "personal"
@@ -1937,6 +1316,7 @@
                 {
                     id: 22,
                     src: "images/pal.png",
+                    thumb: "images/pal.png?thumb=1",
                     title: "لقطة من لعبة البالون",
                     description: "أعمال تعبر عن المشاعر والأحاسيس",
                     category: "work"
@@ -1944,6 +1324,7 @@
                 {
                     id: 23,
                     src: "images/m4.jpg",
+                    thumb: "images/m4.jpg?thumb=1",
                     title: "مناقشة مشروع التخرج مع المهندس اصيل",
                     description: "لقطات تعبر عن الفرح والثقة",
                     category: "personal"
@@ -1951,6 +1332,7 @@
                 {
                     id: 24,
                     src: "images/g9.jpg",
+                    thumb: "images/g9.jpg?thumb=1",
                     title: "لقطة افضل مع افضل مبتسم",
                     description: "لحظة جميلة",
                     category: "personal"
@@ -2015,88 +1397,49 @@
 
         // ===== تهيئة التطبيق =====
         document.addEventListener('DOMContentLoaded', () => {
-            // إخفاء شاشة التحميل بعد 2 ثانية كحد أقصى
-            loadingTimeout = setTimeout(() => {
-                document.getElementById('loadingOverlay').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loadingOverlay').style.display = 'none';
-                }, 500);
-            }, 2000);
-
-            AOS.init({
-                duration: 800,
-                once: true,
-                offset: 100
-            });
+            console.time('App Initialization');
             
-            createParticles();
-            createGlowingOrbs();
+            // إخفاء شاشة التحميل بسرعة
+            setTimeout(hideLoadingScreen, 500);
+            
+            // تهيئة AOS بسيطة
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 400,
+                    once: true,
+                    offset: 50,
+                    disable: window.innerWidth < 768
+                });
+            }
+            
+            // تهيئة المكونات الأساسية
             initializeMiniCategories();
             initializeSlideshow();
             initializeThumbnails();
             initializeCategories();
             setupEventListeners();
+            
+            // تحميل أول 4 صور فوراً
             preloadCriticalImages();
+            
+            console.timeEnd('App Initialization');
         });
 
-        // ===== إنشاء الجسيمات العائمة =====
-        function createParticles() {
-            const container = document.getElementById('particles');
-            
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 10 + 2;
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const delay = Math.random() * 20;
-                const duration = Math.random() * 20 + 15;
-                const color = Math.random() > 0.5 ? 'var(--primary)' : 'var(--accent)';
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.background = color;
-                particle.style.left = `${x}%`;
-                particle.style.top = `${y}%`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-                
-                container.appendChild(particle);
-            }
-        }
-
-        // ===== إنشاء الكرات المضيئة =====
-        function createGlowingOrbs() {
-            const container = document.getElementById('glowingOrbs');
-            const colors = ['var(--primary)', 'var(--accent)', 'var(--accent2)'];
-            
-            for (let i = 0; i < 5; i++) {
-                const orb = document.createElement('div');
-                orb.className = 'glowing-orb';
-                
-                const size = Math.random() * 300 + 150;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const delay = Math.random() * 15;
-                const duration = Math.random() * 30 + 20;
-                
-                orb.style.width = `${size}px`;
-                orb.style.height = `${size}px`;
-                orb.style.background = color;
-                orb.style.left = `${x}%`;
-                orb.style.top = `${y}%`;
-                orb.style.animationDelay = `${delay}s`;
-                orb.style.animationDuration = `${duration}s`;
-                
-                container.appendChild(orb);
+        // ===== إخفاء شاشة التحميل =====
+        function hideLoadingScreen() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 300);
             }
         }
 
         // ===== تهيئة الأقسام المصغرة =====
         function initializeMiniCategories() {
             const container = document.getElementById('miniCategories');
+            if (!container) return;
             
             galleryData.categories.forEach((category, index) => {
                 const button = document.createElement('button');
@@ -2123,6 +1466,7 @@
                         document.body.style.overflow = '';
                     }
                     
+                    // Scroll إلى الصور
                     document.getElementById('thumbnailsSection').scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
@@ -2133,25 +1477,27 @@
             });
         }
 
-        // ===== تهيئة عرض الشرائح مع تحسينات =====
+        // ===== تهيئة عرض الشرائح السريع =====
         function initializeSlideshow() {
             const swiperWrapper = document.getElementById('swiperWrapper');
-            const featuredImages = galleryData.images.filter(img => img.featured);
+            if (!swiperWrapper) return;
+            
+            const featuredImages = galleryData.images.filter(img => img.featured).slice(0, 5);
             
             featuredImages.forEach((image, index) => {
                 const slide = document.createElement('div');
                 slide.className = 'swiper-slide';
                 
+                // استخدام placeholder صغير أولاً
                 slide.innerHTML = `
                     <div class="image-container">
                         <div class="image-loading"></div>
                         <img 
-                            src="${image.src}"
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
                             data-src="${image.src}"
                             alt="${image.title}"
-                            loading="lazy"
-                            onerror="this.src='${getFallbackImage(index)}'"
-                            onload="this.classList.add('loaded'); this.parentElement.querySelector('.image-loading').style.display='none';"
+                            loading="${index < 2 ? 'eager' : 'lazy'}"
+                            class="optimized-image"
                         >
                     </div>
                     <div class="slide-overlay">
@@ -2167,151 +1513,88 @@
                 swiperWrapper.appendChild(slide);
             });
             
-            // تحميل الصور في الشرائح
-            loadSlideImages();
-            
-            // تهيئة Swiper مع تأثيرات متنوعة
-            mainSwiper = new Swiper('#mainSwiper', {
-                direction: 'horizontal',
-                loop: true,
-                speed: 1000,
-                grabCursor: true,
-                centeredSlides: true,
-                slidesPerView: 1,
-                spaceBetween: 0,
-                
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: true,
-                },
-                
-                effect: 'creative',
-                creativeEffect: {
-                    prev: {
-                        shadow: true,
-                        translate: [0, 0, -400],
-                        opacity: 0
+            // تهيئة Swiper بسيطة وسريعة
+            if (typeof Swiper !== 'undefined') {
+                mainSwiper = new Swiper('#mainSwiper', {
+                    direction: 'horizontal',
+                    loop: true,
+                    speed: 800,
+                    grabCursor: true,
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                    
+                    autoplay: {
+                        delay: 4000,
+                        disableOnInteraction: false,
                     },
-                    next: {
-                        translate: ['100%', 0, 0],
-                        opacity: 1
+                    
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
                     },
-                },
-                
-                fadeEffect: {
-                    crossFade: true
-                },
-                
-                zoom: {
-                    maxRatio: 3,
-                    minRatio: 1,
-                },
-                
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                    dynamicBullets: true,
-                },
-                
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
+                    
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
                     },
-                    768: {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
-                    },
-                    1024: {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
-                    }
-                },
-                
-                on: {
-                    init: function () {
-                        console.log('Swiper initialized successfully');
-                        if (loadingTimeout) {
-                            clearTimeout(loadingTimeout);
-                            document.getElementById('loadingOverlay').style.opacity = '0';
-                            setTimeout(() => {
-                                document.getElementById('loadingOverlay').style.display = 'none';
-                            }, 500);
-                        }
-                    },
-                    slideChange: function () {
-                        const activeSlide = this.slides[this.activeIndex];
-                        const img = activeSlide.querySelector('img');
-                        if (img && !img.classList.contains('loaded')) {
-                            loadImage(img);
+                    
+                    on: {
+                        init: function () {
+                            console.log('✅ Swiper initialized');
+                            // تحميل أول صورتين فوراً
+                            this.slides.slice(0, 2).forEach(loadSlideImage);
+                        },
+                        slideChange: function () {
+                            // تحميل الصورة الحالية والمجاورة
+                            const activeSlide = this.slides[this.activeIndex];
+                            loadSlideImage(activeSlide);
                         }
                     }
-                }
-            });
-        }
-
-        // ===== تحميل صور الشرائح =====
-        function loadSlideImages() {
-            const slides = document.querySelectorAll('.swiper-slide img');
-            slides.forEach((img, index) => {
-                if (index < 3) { // تحميل أول 3 صور فوراً
-                    loadImage(img);
-                } else { // الباقي عند التمرير
-                    if ('IntersectionObserver' in window) {
-                        const observer = new IntersectionObserver((entries) => {
-                            entries.forEach(entry => {
-                                if (entry.isIntersecting) {
-                                    loadImage(entry.target);
-                                    observer.unobserve(entry.target);
-                                }
-                            });
-                        }, {
-                            rootMargin: '50px',
-                            threshold: 0.1
-                        });
-                        observer.observe(img);
-                    } else {
-                        loadImage(img);
-                    }
-                }
-            });
-        }
-
-        // ===== تحميل الصور الذكي =====
-        function loadImage(imgElement) {
-            const src = imgElement.getAttribute('data-src') || imgElement.src;
-            
-            if (imageCache.has(src)) {
-                imgElement.src = src;
-                imgElement.classList.add('loaded');
-                imgElement.parentElement.querySelector('.image-loading').style.display = 'none';
-                return;
+                });
             }
             
-            const img = new Image();
-            img.onload = () => {
-                imageCache.set(src, true);
-                imgElement.src = src;
-                imgElement.classList.add('loaded');
-                imgElement.parentElement.querySelector('.image-loading').style.display = 'none';
-            };
-            img.onerror = () => {
-                imgElement.src = getFallbackImage(0);
-                imgElement.classList.add('loaded');
-                imgElement.parentElement.querySelector('.image-loading').style.display = 'none';
-            };
-            img.src = src;
+            // تحميل بقية الصور في الخلفية
+            setTimeout(() => {
+                const slides = document.querySelectorAll('.swiper-slide');
+                slides.forEach((slide, index) => {
+                    if (index >= 2) {
+                        loadSlideImage(slide);
+                    }
+                });
+            }, 1000);
         }
 
-        // ===== تهيئة الصور المصغرة =====
+        // ===== تحميل صورة الشرائح =====
+        function loadSlideImage(slide) {
+            if (!slide) return;
+            
+            const img = slide.querySelector('img');
+            if (!img || img.dataset.loaded === 'true') return;
+            
+            const src = img.dataset.src;
+            if (!src) return;
+            
+            const image = new Image();
+            image.onload = () => {
+                img.src = src;
+                img.dataset.loaded = 'true';
+                slide.querySelector('.image-loading').style.display = 'none';
+                img.classList.add('optimized-image');
+            };
+            
+            image.onerror = () => {
+                img.dataset.loaded = 'true';
+                slide.querySelector('.image-loading').style.display = 'none';
+            };
+            
+            image.src = src;
+        }
+
+        // ===== تهيئة الصور المصغرة السريعة =====
         function initializeThumbnails() {
             const grid = document.getElementById('thumbnailsGrid');
+            if (!grid) return;
+            
             grid.innerHTML = '';
             
             currentDisplayedImages = galleryData.images.slice(0, visibleImages);
@@ -2321,19 +1604,16 @@
                 grid.appendChild(item);
             });
             
-            setTimeout(() => {
-                AOS.refresh();
-            }, 500);
+            // استخدام Intersection Observer لتحميل الصور
+            setupLazyLoading();
             
             updateLoadMoreButton();
         }
 
-        // ===== إنشاء عنصر مصغر مع تحسينات =====
+        // ===== إنشاء عنصر مصغر سريع =====
         function createThumbnailItem(image, index) {
             const item = document.createElement('div');
             item.className = 'thumbnail-item';
-            item.setAttribute('data-aos', 'fade-up');
-            item.setAttribute('data-aos-delay', (index % 8) * 50);
             item.setAttribute('data-category', image.category);
             item.setAttribute('data-id', image.id);
             
@@ -2341,12 +1621,13 @@
                 <div class="image-container">
                     <div class="image-loading"></div>
                     <img 
-                        src="${image.src}"
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E"
                         data-src="${image.src}"
                         alt="${image.title}"
                         loading="lazy"
-                        onerror="this.src='${getFallbackImage(index)}'"
-                        onload="this.classList.add('loaded'); this.parentElement.querySelector('.image-loading').style.display='none';"
+                        width="250"
+                        height="188"
+                        class="optimized-image"
                     >
                 </div>
                 <div class="thumbnail-overlay">
@@ -2360,25 +1641,6 @@
                 </div>
             `;
             
-            // تحميل الصورة عند الظهور
-            const img = item.querySelector('img');
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            loadImage(img);
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, {
-                    rootMargin: '100px',
-                    threshold: 0.1
-                });
-                observer.observe(img);
-            } else {
-                loadImage(img);
-            }
-            
             item.addEventListener('click', (e) => {
                 if (!e.target.closest('.download-btn')) {
                     openLightbox(image);
@@ -2388,14 +1650,74 @@
             return item;
         }
 
+        // ===== إعداد التحميل المتأخر (Lazy Loading) =====
+        function setupLazyLoading() {
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            loadThumbnailImage(img);
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '50px',
+                    threshold: 0.1
+                });
+                
+                const images = document.querySelectorAll('.thumbnail-item img');
+                images.forEach(img => {
+                    imageObserver.observe(img);
+                });
+            } else {
+                // Fallback: تحميل جميع الصور
+                const images = document.querySelectorAll('.thumbnail-item img');
+                images.forEach(loadThumbnailImage);
+            }
+        }
+
+        // ===== تحميل صورة مصغرة =====
+        function loadThumbnailImage(imgElement) {
+            if (!imgElement || imgElement.dataset.loaded === 'true') return;
+            
+            const src = imgElement.dataset.src;
+            if (!src) return;
+            
+            const image = new Image();
+            image.onload = () => {
+                imgElement.src = src;
+                imgElement.dataset.loaded = 'true';
+                imgElement.parentElement.querySelector('.image-loading').style.display = 'none';
+                imgElement.classList.add('optimized-image');
+                
+                // تأثير fade-in
+                imgElement.style.opacity = '0';
+                requestAnimationFrame(() => {
+                    imgElement.style.transition = 'opacity 0.3s ease';
+                    imgElement.style.opacity = '1';
+                });
+            };
+            
+            image.onerror = () => {
+                imgElement.dataset.loaded = 'true';
+                imgElement.parentElement.querySelector('.image-loading').style.display = 'none';
+            };
+            
+            image.src = src;
+        }
+
         // ===== تحميل المزيد من الصور =====
         function loadMoreImages() {
             const loadMoreBtn = document.getElementById('loadMoreBtn');
             const grid = document.getElementById('thumbnailsGrid');
             
-            loadMoreBtn.classList.add('loading');
-            loadMoreBtn.innerHTML = '<i class="fas fa-spinner"></i> جاري التحميل...';
+            if (!loadMoreBtn || !grid) return;
             
+            loadMoreBtn.classList.add('loading');
+            loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
+            
+            // استخدام setTimeout بدلاً من requestAnimationFrame لتجنب التجميد
             setTimeout(() => {
                 const currentLength = currentDisplayedImages.length;
                 const nextImages = galleryData.images.slice(currentLength, currentLength + imagesPerLoad);
@@ -2407,23 +1729,27 @@
                 
                 currentDisplayedImages = [...currentDisplayedImages, ...nextImages];
                 updateLoadMoreButton();
-                AOS.refresh();
+                
+                // إعادة إعداد lazy loading للصور الجديدة
+                setupLazyLoading();
                 
                 loadMoreBtn.classList.remove('loading');
                 loadMoreBtn.innerHTML = '<i class="fas fa-plus"></i> عرض المزيد من الصور';
                 
                 showNotification(`تم تحميل ${nextImages.length} صورة جديدة`);
-            }, 500);
+            }, 300);
         }
 
         // ===== تحديث زر المزيد =====
         function updateLoadMoreButton() {
             const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (!loadMoreBtn) return;
+            
             const remainingImages = galleryData.images.length - currentDisplayedImages.length;
             
             if (remainingImages > 0) {
                 loadMoreBtn.style.display = 'inline-flex';
-                loadMoreBtn.innerHTML = `<i class="fas fa-plus"></i> عرض المزيد (${remainingImages} صورة متبقية)`;
+                loadMoreBtn.innerHTML = `<i class="fas fa-plus"></i> عرض المزيد (${remainingImages})`;
             } else {
                 loadMoreBtn.style.display = 'none';
             }
@@ -2432,12 +1758,11 @@
         // ===== تهيئة الأقسام =====
         function initializeCategories() {
             const grid = document.getElementById('categoriesGrid');
+            if (!grid) return;
             
             galleryData.categories.forEach((category, index) => {
                 const card = document.createElement('div');
                 card.className = 'category-card';
-                card.setAttribute('data-aos', 'fade-up');
-                card.setAttribute('data-aos-delay', index * 100);
                 card.setAttribute('data-category', category.id);
                 
                 let categoryImages;
@@ -2452,7 +1777,7 @@
                     'images/t22.jpg';
                 
                 card.innerHTML = `
-                    <div class="category-bg" style="background-image: url('${randomImage}')"></div>
+                    <div class="category-bg"></div>
                     <div class="category-content">
                         <div class="category-icon" style="background: ${category.color}">
                             <i class="${category.icon}"></i>
@@ -2461,6 +1786,14 @@
                         <p>${category.description}</p>
                     </div>
                 `;
+                
+                // تحميل صورة الخلفية
+                const bg = card.querySelector('.category-bg');
+                const bgImage = new Image();
+                bgImage.onload = () => {
+                    bg.style.backgroundImage = `url('${randomImage}')`;
+                };
+                bgImage.src = randomImage;
                 
                 card.addEventListener('click', () => {
                     currentCategory = category.id;
@@ -2485,90 +1818,100 @@
 
         // ===== إعداد مستمعي الأحداث =====
         function setupEventListeners() {
+            // القائمة المتنقلة
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const closeMenuBtn = document.getElementById('closeMenuBtn');
             const miniCategoriesContainer = document.getElementById('miniCategoriesContainer');
             
-            mobileMenuBtn.addEventListener('click', () => {
-                miniCategoriesContainer.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    miniCategoriesContainer.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
             
-            closeMenuBtn.addEventListener('click', () => {
-                miniCategoriesContainer.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-            
-            miniCategoriesContainer.addEventListener('click', (e) => {
-                if (e.target === miniCategoriesContainer) {
+            if (closeMenuBtn) {
+                closeMenuBtn.addEventListener('click', () => {
                     miniCategoriesContainer.classList.remove('active');
                     document.body.style.overflow = '';
-                }
-            });
+                });
+            }
             
+            // زر تحميل المزيد
             const loadMoreBtn = document.getElementById('loadMoreBtn');
-            loadMoreBtn.addEventListener('click', loadMoreImages);
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', loadMoreImages);
+            }
             
+            // Lightbox
             const lightbox = document.getElementById('lightbox');
             const closeLightbox = document.getElementById('closeLightbox');
             const downloadImageBtn = document.getElementById('downloadImage');
             
-            closeLightbox.addEventListener('click', () => {
-                lightbox.classList.remove('active');
-                document.body.style.overflow = '';
-            });
+            if (closeLightbox) {
+                closeLightbox.addEventListener('click', () => {
+                    closeLightboxFunc();
+                });
+            }
             
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) {
-                    lightbox.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
+            if (lightbox) {
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        closeLightboxFunc();
+                    }
+                });
+            }
             
+            if (downloadImageBtn) {
+                downloadImageBtn.addEventListener('click', () => {
+                    if (currentLightboxImage) {
+                        downloadImage(currentLightboxImage.src, currentLightboxImage.title);
+                    }
+                });
+            }
+            
+            // إغلاق بواسطة ESC
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
-                    if (lightbox.classList.contains('active')) {
-                        lightbox.classList.remove('active');
-                        document.body.style.overflow = '';
+                    if (lightbox && lightbox.classList.contains('active')) {
+                        closeLightboxFunc();
                     }
-                    if (miniCategoriesContainer.classList.contains('active')) {
+                    if (miniCategoriesContainer && miniCategoriesContainer.classList.contains('active')) {
                         miniCategoriesContainer.classList.remove('active');
                         document.body.style.overflow = '';
                     }
                 }
             });
             
-            downloadImageBtn.addEventListener('click', () => {
-                if (currentLightboxImage) {
-                    downloadImage(currentLightboxImage.src, currentLightboxImage.title);
-                }
-            });
-            
+            // تأثير Header عند التمرير
             let lastScrollTop = 0;
             const header = document.querySelector('.main-header');
             
-            window.addEventListener('scroll', () => {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
-                if (scrollTop > lastScrollTop && scrollTop > 100) {
-                    header.style.transform = 'translateY(-100%)';
-                } else {
-                    header.style.transform = 'translateY(0)';
-                }
-                
-                lastScrollTop = scrollTop;
-            });
-            
-            window.addEventListener('resize', () => {
-                if (mainSwiper) {
-                    setTimeout(() => {
-                        mainSwiper.update();
-                    }, 300);
-                }
-            });
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    if (scrollTop > lastScrollTop && scrollTop > 50) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                    }
+                    
+                    lastScrollTop = scrollTop;
+                });
+            }
         }
 
-        // ===== فتح Lightbox مع تحسينات =====
+        // ===== إغلاق Lightbox =====
+        function closeLightboxFunc() {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ===== فتح Lightbox سريع =====
         function openLightbox(image) {
             currentLightboxImage = image;
             
@@ -2576,40 +1919,35 @@
             const lightboxImage = document.getElementById('lightboxImage');
             const lightboxTitle = document.getElementById('lightboxTitle');
             const lightboxDescription = document.getElementById('lightboxDescription');
-            const imageProgress = document.getElementById('imageProgress');
-            const lightboxImgContainer = lightbox.querySelector('.lightbox-img-container');
             
-            // إظهار مؤشر التحميل
-            imageProgress.style.display = 'block';
-            lightboxImgContainer.querySelector('.image-loading').style.display = 'block';
-            lightboxImage.style.opacity = '0';
+            if (!lightbox || !lightboxImage || !lightboxTitle || !lightboxDescription) return;
             
-            // تحميل الصورة عالية الدقة
+            // إعداد المعلومات أولاً
+            lightboxTitle.textContent = image.title;
+            lightboxDescription.textContent = image.description;
+            
+            // إظهار Lightbox فوراً
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // تحميل الصورة في الخلفية
             const highResImage = new Image();
             highResImage.onload = () => {
                 lightboxImage.src = image.src;
                 lightboxImage.alt = image.title;
-                lightboxImage.style.opacity = '1';
-                imageProgress.style.display = 'none';
-                lightboxImgContainer.querySelector('.image-loading').style.display = 'none';
-                lightboxTitle.textContent = image.title;
-                lightboxDescription.textContent = image.description;
+                lightboxImage.classList.add('optimized-image');
+                lightbox.querySelector('.image-loading').style.display = 'none';
                 
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
+                // تأثير fade-in
+                lightboxImage.style.opacity = '0';
+                requestAnimationFrame(() => {
+                    lightboxImage.style.transition = 'opacity 0.3s ease';
+                    lightboxImage.style.opacity = '1';
+                });
             };
             
             highResImage.onerror = () => {
-                lightboxImage.src = getFallbackImage(0);
-                lightboxImage.alt = image.title;
-                lightboxImage.style.opacity = '1';
-                imageProgress.style.display = 'none';
-                lightboxImgContainer.querySelector('.image-loading').style.display = 'none';
-                lightboxTitle.textContent = image.title;
-                lightboxDescription.textContent = image.description;
-                
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
+                lightbox.querySelector('.image-loading').style.display = 'none';
             };
             
             highResImage.src = image.src;
@@ -2617,16 +1955,21 @@
 
         // ===== تحميل الصورة =====
         function downloadImage(imageSrc, imageTitle) {
-            const link = document.createElement('a');
-            link.href = imageSrc;
-            link.download = `${imageTitle.replace(/[^\w\u0600-\u06FF]/g, '_')}.jpg`;
-            link.target = '_blank';
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showNotification('جاري تحميل الصورة...');
+            try {
+                const link = document.createElement('a');
+                link.href = imageSrc;
+                link.download = `${imageTitle.replace(/[^\w\u0600-\u06FF]/g, '_')}.jpg`;
+                link.target = '_blank';
+                
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showNotification('جاري تحميل الصورة...');
+            } catch (error) {
+                console.error('Error downloading image:', error);
+                showNotification('حدث خطأ أثناء تحميل الصورة');
+            }
         }
 
         // ===== إظهار إشعار =====
@@ -2639,32 +1982,22 @@
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.textContent = message;
-            notification.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, var(--primary), var(--accent));
-                color: white;
-                padding: 12px 20px;
-                border-radius: 25px;
-                z-index: 1000;
-                animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
-                box-shadow: var(--glow-primary);
-                font-size: 0.9rem;
-                max-width: calc(100% - 40px);
-                border: 2px solid rgba(255, 255, 255, 0.2);
-            `;
+            notification.setAttribute('role', 'alert');
             
             document.body.appendChild(notification);
             
             setTimeout(() => {
-                notification.remove();
+                if (notification.parentNode) {
+                    notification.remove();
+                }
             }, 3000);
         }
 
         // ===== تصفير المعرض =====
         function filterGallery(categoryId) {
             const grid = document.getElementById('thumbnailsGrid');
+            if (!grid) return;
+            
             grid.innerHTML = '';
             
             let filteredImages;
@@ -2683,129 +2016,45 @@
             
             updateLoadMoreButton();
             
-            setTimeout(() => {
-                AOS.refresh();
-            }, 300);
+            // إعادة إعداد lazy loading
+            setTimeout(setupLazyLoading, 100);
         }
 
         // ===== تحميل الصور المهمة مسبقًا =====
         function preloadCriticalImages() {
             // تحميل الصور المميزة أولاً
-            const featuredImages = galleryData.images.filter(img => img.featured);
+            const featuredImages = galleryData.images.filter(img => img.featured).slice(0, 4);
             
             featuredImages.forEach(image => {
-                const img = new Image();
-                img.src = image.src;
-                imageCache.set(image.src, true);
+                if (!imageCache.has(image.src)) {
+                    const img = new Image();
+                    img.src = image.src;
+                    imageCache.set(image.src, true);
+                }
             });
             
-            // تحميل باقي الصور تدريجياً
-            if ('requestIdleCallback' in window) {
-                requestIdleCallback(() => {
-                    const otherImages = galleryData.images.filter(img => !img.featured);
-                    otherImages.forEach(image => {
+            // تحميل بقية الصور في وقت الفراغ
+            setTimeout(() => {
+                const otherImages = galleryData.images.slice(0, 8);
+                otherImages.forEach(image => {
+                    if (!imageCache.has(image.src)) {
                         const img = new Image();
                         img.src = image.src;
                         imageCache.set(image.src, true);
-                    });
+                    }
                 });
-            }
+            }, 1000);
         }
 
         // ===== مساعدات =====
-        function getFallbackImage(index) {
-            const fallbacks = [
-                'https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=1200&h=800&fit=crop&q=80',
-                'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&h=800&fit=crop&q=80',
-                'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1200&h=800&fit=crop&q=80'
-            ];
-            return fallbacks[index % fallbacks.length];
-        }
-
         function getCategoryName(categoryId) {
             const category = galleryData.categories.find(cat => cat.id === categoryId);
             return category ? category.name : 'غير مصنف';
         }
 
-        // ===== إضافة أنيميشن للإشعار =====
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes fadeOut {
-                from {
-                    opacity: 1;
-                }
-                to {
-                    opacity: 0;
-                }
-            }
-            
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // ===== تحسينات للأجهزة اللوحية =====
-        if ('ontouchstart' in window) {
-            document.body.classList.add('touch-device');
-            
-            document.addEventListener('touchstart', function(e) {
-                const target = e.target;
-                if (target.closest('.thumbnail-item') || target.closest('.category-card')) {
-                    target.closest('.thumbnail-item, .category-card').style.transform = 'scale(0.98)';
-                }
-            });
-            
-            document.addEventListener('touchend', function(e) {
-                const target = e.target;
-                if (target.closest('.thumbnail-item') || target.closest('.category-card')) {
-                    setTimeout(() => {
-                        const element = target.closest('.thumbnail-item, .category-card');
-                        if (element) element.style.transform = '';
-                    }, 150);
-                }
-            });
-        }
-
-        // ===== تحسينات الأداء المتقدمة =====
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => {
-                // تحسينات إضافية في وقت الخمول
-                const loadedImages = new Set();
-                document.querySelectorAll('img').forEach(img => {
-                    if (img.src) loadedImages.add(img.src);
-                });
-                
-                galleryData.images.forEach(image => {
-                    if (!loadedImages.has(image.src)) {
-                        const img = new Image();
-                        img.src = image.src;
-                    }
-                });
-            });
-        }
-
         // ===== تهيئة كاملة =====
-        console.log('🎨 معرض الذكريات الشخصي جاهز للاستخدام!');
-        console.log('✨ ميزات محسنة: تحميل سريع، حركات متطورة، دقة عالية');
+        console.log('🚀 معرض الذكريات الشخصي - محمّل بشكل سريع!');
+        console.log('⚡ تم تحسين أداء التحميل بشكل كبير');
     </script>
 </body>
 </html>
