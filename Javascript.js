@@ -30,7 +30,7 @@ const Portfolio = {
     data: {
         // معلومات شخصية
         personalInfo: {
-            fullName: 'غمدان عبده علي صالح',
+            fullName: 'غمدان عبده علي صالح معوضة',
             birthDate: '2 أغسطس 1997',
             address: 'محافظة مارب - اليمن',
             maritalStatus: 'متزوج',
@@ -38,7 +38,7 @@ const Portfolio = {
             phone: '774038475'
         },
         
-        // المشاريع
+        // المشاريع - بيانات حقيقية للمشاريع
         projects: [
             {
                 id: 1,
@@ -46,7 +46,9 @@ const Portfolio = {
                 category: 'نظام إلكتروني',
                 description: 'نظام إلكتروني لإدارة وعض الخدمات الطلابية',
                 technologies: ['PHP', 'JavaScript', 'MySQL', 'Bootstrap'],
-                image: 'images/col.png'
+                image: 'images/col.png',
+                downloadPDF: 'projects/',
+                downloadDemo: 'projects/student-portal-demo.zip'
             },
             {
                 id: 2,
@@ -54,7 +56,19 @@ const Portfolio = {
                 category: 'لعبة',
                 description: 'لعبة تفجير البالونات بلغة C#',
                 technologies: ['C#', '.NET', 'WinForms'],
-                image: 'images/pal.png'
+                image: 'images/pal.png',
+                downloadExe: 'projects/balloon-game.exe',
+                sourceCode: 'projects/balloon-game-source.zip'
+            },
+            {
+                id: 3,
+                title: 'نظام إدارة المبيعات',
+                category: 'تطبيق ويب',
+                description: 'منصة بيع إلكتروني كاملة المزايا',
+                technologies: ['PHP', 'MySQL', 'Bootstrap', 'jQuery'],
+                image: 'images/ecommerce.png',
+                downloadPDF: 'projects/ecommerce-doc.pdf',
+                demoLink: 'https://demo.ghamdan.com'
             }
         ],
         
@@ -157,6 +171,19 @@ const Utils = {
             rect.left <= (window.innerWidth || document.documentElement.clientWidth) - offset &&
             rect.right >= offset
         );
+    },
+    
+    // تحميل ملف
+    downloadFile(filename, content, type = 'application/pdf') {
+        const blob = new Blob([content], { type: type });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
     }
 };
 
@@ -382,7 +409,7 @@ class NameAnimation {
 
 class ThemeManager {
     constructor() {
-        this.themeToggle = Utils.$('#themeToggle');
+        this.themeToggle = Utils.$('#themeSwitch');
         this.body = document.body;
     }
     
@@ -579,11 +606,10 @@ class NavigationManager {
             });
         }
         
-        // إغلاق القائمة عند النقر على رابط - هذا هو الحل الرئيسي
+        // إغلاق القائمة عند النقر على رابط
         const navLinks = document.querySelectorAll('.nav-collapse-content .nav-menu-link');
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                // إغلاق القائمة فوراً
                 this.closeMobileMenu();
                 this.addClickGlowEffect(link);
                 
@@ -821,7 +847,6 @@ class NavigationManager {
         
         if (this.menuOverlay) {
             this.menuOverlay.classList.add('show');
-            // تأثير توهج للخلفية
             this.menuOverlay.style.background = 'radial-gradient(circle at center, rgba(0,255,170,0.1) 0%, rgba(0,0,0,0.9) 70%)';
         }
         
@@ -859,7 +884,6 @@ class NavigationManager {
         return navbarContent && navbarContent.classList.contains('show');
     }
     
-    // تنظيف عند التدمير
     destroy() {
         if (this.glowInterval) {
             clearInterval(this.glowInterval);
@@ -920,20 +944,8 @@ function addGlowStyles() {
             animation: rotateFrame 4s linear infinite !important;
         }
         
-        .download-cv-btn {
+        .mobile-toggle-btn {
             transition: all 0.3s ease !important;
-        }
-        
-        .download-cv-btn:hover {
-            box-shadow: 0 0 20px rgba(106, 17, 203, 0.7) !important;
-        }
-        
-        .theme-switch-handle {
-            transition: all 0.3s ease !important;
-        }
-        
-        .theme-switch-label:hover .theme-switch-handle {
-            box-shadow: 0 0 10px rgba(106, 17, 203, 0.7);
         }
         
         .mobile-toggle-btn:hover .menu-icon span {
@@ -1024,7 +1036,6 @@ function addGlowStyles() {
             }
         }
         
-        /* تأثيرات إضافية للبوتستراب */
         .navbar-collapse {
             transition: all 0.3s ease;
         }
@@ -1033,13 +1044,11 @@ function addGlowStyles() {
             display: block !important;
         }
         
-        /* تأثيرات التحويم للعناصر */
         .nav-list-item:hover .nav-active-indicator {
             opacity: 1;
             transform: translateX(-50%) scale(1.2);
         }
         
-        /* تأثيرات للشعار */
         .logo-main-name {
             animation: gradientShift 3s ease infinite !important;
             background-size: 200% 200% !important;
@@ -1054,18 +1063,11 @@ function addGlowStyles() {
             }
         }
         
-        /* تأثيرات للأيقونات */
         .nav-menu-link:hover .nav-menu-icon {
             transform: rotate(15deg) scale(1.2);
             filter: drop-shadow(0 0 3px currentColor);
         }
         
-        /* تأثيرات خاصة للأزرار */
-        .download-cv-btn:hover i {
-            transform: translateY(-2px) rotate(15deg);
-        }
-        
-        /* تأثيرات للحدود المتحركة */
         .navbar:hover .border-top-line,
         .navbar:hover .border-right-line,
         .navbar:hover .border-bottom-line,
@@ -1089,7 +1091,6 @@ if (document.readyState === 'loading') {
         const navManager = new NavigationManager();
         navManager.init();
         
-        // تنظيف عند إغلاق الصفحة
         window.addEventListener('beforeunload', () => {
             navManager.destroy();
         });
@@ -1105,7 +1106,6 @@ if (document.readyState === 'loading') {
 
 // CSS الإضافي للتحسينات
 const additionalStyles = `
-/* تحسينات للشريط العلوي */
 .navbar-glass {
     background: rgba(12, 12, 20, 0.9) !important;
     backdrop-filter: blur(20px) !important;
@@ -1121,7 +1121,6 @@ const additionalStyles = `
     padding: 0.5rem 0 !important;
 }
 
-/* تحسينات للحدود المتحركة */
 .animated-border-line {
     animation-duration: 4s !important;
 }
@@ -1170,7 +1169,6 @@ const additionalStyles = `
     background-size: 100% 200% !important;
 }
 
-/* تحسينات للشعار */
 .logo-container:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3) !important;
@@ -1180,7 +1178,6 @@ const additionalStyles = `
     animation: pulseGlow 2s ease-in-out infinite alternate !important;
 }
 
-/* تحسينات للقائمة المتنقلة */
 .nav-collapse-content {
     backdrop-filter: blur(30px) !important;
     -webkit-backdrop-filter: blur(30px) !important;
@@ -1196,32 +1193,6 @@ const additionalStyles = `
     transition: all 0.3s ease !important;
 }
 
-/* تحسينات للأزرار */
-.download-cv-btn {
-    background: linear-gradient(45deg, #6a11cb, #2575fc) !important;
-    background-size: 200% 200% !important;
-    animation: buttonGlow 3s ease infinite !important;
-}
-
-@keyframes buttonGlow {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-/* تحسينات لزر السمة */
-.theme-switch-label {
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3) !important;
-}
-
-.theme-switch-label:hover {
-    border-color: rgba(106, 17, 203, 0.4) !important;
-}
-
-/* تحسينات لزر الهاتف */
 .mobile-toggle-btn {
     transition: all 0.3s ease !important;
 }
@@ -1230,12 +1201,10 @@ const additionalStyles = `
     transform: scale(1.1) !important;
 }
 
-/* تحسينات للشريط السفلي */
 .nav-scroll-progress {
     z-index: 9999 !important;
 }
 
-/* تحسينات للاستجابة */
 @media (max-width: 992px) {
     .nav-collapse-content {
         background: rgba(12, 12, 20, 0.98) !important;
@@ -1252,14 +1221,8 @@ const additionalStyles = `
     .nav-control-buttons {
         gap: 10px !important;
     }
-    
-    .download-cv-btn {
-        width: 100% !important;
-        justify-content: center !important;
-    }
 }
 
-/* تحسينات للأجهزة الصغيرة */
 @media (max-width: 576px) {
     .logo-container {
         padding: 5px 8px !important;
@@ -1276,7 +1239,6 @@ const additionalStyles = `
 }
 `;
 
-// إضافة الأنماط الإضافية
 const styleElement = document.createElement('style');
 styleElement.textContent = additionalStyles;
 document.head.appendChild(styleElement);
@@ -1427,10 +1389,8 @@ class HeroSection {
     
     animateTechBadges() {
         this.techBadges.forEach((badge, index) => {
-            // تأخير الحركة لكل شارة
             badge.style.animationDelay = `${index * 0.2}s`;
             
-            // تأثير عند المرور بالفأرة
             Utils.on(badge, 'mouseenter', () => {
                 badge.style.transform = 'translateY(-15px) scale(1.2) rotate(5deg)';
                 badge.style.boxShadow = '0 20px 40px rgba(106, 17, 203, 0.5)';
@@ -1443,7 +1403,6 @@ class HeroSection {
                 badge.style.zIndex = '';
             });
             
-            // تأثير النقر
             Utils.on(badge, 'click', (e) => {
                 e.preventDefault();
                 this.animateBadgeClick(badge);
@@ -1452,10 +1411,8 @@ class HeroSection {
     }
     
     animateBadgeClick(badge) {
-        // تأثير اهتزاز
         badge.style.animation = 'shake 0.5s ease-in-out';
         
-        // تأثير التوهج
         const originalBoxShadow = badge.style.boxShadow;
         badge.style.boxShadow = '0 0 30px rgba(106, 17, 203, 0.8)';
         
@@ -1464,7 +1421,6 @@ class HeroSection {
             badge.style.boxShadow = originalBoxShadow;
         }, 500);
         
-        // إظهار رسالة
         const techName = badge.querySelector('span')?.textContent || 'التقنية';
         this.showTechMessage(techName);
     }
@@ -1479,12 +1435,10 @@ class HeroSection {
         
         document.body.appendChild(message);
         
-        // إظهار الرسالة
         setTimeout(() => {
             Utils.addClass(message, 'show');
         }, 10);
         
-        // إخفاء الرسالة تلقائياً
         setTimeout(() => {
             Utils.removeClass(message, 'show');
             setTimeout(() => {
@@ -1497,7 +1451,6 @@ class HeroSection {
     
     setupSocialIcons() {
         this.socialIcons.forEach(icon => {
-            // تأثير الموجة عند المرور
             Utils.on(icon, 'mouseenter', () => {
                 const wave = Utils.$('.icon-wave', icon);
                 if (wave) {
@@ -1507,7 +1460,6 @@ class HeroSection {
                     }, 600);
                 }
                 
-                // تأثير الارتفاع
                 icon.style.transform = 'translateY(-8px) scale(1.2)';
             });
             
@@ -1515,7 +1467,6 @@ class HeroSection {
                 icon.style.transform = '';
             });
             
-            // تأثير النقر
             Utils.on(icon, 'click', (e) => {
                 e.preventDefault();
                 this.animateSocialClick(icon);
@@ -1524,10 +1475,8 @@ class HeroSection {
     }
     
     animateSocialClick(icon) {
-        // تأثير النبض
         icon.style.animation = 'pulse 0.5s ease-in-out';
         
-        // جسيمات صغيرة
         this.createClickParticles(icon);
         
         setTimeout(() => {
@@ -1544,7 +1493,6 @@ class HeroSection {
             const particle = document.createElement('div');
             particle.className = 'social-particle';
             
-            // ألوان عشوائية
             const colors = ['#6a11cb', '#2575fc', '#ff0080', '#ff8c00'];
             const color = colors[Math.floor(Math.random() * colors.length)];
             
@@ -1554,13 +1502,11 @@ class HeroSection {
             
             document.body.appendChild(particle);
             
-            // حركة عشوائية
             const angle = Math.random() * Math.PI * 2;
             const distance = 50 + Math.random() * 50;
             const targetX = centerX + Math.cos(angle) * distance;
             const targetY = centerY + Math.sin(angle) * distance;
             
-            // تحريك الجسيم
             particle.animate([
                 {
                     transform: 'translate(0, 0) scale(1)',
@@ -1575,7 +1521,6 @@ class HeroSection {
                 easing: 'ease-out'
             });
             
-            // إزالة الجسيم بعد الانتهاء
             setTimeout(() => {
                 if (particle.parentNode) {
                     particle.parentNode.removeChild(particle);
@@ -1587,7 +1532,6 @@ class HeroSection {
     setupIntroButton() {
         if (!this.playIntroButton) return;
         
-        // تأثير النبض المستمر
         setInterval(() => {
             Utils.addClass(this.playIntroButton, 'pulsing');
             setTimeout(() => {
@@ -1595,36 +1539,30 @@ class HeroSection {
             }, 1000);
         }, 3000);
         
-        // تأثير النقر
         Utils.on(this.playIntroButton, 'click', () => {
             this.playIntroVideo();
         });
     }
     
     playIntroVideo() {
-        // في هذه الحالة، سنقوم بعرض رسالة بدلاً من الفيديو
         const modal = this.createIntroModal();
         document.body.appendChild(modal);
         
-        // إظهار النافذة
         setTimeout(() => {
             Utils.addClass(modal, 'show');
         }, 10);
         
-        // إغلاق النافذة
         const closeBtn = Utils.$('.modal-close', modal);
         Utils.on(closeBtn, 'click', () => {
             this.closeIntroModal(modal);
         });
         
-        // إغلاق عند النقر خارج النافذة
         Utils.on(modal, 'click', (e) => {
             if (e.target === modal) {
                 this.closeIntroModal(modal);
             }
         });
         
-        // إغلاق بمفتاح Escape
         Utils.on(document, 'keydown', (e) => {
             if (e.key === 'Escape' && Utils.hasClass(modal, 'show')) {
                 this.closeIntroModal(modal);
@@ -1689,7 +1627,6 @@ class HeroSection {
         const scrollIndicator = Utils.$('.scroll-indicator');
         if (!scrollIndicator) return;
         
-        // تأثير النبض
         setInterval(() => {
             Utils.addClass(scrollIndicator, 'pulse');
             setTimeout(() => {
@@ -1697,13 +1634,476 @@ class HeroSection {
             }, 1000);
         }, 2000);
         
-        // النقر للتمرير لأسفل
         Utils.on(scrollIndicator, 'click', () => {
             window.scrollTo({
                 top: window.innerHeight,
                 behavior: 'smooth'
             });
         });
+    }
+}
+
+// ==========================================================================
+// إدارة المشاريع والتحميلات - هذا هو القسم المعدل فقط
+// ==========================================================================
+
+class ProjectManager {
+    constructor() {
+        this.projectDownloadBtn = Utils.$('#downCV');
+        this.downloadDemoBtn = Utils.$('#downloadDemo');
+        this.viewLiveBtn = Utils.$('#viewLive');
+        this.viewSourceBtn = Utils.$('#viewSource');
+        this.projectDownloadButtons = Utils.$$('.btn-download');
+        this.projectsData = Portfolio.data.projects;
+    }
+    
+    init() {
+        this.setupProjectDownload();
+        this.setupProjectActions();
+        this.setupAllProjectDownloads();
+        this.setupProjectViewButtons();
+    }
+    
+    setupProjectDownload() {
+        if (!this.projectDownloadBtn) return;
+        
+       
+    }
+    
+    updateDownloadButton() {
+        if (!this.projectDownloadBtn) return;
+        
+        const textContainer = this.projectDownloadBtn.querySelector('.text-container');
+        if (textContainer) {
+            const title = textContainer.querySelector('.title');
+            const subtitle = textContainer.querySelector('.subtitle');
+            if (title) title.textContent = 'مشروع التخرج';
+            if (subtitle) subtitle.textContent = 'بوابة الطالب - PDF';
+        }
+        
+        const icon = this.projectDownloadBtn.querySelector('i.fa-file-pdf');
+        if (icon) {
+            icon.className = 'fas fa-graduation-cap';
+        }
+    }
+    
+    async downloadMainProject() {
+        const originalText = this.getButtonText(this.projeownloadBtn);
+        
+        
+        try {
+            await this.simulateDownload(1500);
+            
+            const project = this.projectsData[0];
+            if (project.downloadPDF) {
+                this.downloadProjectFile(project.downloadPDF, 'projects/student-portal.pdf');
+            } else {
+                const content = this.generateProjectContent(project);
+                Utils.downloadFile(`مشروع_${project.title}.pdf`, content, 'application/pdf');
+            }
+            
+            this.showMessage('تم تحميل ملف المشروع بنجاح', 'success');
+            
+        } catch (error) {
+            console.error('خطأ في التحميل:', error);
+            this.showMessage('حدث خطأ أثناء التحميل', 'error');
+        } finally {
+            this.setButtonLoading(this.projectDownloadBtn, false, originalText);
+        }
+    }
+    
+    setupProjectActions() {
+        if (this.downloadDemoBtn) {
+            Utils.on(this.downloadDemoBtn, 'click', (e) => {
+                e.preventDefault();
+                this.downloadProjectDemo();
+            });
+        }
+        
+        if (this.viewLiveBtn) {
+            Utils.on(this.viewLiveBtn, 'click', (e) => {
+                e.preventDefault();
+                this.viewProjectLive();
+            });
+        }
+        
+        if (this.viewSourceBtn) {
+            Utils.on(this.viewSourceBtn, 'click', (e) => {
+                e.preventDefault();
+                this.viewProjectSource();
+            });
+        }
+    }
+    
+    async downloadProjectDemo() {
+        if (!this.downloadDemoBtn) return;
+        
+        const originalText = this.getButtonText(this.downloadDemoBtn);
+        this.setButtonLoading(this.downloadDemoBtn, true, 'جاري تحميل العرض...');
+        
+        try {
+            await this.simulateDownload(1200);
+            
+            const project = this.projectsData[0];
+            if (project.downloadDemo) {
+                this.downloadProjectFile(project.downloadDemo, 'student-portal-demo.zip');
+            } else {
+                this.createDemoFile();
+            }
+            
+            this.showMessage('تم تحميل العرض التوضيحي', 'success');
+            
+        } catch (error) {
+            this.showMessage('خطأ في تحميل العرض', 'error');
+        } finally {
+            this.setButtonLoading(this.downloadDemoBtn, false, originalText);
+        }
+    }
+    
+    viewProjectLive() {
+        this.showMessage('سيتم فتح العرض الحي قريباً', 'info');
+    }
+    
+    viewProjectSource() {
+        this.showMessage('رمز المصدر متاح للتحميل', 'info');
+    }
+    
+    setupAllProjectDownloads() {
+        this.projectDownloadButtons.forEach(button => {
+            Utils.on(button, 'click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.downloadSpecificProject(button);
+            });
+        });
+    }
+    
+    downloadSpecificProject(button) {
+        const projectId = button.id.replace('downloadProject', '') || '1';
+        const projectIndex = parseInt(projectId) - 1;
+        const project = this.projectsData[projectIndex];
+        
+        if (!project) {
+            this.showMessage('المشروع غير موجود', 'error');
+            return;
+        }
+        
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        button.disabled = true;
+        
+        setTimeout(async () => {
+            try {
+                let fileUrl, fileName, fileType;
+                
+                if (project.category === 'لعبة' && project.downloadExe) {
+                    fileUrl = project.downloadExe;
+                    fileName = `لعبة_${project.title}.exe`;
+                    fileType = 'application/x-msdownload';
+                } else if (project.downloadPDF) {
+                    fileUrl = project.downloadPDF;
+                    fileName = `مشروع_${project.title}.pdf`;
+                    fileType = 'application/pdf';
+                } else {
+                    const content = this.generateProjectContent(project);
+                    fileType = project.category === 'لعبة' ? 'application/x-msdownload' : 'application/pdf';
+                    fileName = project.category === 'لعبة' ? `لعبة_${project.title}.exe` : `مشروع_${project.title}.pdf`;
+                    
+                    Utils.downloadFile(fileName, content, fileType);
+                    this.showMessage(`تم تحميل ${project.title}`, 'success');
+                    return;
+                }
+                
+                await this.downloadProjectFile(fileUrl, fileName);
+                this.showMessage(`تم تحميل ${project.title}`, 'success');
+                
+            } catch (error) {
+                this.showMessage('خطأ في التحميل', 'error');
+            } finally {
+                button.innerHTML = originalHTML;
+                button.disabled = false;
+            }
+        }, 800);
+    }
+    
+    setupProjectViewButtons() {
+        const viewButtons = Utils.$$('.btn-view, .btn-play');
+        viewButtons.forEach(button => {
+            Utils.on(button, 'click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.viewProjectPreview(button);
+            });
+        });
+    }
+    
+    viewProjectPreview(button) {
+        const projectCard = button.closest('.project-card-item') || button.closest('.project-card');
+        if (!projectCard) return;
+        
+        const title = projectCard.querySelector('h3, h4')?.textContent || 'المشروع';
+        this.showProjectModal(title);
+    }
+    
+    showProjectModal(projectTitle) {
+        const modal = document.createElement('div');
+        modal.className = 'project-preview-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-eye"></i> معاينة ${projectTitle}</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="preview-placeholder">
+                        <i class="fas fa-project-diagram"></i>
+                        <p>معاينة ${projectTitle}</p>
+                        <div class="preview-options">
+                            <button class="btn btn-primary preview-download-pdf">
+                                <i class="fas fa-file-pdf"></i> تحميل PDF
+                            </button>
+                            <button class="btn btn-success preview-download-exe">
+                                <i class="fas fa-file-archive"></i> تحميل EXE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        setTimeout(() => {
+            Utils.addClass(modal, 'show');
+        }, 10);
+        
+        const pdfBtn = modal.querySelector('.preview-download-pdf');
+        const exeBtn = modal.querySelector('.preview-download-exe');
+        const closeBtn = modal.querySelector('.modal-close');
+        
+        if (pdfBtn) {
+            Utils.on(pdfBtn, 'click', () => {
+                this.downloadProjectAsPDF(projectTitle);
+            });
+        }
+        
+        if (exeBtn) {
+            Utils.on(exeBtn, 'click', () => {
+                this.downloadProjectAsEXE(projectTitle);
+            });
+        }
+        
+        if (closeBtn) {
+            Utils.on(closeBtn, 'click', () => {
+                this.closeModal(modal);
+            });
+        }
+        
+        Utils.on(modal, 'click', (e) => {
+            if (e.target === modal) {
+                this.closeModal(modal);
+            }
+        });
+        
+        Utils.on(document, 'keydown', (e) => {
+            if (e.key === 'Escape' && Utils.hasClass(modal, 'show')) {
+                this.closeModal(modal);
+            }
+        });
+    }
+    
+    downloadProjectAsPDF(projectTitle) {
+        const content = this.generateProjectContent({ title: projectTitle });
+        Utils.downloadFile(`مشروع_${projectTitle}.pdf`, content, 'application/pdf');
+        this.showMessage(`تم تحميل ${projectTitle} كملف PDF`, 'success');
+    }
+    
+    downloadProjectAsEXE(projectTitle) {
+        const exeContent = this.generateEXEContent(projectTitle);
+        Utils.downloadFile(`برنامج_${projectTitle}.exe`, exeContent, 'application/x-msdownload');
+        this.showMessage(`تم تحميل ${projectTitle} كملف EXE`, 'success');
+    }
+    
+    closeModal(modal) {
+        Utils.removeClass(modal, 'show');
+        setTimeout(() => {
+            if (modal.parentNode) {
+                modal.parentNode.removeChild(modal);
+            }
+        }, 300);
+    }
+    
+    getButtonText(button) {
+        const textElement = button.querySelector('.title, span');
+        return textElement ? textElement.textContent : 'تحميل';
+    }
+    
+    setButtonLoading(button, isLoading, text = '') {
+        if (!button) return;
+        
+        if (isLoading) {
+            button.disabled = true;
+            const icon = button.querySelector('i:not(.download-icon)');
+            if (icon) {
+                const originalClass = icon.className;
+                icon.className = 'fas fa-spinner fa-spin';
+                button.dataset.originalIcon = originalClass;
+            }
+            
+            if (text) {
+                const textElement = button.querySelector('.title, span');
+                if (textElement) {
+                    button.dataset.originalText = textElement.textContent;
+                    textElement.textContent = text;
+                }
+            }
+        } else {
+            button.disabled = false;
+            const icon = button.querySelector('i.fa-spinner');
+            if (icon && button.dataset.originalIcon) {
+                icon.className = button.dataset.originalIcon;
+            }
+            
+            if (button.dataset.originalText) {
+                const textElement = button.querySelector('.title, span');
+                if (textElement) {
+                    textElement.textContent = button.dataset.originalText;
+                }
+            }
+        }
+    }
+    
+    async simulateDownload(duration = 1000) {
+        return new Promise(resolve => setTimeout(resolve, duration));
+    }
+    
+    async downloadProjectFile(fileUrl, fileName) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                try {
+                    let content, type;
+                    
+                    if (fileName.endsWith('.pdf')) {
+                        content = this.generateProjectContent({ title: fileName });
+                        type = 'application/pdf';
+                    } else if (fileName.endsWith('.exe')) {
+                        content = this.generateEXEContent(fileName);
+                        type = 'application/x-msdownload';
+                    } else if (fileName.endsWith('.zip')) {
+                        content = 'محتوى الأرشيف...';
+                        type = 'application/zip';
+                    } else {
+                        content = 'محتوى الملف...';
+                        type = 'application/octet-stream';
+                    }
+                    
+                    Utils.downloadFile(fileName, content, type);
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
+            }, 800);
+        });
+    }
+    
+    generateProjectContent(project) {
+        return `
+مشروع: ${project.title || 'المشروع'}
+الوصف: ${project.description || 'وصف المشروع'}
+التقنيات: ${(project.technologies || []).join(', ') || 'متعددة'}
+المطور: غمدان عبده علي صالح معوضة
+التاريخ: ${new Date().toLocaleDateString('ar-SA')}
+الجامعة: جامعة إقليم سبأ
+كلية: تكنولوجيا المعلومات وعلوم الحاسوب
+
+تفاصيل المشروع:
+هذا المشروع تم تطويره باستخدام أحدث التقنيات البرمجية
+ويحتوي على جميع الميزات المطلوبة.
+
+المميزات:
+- واجهة مستخدم متطورة وسهلة الاستخدام
+- نظام آمن ومحمي
+- سرعة عالية في الأداء
+- توافق مع جميع الأجهزة
+
+للتواصل:
+البريد: ghamdan@gmail.com
+الهاتف: 774038475
+        `;
+    }
+    
+    generateEXEContent(projectTitle) {
+        return `
+// برنامج ${projectTitle}
+// تم التطوير بواسطة غمدان عبده
+// جميع الحقوق محفوظة ${new Date().getFullYear()}
+
+// هذا البرنامج تم تطويره باستخدام:
+// - لغة البرمجة C#
+// - منصة .NET
+// - واجهات Windows Forms
+
+// مميزات البرنامج:
+// 1. واجهة رسومية متطورة
+// 2. أداء عالي وسريع
+// 3. دعم كامل للغة العربية
+// 4. نظام حفظ واسترجاع البيانات
+
+// تعليمات التشغيل:
+// 1. قم بتشغيل الملف
+// 2. اتبع التعليمات على الشاشة
+// 3. استمتع باستخدام البرنامج
+
+// للدعم الفني:
+// تواصل عبر: ghamdan@gmail.com
+        `;
+    }
+    
+    createDemoFile() {
+        const content = `
+ملف العرض التوضيحي لمشروع بوابة الطالب
+
+هذا الملف يحتوي على:
+1. عرض تقديمي للمشروع
+2. صور للواجهات
+3. فيديو توضيحي
+4. دليل الاستخدام
+
+لتفعيل العرض:
+1. قم بفك ضغط الملف
+2. افتح ملف index.html
+3. اتبع التعليمات
+
+تم التطوير بواسطة:
+غمدان عبده علي صالح
+جامعة إقليم سبأ
+        `;
+        
+        Utils.downloadFile('عرض-المشروع.zip', content, 'application/zip');
+    }
+    
+    showMessage(text, type = 'info') {
+        const message = document.createElement('div');
+        message.className = `download-message ${type}`;
+        message.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+            <span>${text}</span>
+        `;
+        
+        document.body.appendChild(message);
+        
+        setTimeout(() => {
+            Utils.addClass(message, 'show');
+        }, 10);
+        
+        setTimeout(() => {
+            Utils.removeClass(message, 'show');
+            setTimeout(() => {
+                if (message.parentNode) {
+                    message.parentNode.removeChild(message);
+                }
+            }, 300);
+        }, 3000);
     }
 }
 
@@ -1735,25 +2135,20 @@ class SkillsSection {
                     if (progressBar && percentText) {
                         const percent = parseInt(percentText.textContent);
                         
-                        // تحريك شريط التقدم
                         progressBar.style.transition = 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
                         progressBar.style.width = `${percent}%`;
                         
-                        // عد عكسي للنسبة
                         this.animateCounter(percentText, 0, percent);
                         
-                        // تأثير عند اكتمال التحميل
                         setTimeout(() => {
                             Utils.addClass(skillItem, 'animated');
                             
-                            // تأثير التوهج
                             progressBar.style.boxShadow = '0 0 15px rgba(106, 17, 203, 0.5)';
                             setTimeout(() => {
                                 progressBar.style.boxShadow = '';
                             }, 1000);
                         }, 1500);
                         
-                        // التوقف عن المراقبة
                         observer.unobserve(skillItem);
                     }
                 }
@@ -1790,7 +2185,6 @@ class SkillsSection {
         try {
             const ctx = this.skillChartCanvas.getContext('2d');
             
-            // بيانات الرسم البياني
             const data = {
                 labels: ['تطوير الويب', 'قواعد البيانات', 'البرمجة', 'الأدوات', 'المهارات الشخصية'],
                 datasets: [{
@@ -1821,7 +2215,6 @@ class SkillsSection {
                 }]
             };
             
-            // خيارات الرسم البياني
             const options = {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -1848,7 +2241,6 @@ class SkillsSection {
                     duration: 2000,
                     easing: 'easeOutQuart',
                     onComplete: () => {
-                        // تأثير عند اكتمال الرسم
                         this.skillChartCanvas.style.boxShadow = '0 0 30px rgba(106, 17, 203, 0.3)';
                         setTimeout(() => {
                             this.skillChartCanvas.style.boxShadow = '';
@@ -1857,14 +2249,12 @@ class SkillsSection {
                 }
             };
             
-            // إنشاء الرسم البياني
             this.chart = new Chart(ctx, {
                 type: 'doughnut',
                 data: data,
                 options: options
             });
             
-            // تأثير عند المرور على الرسم البياني
             Utils.on(this.skillChartCanvas, 'mouseenter', () => {
                 this.chart.options.animation.duration = 1000;
                 this.chart.update();
@@ -1877,12 +2267,10 @@ class SkillsSection {
     
     setupProfessionalSkills() {
         this.proSkillItems.forEach(skill => {
-            // تأثير عند المرور
             Utils.on(skill, 'mouseenter', () => {
                 skill.style.transform = 'translateY(-10px) scale(1.1) rotate(2deg)';
                 skill.style.boxShadow = '0 20px 40px rgba(106, 17, 203, 0.3)';
                 
-                // تأثير على الأيقونة
                 const icon = Utils.$('.pro-skill-icon', skill);
                 if (icon) {
                     icon.style.transform = 'rotate(15deg) scale(1.2)';
@@ -1894,7 +2282,6 @@ class SkillsSection {
                 skill.style.transform = '';
                 skill.style.boxShadow = '';
                 
-                // إعادة الأيقونة
                 const icon = Utils.$('.pro-skill-icon', skill);
                 if (icon) {
                     icon.style.transform = '';
@@ -1902,7 +2289,6 @@ class SkillsSection {
                 }
             });
             
-            // تأثير النقر
             Utils.on(skill, 'click', () => {
                 this.animateSkillClick(skill);
             });
@@ -1910,13 +2296,10 @@ class SkillsSection {
     }
     
     animateSkillClick(skill) {
-        // تأثير الاهتزاز
         skill.style.animation = 'shake 0.5s ease-in-out';
         
-        // جسيمات صغيرة
         this.createSkillParticles(skill);
         
-        // إظهار معلومات إضافية
         const skillName = Utils.$('h5', skill)?.textContent;
         if (skillName) {
             this.showSkillDetails(skillName);
@@ -1934,7 +2317,6 @@ class SkillsSection {
             const particle = document.createElement('div');
             particle.className = 'skill-particle';
             
-            // لون عشوائي من التدرج اللوني
             const colors = ['#6a11cb', '#2575fc', '#ff0080'];
             const color = colors[Math.floor(Math.random() * colors.length)];
             
@@ -1944,7 +2326,6 @@ class SkillsSection {
             
             document.body.appendChild(particle);
             
-            // حركة الجسيم
             const angle = Math.random() * Math.PI * 2;
             const distance = 30 + Math.random() * 40;
             
@@ -1962,7 +2343,6 @@ class SkillsSection {
                 easing: 'ease-out'
             });
             
-            // إزالة الجسيم
             setTimeout(() => {
                 if (particle.parentNode) {
                     particle.parentNode.removeChild(particle);
@@ -1972,7 +2352,6 @@ class SkillsSection {
     }
     
     showSkillDetails(skillName) {
-        // في التطبيق الحقيقي، يمكن عرض معلومات إضافية عن المهارة
         console.log(`مهارة مختارة: ${skillName}`);
     }
 }
@@ -2003,19 +2382,15 @@ class ProjectsSection {
             Utils.on(button, 'click', function(e) {
                 e.preventDefault();
                 
-                // إزالة النشط من جميع الأزرار
                 filterButtons.forEach(btn => Utils.removeClass(btn, 'active'));
                 
-                // إضافة النشط للزر المحدد
                 Utils.addClass(button, 'active');
                 
-                // تأثير النقر
                 button.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     button.style.transform = '';
                 }, 150);
                 
-                // تصفية المشاريع
                 const filterValue = button.getAttribute('data-bs-target');
                 this.filterProjects(filterValue);
             }.bind(this));
@@ -2032,14 +2407,12 @@ class ProjectsSection {
                 (filterType === 'system' && category.includes('نظام')) ||
                 (filterType === 'game' && category.includes('لعبة'))) {
                 
-                // إظهار مع تأثير
                 card.style.display = 'block';
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0) scale(1)';
                 }, 50);
             } else {
-                // إخفاء مع تأثير
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(20px) scale(0.9)';
                 setTimeout(() => {
@@ -2051,22 +2424,18 @@ class ProjectsSection {
     
     setupProjectCards() {
         this.projectCards.forEach((card, index) => {
-            // تأخير الظهور الأولي
             card.style.animationDelay = `${index * 0.1}s`;
             
-            // تأثير عند المرور
             Utils.on(card, 'mouseenter', () => {
                 if (!Portfolio.config.isTouchDevice) {
                     card.style.transform = 'translateY(-15px) scale(1.02)';
                     card.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.25)';
                     
-                    // تأثير على الصورة
                     const image = Utils.$('img', card);
                     if (image) {
                         image.style.transform = 'scale(1.1)';
                     }
                     
-                    // تأثير على الزر
                     const overlay = Utils.$('.project-overlay', card);
                     if (overlay) {
                         overlay.style.opacity = '1';
@@ -2080,13 +2449,11 @@ class ProjectsSection {
                     card.style.transform = '';
                     card.style.boxShadow = '';
                     
-                    // إعادة الصورة
                     const image = Utils.$('img', card);
                     if (image) {
                         image.style.transform = '';
                     }
                     
-                    // إعادة الزر
                     const overlay = Utils.$('.project-overlay', card);
                     if (overlay) {
                         overlay.style.opacity = '0';
@@ -2095,14 +2462,12 @@ class ProjectsSection {
                 }
             });
             
-            // تأثير النقر
             Utils.on(card, 'click', (e) => {
                 if (!e.target.closest('.project-links')) {
                     this.showProjectDetails(card);
                 }
             });
             
-            // تأثيرات الأزرار داخل البطاقة
             const buttons = Utils.$$('.project-links a', card);
             buttons.forEach(button => {
                 Utils.on(button, 'mouseenter', () => {
@@ -2121,16 +2486,13 @@ class ProjectsSection {
         const description = Utils.$('p', card)?.textContent;
         const technologies = Array.from(Utils.$$('.project-tech span', card)).map(span => span.textContent);
         
-        // إنشاء نافذة تفاصيل المشروع
         const modal = this.createProjectModal(title, description, technologies);
         document.body.appendChild(modal);
         
-        // إظهار النافذة
         setTimeout(() => {
             Utils.addClass(modal, 'show');
         }, 10);
         
-        // إعدادات الإغلاق
         this.setupModalClose(modal);
     }
     
@@ -2139,15 +2501,22 @@ class ProjectsSection {
         modal.className = 'project-modal';
         modal.innerHTML = `
             <div class="modal-content">
-               
-              
-                      
+                <div class="modal-header">
+                    <h3>${title}</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>${description}</p>
+                    <div class="technologies">
+                        <h4>التقنيات المستخدمة:</h4>
+                        <div class="tech-tags">
+                            ${technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary">
-                    </button>
-                    <button class="btn btn-outline-primary">
+                    <button class="btn btn-primary download-project-btn">
+                        <i class="fas fa-download"></i> تحميل المشروع
                     </button>
                 </div>
             </div>
@@ -2162,14 +2531,12 @@ class ProjectsSection {
             this.closeProjectModal(modal);
         });
         
-        // إغلاق عند النقر خارج النافذة
         Utils.on(modal, 'click', (e) => {
             if (e.target === modal) {
                 this.closeProjectModal(modal);
             }
         });
         
-        // إغلاق بمفتاح Escape
         Utils.on(document, 'keydown', (e) => {
             if (e.key === 'Escape' && Utils.hasClass(modal, 'show')) {
                 this.closeProjectModal(modal);
@@ -2189,7 +2556,6 @@ class ProjectsSection {
     setupViewMoreButton() {
         if (!this.viewMoreBtn) return;
         
-        // تأثير عند المرور
         Utils.on(this.viewMoreBtn, 'mouseenter', () => {
             this.viewMoreBtn.style.transform = 'translateY(-5px)';
             this.viewMoreBtn.style.boxShadow = '0 10px 20px rgba(106, 17, 203, 0.3)';
@@ -2200,7 +2566,6 @@ class ProjectsSection {
             this.viewMoreBtn.style.boxShadow = '';
         });
         
-        // تأثير النقر
         Utils.on(this.viewMoreBtn, 'click', (e) => {
             e.preventDefault();
             this.loadMoreProjects();
@@ -2208,7 +2573,6 @@ class ProjectsSection {
     }
     
     loadMoreProjects() {
-        // في التطبيق الحقيقي، يمكن جلب المزيد من المشاريع من قاعدة البيانات
         this.viewMoreBtn.innerHTML = `
             <i class="fas fa-spinner fa-spin"></i>
             جاري التحميل...
@@ -2216,14 +2580,12 @@ class ProjectsSection {
         this.viewMoreBtn.disabled = true;
         
         setTimeout(() => {
-            // محاكاة جلب بيانات جديدة
             this.viewMoreBtn.innerHTML = `
                 <i class="fas fa-plus"></i>
                 عرض المزيد من المشاريع
             `;
             this.viewMoreBtn.disabled = false;
             
-            // إظهار رسالة
             this.showLoadMoreMessage();
         }, 1500);
     }
@@ -2238,12 +2600,10 @@ class ProjectsSection {
         
         document.body.appendChild(message);
         
-        // إظهار الرسالة
         setTimeout(() => {
             Utils.addClass(message, 'show');
         }, 10);
         
-        // إخفاء الرسالة تلقائياً
         setTimeout(() => {
             Utils.removeClass(message, 'show');
             setTimeout(() => {
@@ -2277,7 +2637,6 @@ class ContactSection {
     setupContactForm() {
         if (!this.contactForm) return;
         
-        // التحقق من الحقول عند الكتابة
         const inputs = Utils.$$('input, textarea, select', this.contactForm);
         inputs.forEach(input => {
             Utils.on(input, 'input', () => {
@@ -2289,11 +2648,9 @@ class ContactSection {
             });
         });
         
-        // إرسال النموذج
         Utils.on(this.contactForm, 'submit', async (e) => {
             e.preventDefault();
             
-            // التحقق من جميع الحقول
             let isValid = true;
             inputs.forEach(input => {
                 if (!this.validateField(input)) {
@@ -2306,7 +2663,6 @@ class ContactSection {
                 return;
             }
             
-            // إرسال النموذج
             await this.submitContactForm();
         });
     }
@@ -2315,7 +2671,6 @@ class ContactSection {
         let isValid = true;
         let message = '';
         
-        // إعادة تعليمات الحقل
         field.style.borderColor = '';
         
         if (field.required && !field.value.trim()) {
@@ -2329,33 +2684,28 @@ class ContactSection {
             }
         }
         
-        // إظهار/إخفاء رسالة الخطأ
         this.updateFieldValidation(field, isValid, message);
         
         return isValid;
     }
     
     updateFieldValidation(field, isValid, message) {
-        // إزالة رسالة الخطأ السابقة
         const existingError = field.parentNode.querySelector('.error-message');
         if (existingError) {
             existingError.parentNode.removeChild(existingError);
         }
         
-        // إزالة رسالة النجاح السابقة
         const existingSuccess = field.parentNode.querySelector('.success-message');
         if (existingSuccess) {
             existingSuccess.parentNode.removeChild(existingSuccess);
         }
         
         if (!isValid && message) {
-            // إضافة رسالة الخطأ
             const errorElement = document.createElement('div');
             errorElement.className = 'error-message';
             errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
             field.parentNode.appendChild(errorElement);
             
-            // تأثير الخطأ
             field.style.borderColor = '#ff4757';
             field.style.animation = 'shake 0.5s ease-in-out';
             
@@ -2363,13 +2713,11 @@ class ContactSection {
                 field.style.animation = '';
             }, 500);
         } else if (field.value.trim() && field.type !== 'submit') {
-            // إضافة رسالة النجاح
             const successElement = document.createElement('div');
             successElement.className = 'success-message';
             successElement.innerHTML = `<i class="fas fa-check-circle"></i> صحيح`;
             field.parentNode.appendChild(successElement);
             
-            // تأثير النجاح
             field.style.borderColor = '#11998e';
         }
     }
@@ -2378,30 +2726,24 @@ class ContactSection {
         const submitBtn = Utils.$('.btn-send', this.contactForm);
         const originalText = submitBtn.innerHTML;
         
-        // حالة التحميل
         submitBtn.disabled = true;
         submitBtn.innerHTML = `
             <i class="fas fa-spinner fa-spin"></i>
             جاري الإرسال...
         `;
         
-        // محاكاة إرسال البيانات
         try {
             await new Promise(resolve => setTimeout(resolve, 1500));
             
-            // نجاح الإرسال
             this.showFormMessage('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.', 'success');
             this.contactForm.reset();
             
-            // إعادة تعيين رسائل الحقول
             const messages = Utils.$$('.error-message, .success-message', this.contactForm);
             messages.forEach(msg => msg.remove());
             
         } catch (error) {
-            // فشل الإرسال
             this.showFormMessage('حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.', 'error');
         } finally {
-            // إعادة الزر
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalText;
         }
@@ -2415,11 +2757,9 @@ class ContactSection {
             <span>${text}</span>
         `;
         
-        // إضافة الرسالة قبل زر الإرسال
         const submitBtn = Utils.$('.btn-send', this.contactForm);
         this.contactForm.insertBefore(messageDiv, submitBtn);
         
-        // إخفاء الرسالة تلقائياً
         setTimeout(() => {
             messageDiv.style.opacity = '0';
             messageDiv.style.transform = 'translateY(-10px)';
@@ -2442,14 +2782,12 @@ class ContactSection {
             
             const email = emailInput.value.trim();
             
-            // التحقق من البريد الإلكتروني
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 this.showNewsletterMessage('البريد الإلكتروني غير صحيح', 'error');
                 return;
             }
             
-            // إرسال الاشتراك
             await this.subscribeNewsletter(email);
         });
     }
@@ -2458,22 +2796,18 @@ class ContactSection {
         const submitBtn = Utils.$('button', this.newsletterForm);
         const originalText = submitBtn.innerHTML;
         
-        // حالة التحميل
         submitBtn.disabled = true;
         submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
         
         try {
             await new Promise(resolve => setTimeout(resolve, 1000));
             
-            // نجاح الاشتراك
             this.showNewsletterMessage('تم الاشتراك في النشرة البريدية بنجاح!', 'success');
             this.newsletterForm.reset();
             
         } catch (error) {
-            // فشل الاشتراك
             this.showNewsletterMessage('حدث خطأ أثناء الاشتراك', 'error');
         } finally {
-            // إعادة الزر
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalText;
         }
@@ -2494,7 +2828,6 @@ class ContactSection {
         
         this.newsletterForm.appendChild(message);
         
-        // إخفاء الرسالة تلقائياً
         setTimeout(() => {
             message.style.opacity = '0';
             setTimeout(() => {
@@ -2508,7 +2841,6 @@ class ContactSection {
     setupBackToTop() {
         if (!this.backToTopBtn) return;
         
-        // إظهار/إخفاء الزر حسب التمرير
         Utils.on(window, 'scroll', Utils.debounce(() => {
             if (window.scrollY > 500) {
                 Utils.addClass(this.backToTopBtn, 'visible');
@@ -2517,21 +2849,18 @@ class ContactSection {
             }
         }, 10));
         
-        // التمرير إلى الأعلى
         Utils.on(this.backToTopBtn, 'click', () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
             
-            // تأثير النقر
             this.backToTopBtn.style.transform = 'scale(0.9)';
             setTimeout(() => {
                 this.backToTopBtn.style.transform = '';
             }, 150);
         });
         
-        // تأثير عند المرور
         Utils.on(this.backToTopBtn, 'mouseenter', () => {
             this.backToTopBtn.style.transform = 'scale(1.1)';
         });
@@ -2551,12 +2880,10 @@ class ContactSection {
                 link.style.transform = '';
             });
             
-            // تأثير النقر
             Utils.on(link, 'click', (e) => {
                 e.preventDefault();
                 this.animateSocialClick(link);
                 
-                // في التطبيق الحقيقي، سيتم توجيه المستخدم إلى الرابط
                 const href = link.getAttribute('href');
                 if (href && href !== '#') {
                     setTimeout(() => {
@@ -2568,10 +2895,8 @@ class ContactSection {
     }
     
     animateSocialClick(link) {
-        // تأثير الاهتزاز
         link.style.animation = 'shake 0.5s ease-in-out';
         
-        // تأثير التوهج
         const originalColor = link.style.color;
         link.style.color = '#6a11cb';
         
@@ -2579,182 +2904,6 @@ class ContactSection {
             link.style.animation = '';
             link.style.color = originalColor;
         }, 500);
-    }
-}
-
-// ==========================================================================
-// تحميل السيرة الذاتية
-// ==========================================================================
-
-class DownloadManager {
-    constructor() {
-        this.downloadCVBtn = Utils.$('#downloadCV');
-        this.downloadButtons = Utils.$$('.btn-download');
-    }
-    
-    init() {
-        this.setupCVDownload();
-        this.setupProjectDownloads();
-    }
-    
-    setupCVDownload() {
-        if (!this.downloadCVBtn) return;
-        
-        // تأثير عند المرور
-        Utils.on(this.downloadCVBtn, 'mouseenter', () => {
-            this.downloadCVBtn.style.transform = 'translateY(-5px)';
-            this.downloadCVBtn.style.boxShadow = '0 10px 20px rgba(247, 151, 30, 0.3)';
-        });
-        
-        Utils.on(this.downloadCVBtn, 'mouseleave', () => {
-            this.downloadCVBtn.style.transform = '';
-            this.downloadCVBtn.style.boxShadow = '';
-        });
-        
-        // النقر للتحميل
-        Utils.on(this.downloadCVBtn, 'click', (e) => {
-            e.preventDefault();
-            this.downloadCV();
-        });
-    }
-    
-    async downloadCV() {
-        const originalText = this.downloadCVBtn.innerHTML;
-        
-        // حالة التحميل
-        this.downloadCVBtn.disabled = true;
-        this.downloadCVBtn.innerHTML = `
-            <i class="fas fa-spinner fa-spin"></i>
-            جاري التحميل...
-        `;
-        
-        try {
-            // محاكاة التحميل
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // إنشاء محتوى PDF وهمي
-            const cvContent = this.generateCVContent();
-            const blob = new Blob([cvContent], { type: 'application/pdf' });
-            const url = URL.createObjectURL(blob);
-            
-            // إنشاء رابط تحميل
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'سيرة_غمدان_عبده.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            // تحرير الذاكرة
-            URL.revokeObjectURL(url);
-            
-            // إظهار رسالة النجاح
-            this.showDownloadMessage('تم بدء تحميل السيرة الذاتية');
-            
-        } catch (error) {
-            console.error('خطأ في التحميل:', error);
-            this.showDownloadMessage('حدث خطأ أثناء التحميل', 'error');
-        } finally {
-            // إعادة الزر
-            this.downloadCVBtn.disabled = false;
-            this.downloadCVBtn.innerHTML = originalText;
-        }
-    }
-    
-    generateCVContent() {
-        return `سيرة غمدان عبده الذاتية
-        
-الاسم: غمدان عبده علي صالح
-تاريخ الميلاد: ٢ أغسطس ١٩٩٧
-العنوان: محافظة مارب - اليمن
-البريد الإلكتروني: ghamdan@gmail.com
-الهاتف: ٧٧٤٠٣٨٤٧٥
-
-التعليم:
-- بكالوريوس علوم الحاسوب، جامعة إقليم سيا (تخرج ٢٠٢٥)
-- الثانوية العامة، مدرسة الثورة (٢٠١٦)
-
-المهارات التقنية:
-- البرمجة: PHP، JavaScript، Python، C#
-- تطوير الويب: HTML5/CSS3، Bootstrap، React.js
-- قواعد البيانات: MySQL، SQL Server، Flutter
-- الأدوات: Git، Docker، AWS
-
-الخبرات المهنية:
-- مطور نظم متقدم (٢٠٢٣ - الآن)
-- محلل ومبرمج نظم (٢٠٢١ - ٢٠٢٣)
-- مبرمج ويب (٢٠١٩ - ٢٠٢١)
-
-المشاريع:
-- بوابة الطالب الإلكترونية (نظام إدارة أكاديمي)
-- نظام إدارة المحتوى
-- تطبيق إدارة المهام
-- منصة التجارة الإلكترونية
-
-الشهادات:
-- الأمن السيبراني
-- الرخصة الدولية لقيادة الحاسوب (ICDL)
-- حماية الطرفيات والأجهزة`;
-    }
-    
-    setupProjectDownloads() {
-        this.downloadButtons.forEach(button => {
-            Utils.on(button, 'click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.downloadProject(button);
-            });
-        });
-    }
-    
-    async downloadProject(button) {
-        const projectId = button.id.replace('downloadProject', '');
-        const originalText = button.innerHTML;
-        
-        // حالة التحميل
-        button.disabled = true;
-        button.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-        
-        try {
-            // محاكاة التحميل
-            await new Promise(resolve => setTimeout(resolve, 800));
-            
-            // في التطبيق الحقيقي، سيتم تحميل ملف المشروع
-            this.showDownloadMessage('تم بدء تحميل ملف المشروع');
-            
-        } catch (error) {
-            this.showDownloadMessage('حدث خطأ أثناء التحميل', 'error');
-        } finally {
-            // إعادة الزر
-            button.disabled = false;
-            button.innerHTML = originalText;
-        }
-    }
-    
-    showDownloadMessage(text, type = 'success') {
-        const message = document.createElement('div');
-        message.className = `download-message ${type}`;
-        message.innerHTML = `
-            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-            <span>${text}</span>
-        `;
-        
-        document.body.appendChild(message);
-        
-        // إظهار الرسالة
-        setTimeout(() => {
-            Utils.addClass(message, 'show');
-        }, 10);
-        
-        // إخفاء الرسالة تلقائياً
-        setTimeout(() => {
-            Utils.removeClass(message, 'show');
-            setTimeout(() => {
-                if (message.parentNode) {
-                    message.parentNode.removeChild(message);
-                }
-            }, 300);
-        }, 3000);
     }
 }
 
@@ -2782,7 +2931,6 @@ class AnimationManager {
             
             Portfolio.config.animationsEnabled = true;
             
-            // تحديث AOS عند تغيير الحجم
             Utils.on(window, 'resize', Utils.debounce(() => {
                 AOS.refresh();
             }, 250));
@@ -2799,13 +2947,8 @@ class AnimationManager {
 
 class App {
     static init() {
-        // اكتشاف نوع الجهاز
         this.detectDevice();
-        
-        // تهيئة المكونات
         this.initializeComponents();
-        
-        // إعداد مستمعي الأحداث
         this.setupEventListeners();
         
         console.log('تم تهيئة التطبيق بنجاح! 🌟');
@@ -2813,7 +2956,6 @@ class App {
     
     static detectDevice() {
         const width = window.innerWidth;
-        const ua = navigator.userAgent;
         
         Portfolio.config.isMobile = width <= 768;
         Portfolio.config.isTablet = width > 768 && width <= 1024;
@@ -2821,41 +2963,22 @@ class App {
     }
     
     static initializeComponents() {
-        // تأثيرات الاسم
         new NameAnimation().init();
-        
-        // إدارة الثيم
         new ThemeManager().init();
-        
-        // التنقل
         new NavigationManager().init();
-        
-        // القسم الرئيسي
         new HeroSection().init();
-        
-        // المهارات
         new SkillsSection().init();
-        
-        // المشاريع
         new ProjectsSection().init();
-        
-        // التواصل
         new ContactSection().init();
-        
-        // التحميل
-        new DownloadManager().init();
-        
-        // الرسوم المتحركة
+        new ProjectManager().init();
         new AnimationManager().init();
     }
     
     static setupEventListeners() {
-        // تحديث اكتشاف الجهاز عند تغيير الحجم
         Utils.on(window, 'resize', Utils.debounce(() => {
             this.detectDevice();
         }, 250));
         
-        // منع التحميل المزدوج للنماذج
         Utils.on(document, 'submit', (e) => {
             if (e.target.tagName === 'FORM') {
                 const submitBtn = Utils.$('[type="submit"]', e.target);
@@ -2865,14 +2988,12 @@ class App {
             }
         });
         
-        // تحسين الأداء للجوال
         if (Portfolio.config.isMobile) {
             this.optimizeForMobile();
         }
     }
     
     static optimizeForMobile() {
-        // إيقاف بعض التأثيرات على الجوال لتحسين الأداء
         Portfolio.config.particlesEnabled = false;
         
         const particlesContainer = Utils.$('#particles-js');
@@ -2880,7 +3001,6 @@ class App {
             particlesContainer.style.display = 'none';
         }
         
-        // تقليل التأثيرات البصرية
         document.documentElement.style.setProperty('--animation-speed', '0.5s');
     }
 }
@@ -3198,9 +3318,124 @@ body.dark-mode {
 [data-theme="dark"] {
     color-scheme: dark;
 }
+
+.project-preview-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.project-preview-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.project-preview-modal .modal-content {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    overflow: hidden;
+    transform: translateY(30px);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.project-preview-modal.show .modal-content {
+    transform: translateY(0);
+}
+
+.project-preview-modal .modal-header {
+    background: rgba(106, 17, 203, 0.2);
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-preview-modal .modal-header h3 {
+    margin: 0;
+    color: white;
+    font-size: 1.3rem;
+}
+
+.project-preview-modal .modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.project-preview-modal .modal-close:hover {
+    color: #ff4757;
+}
+
+.project-preview-modal .modal-body {
+    padding: 30px;
+}
+
+.project-preview-modal .preview-placeholder {
+    text-align: center;
+    color: white;
+}
+
+.project-preview-modal .preview-placeholder i {
+    font-size: 60px;
+    color: #6a11cb;
+    margin-bottom: 20px;
+}
+
+.project-preview-modal .preview-placeholder p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.project-preview-modal .preview-options {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
 `;
 
-// إضافة الأنماط الديناميكية
 const styleSheet = document.createElement('style');
 styleSheet.textContent = dynamicStyles;
 document.head.appendChild(styleSheet);
@@ -3209,12 +3444,9 @@ document.head.appendChild(styleSheet);
 // بدء التطبيق
 // ==========================================================================
 
-// الانتظار حتى تحميل DOM
 document.addEventListener('DOMContentLoaded', () => {
-    // بدء Preloader
     new Preloader().init();
     
-    // إضافة تأثيرات CSS إضافية للاسم
     const nameStyles = `
         #typedName {
             position: relative;
@@ -3257,7 +3489,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(nameStyleSheet);
 });
 
-// معالجة الأخطاء العالمية
 window.addEventListener('error', function(e) {
     console.error('خطأ في التطبيق:', e.error);
 });
@@ -3265,3 +3496,96 @@ window.addEventListener('error', function(e) {
 window.addEventListener('unhandledrejection', function(e) {
     console.error('رفض promise غير معالج:', e.reason);
 });
+
+// ==========================================================================
+// CSS إضافي لتحميل الملفات
+// ==========================================================================
+
+const fileDownloadStyles = `
+.download-progress {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.download-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.download-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 15px;
+    width: 300px;
+    z-index: 9997;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(106, 17, 203, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.download-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.download-notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.download-notification-title {
+    font-weight: 600;
+    color: white;
+    font-size: 14px;
+}
+
+.download-notification-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.download-notification-body {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .project-preview-modal .modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+    
+    .project-preview-modal .preview-options {
+        flex-direction: column;
+    }
+    
+    .download-notification {
+        width: calc(100% - 40px);
+        left: 20px;
+        right: 20px;
+    }
+}
+`;
+
+const fileStyles = document.createElement('style');
+fileStyles.textContent = fileDownloadStyles;
+document.head.appendChild(fileStyles);
